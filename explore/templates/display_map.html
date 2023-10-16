@@ -1,0 +1,32 @@
+<!--html template for display_map view-->
+
+{% extends 'main/base.html' %}
+{% load static %}
+
+{% block extend_head %}
+    <script src="https://maps.googleapis.com/maps/api/js?key={{ AIzaSyAuJVj5p850NjIX-shyrc8JOnQfzNz78SU }}&libraries=places&callback=createMap" async defer></script>
+    <style>
+        #map {
+
+            height: 400px; /* height for the map */
+            width: 100%; /* width for the map */
+        }
+    </style>
+{% endblock %}
+
+{% block extend_body %}
+    <div id="map">
+        <script>
+            //function for initializing the map
+            function createMap() {
+                // initialize center (latitude and longitude)
+                var latLng = {lat: 44.4268, lng: 26.1025}
+                var map = new google.maps.Map(document.getElementById('map'), {
+                center: latLng, // initial center of the map
+                zoom: 6 // initial zoom level
+            });
+
+            }
+        </script>
+    </div>
+{% endblock %}
