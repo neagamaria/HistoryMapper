@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'explore',
 ]
 
 MIDDLEWARE = [
@@ -136,4 +137,4 @@ STATIC_URL = '/static/'
 
 # STATIC_ROOT = os.path.join(BASE_DIR, 'static_cdn')
 
-GOOGLE_API_KEY = "AIzaSyAuJVj5p850NjIX-shyrc8JOnQfzNz78SU"
+GOOGLE_API_KEY = "AIzaSyDKwdAOHaysHV5PcY0w8VYAxTaPT5SGoWE"

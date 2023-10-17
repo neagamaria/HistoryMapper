@@ -1,10 +1,10 @@
-<!--html template for display_map view-->
+<!--html template for display_map view, extends the base html-->
 
-{% extends 'main/base.html' %}
+{% extends 'base.html' %}
 {% load static %}
 
 {% block extend_head %}
-    <script src="https://maps.googleapis.com/maps/api/js?key={{ AIzaSyAuJVj5p850NjIX-shyrc8JOnQfzNz78SU }}&libraries=places&callback=createMap" async defer></script>
+    <script src="https://maps.googleapis.com/maps/api/js?key={{ google_api_key }}&callback=createMap" async defer></script>
     <style>
         #map {
 
@@ -19,14 +19,14 @@
         <script>
             //function for initializing the map
             function createMap() {
-                // initialize center (latitude and longitude)
-                var latLng = {lat: 44.4268, lng: 26.1025}
-                var map = new google.maps.Map(document.getElementById('map'), {
-                center: latLng, // initial center of the map
-                zoom: 6 // initial zoom level
-            });
-
+                    var map = new google.maps.Map(document.getElementById("map"), {
+                    center: {lat: 44.4268, lng: 26.1025}, // initial center of the map
+                    zoom: 6 // initial zoom level
+                });
             }
+            setTimeout(createMap, 1000); //set delay to ensure that API is loaded correctly
+            //specify that google variable is defined globally
+            /* global google */
         </script>
     </div>
 {% endblock %}
