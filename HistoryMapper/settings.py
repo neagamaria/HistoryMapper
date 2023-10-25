@@ -138,3 +138,4 @@ STATIC_URL = '/static/'
 # STATIC_ROOT = os.path.join(BASE_DIR, 'static_cdn')
 
 GOOGLE_API_KEY = "AIzaSyDKwdAOHaysHV5PcY0w8VYAxTaPT5SGoWE"
+
