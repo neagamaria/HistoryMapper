@@ -40,6 +40,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'explore',
+    'rest_framework'  # for connecting the endpoints of the APIs to Angular frontend app
+
 ]
 
 MIDDLEWARE = [

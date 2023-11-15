@@ -1,0 +1,33 @@
+<!--html template for display_tables view, extends the base html-->
+
+{% extends 'base.html' %}
+{% load static %}
+
+
+{% block extend_head %}
+    <h1>Information in the Database</h1>
+{% endblock %}
+
+{% block extend_body %}
+    <h2>HistoricalPeriod</h2>
+    <table id="historical_period_table">
+        <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Start year</th>
+            <th>End year</th>
+            <th>Era</th>
+            <th>Description</th>
+        </tr>
+            {% for hp in historical_periods %}
+            <tr>
+                <td>{{hp.id}}</td>
+                <td>{{hp.name}}</td>
+                <td>{{hp.start_date}}</td>
+                <td>{{hp.end_date}}</td>
+                <td>{{hp.era}}</td>
+                <td>{{hp.description}}</td>
+            </tr>
+            {% endfor %}
+    </table>
+{% endblock %}

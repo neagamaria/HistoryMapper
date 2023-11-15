@@ -1,0 +1,12 @@
+.main-title {
+  color: goldenrod;
+  font-family: 'Comfortaa';
+}
+
+
+@font-face {
+  font-family: 'Comfortaa';
+  src: url('fonts/Comfortaa/Comfortaa-VariableFont_wght.ttf') format('woff2'),
+       url('fonts/Comfortaa/Comfortaa-VariableFont_wght.ttf') format('woff'),
+       url('fonts/Comfortaa/Comfortaa-VariableFont_wght.ttf') format('truetype');
+}
