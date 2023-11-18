@@ -1,0 +1,14 @@
+.menu {
+  width: 690px;
+  height: 189px;
+  margin: auto;
+  width: 60%;
+  padding: 0px;
+  background: linear-gradient(180deg, #564290 0%, rgba(86, 66, 144, 0.00) 100%);
+  text-align: center;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: normal;
+  color: white;
+}

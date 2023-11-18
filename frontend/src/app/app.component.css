@@ -1,8 +1,26 @@
 .main-title {
-  color: goldenrod;
+  color: #FEE872;
   font-family: 'Comfortaa';
 }
 
+ body, header {
+      background-color: #33255B;
+      margin: 0;
+      border: 0;
+      padding: 0;
+      font-family: 'Comfortaa';
+    }
+
+ html, body {
+      height: 100%;
+      width: 100%;
+      margin: 0;
+      padding: 0;
+    }
+
+ img {
+
+ }
 
 @font-face {
   font-family: 'Comfortaa';

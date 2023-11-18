@@ -1,18 +1,21 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-
+import { HttpClientModule } from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { HelloComponent } from './hello/hello.component';
+import { HelloMenuComponent } from './hello-menu/hello-menu.component';
+import { HistoricalPeriodsComponent } from './historical-periods/historical-periods.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    HelloComponent
+    HelloMenuComponent,
+    HistoricalPeriodsComponent
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]
