@@ -7,16 +7,16 @@
   </header>
 
   <body>
-      <div *ngFor="let hp of historicalPeriods">
-         <tr>
-                <td>{{hp.id}}</td>
-                <td>{{hp.name}}</td>
-                <td>{{hp.start_date}}</td>
-                <td>{{hp.end_date}}</td>
-                <td>{{hp.era}}</td>
-                <td>{{hp.description}}</td>
-            </tr>
-</div>
+      <table>
+        <tr *ngFor="let hp of historicalPeriods">
+          <td>{{hp.id}}</td>
+          <td>{{hp.name}}</td>
+          <td>{{hp.start_year}}</td>
+          <td>{{hp.end_year}}</td>
+          <td>{{hp.era}}</td>
+          <td>{{hp.description}}</td>
+        </tr>
+      </table>
   </body>
 </html>
 

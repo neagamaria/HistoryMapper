@@ -5,7 +5,7 @@ import {HttpClient} from "@angular/common/http";
   templateUrl: './historical-periods.component.html',
   styleUrls: ['./historical-periods.component.css']
 })
-export class HistoricalPeriodsComponent implements OnInit {
+export class HistoricalPeriodsComponent/* implements OnInit*/ {
   url: string = 'http://127.0.0.1:8000/api/historical-periods/';
 
   historicalPeriods: any[] = [];
@@ -18,8 +18,8 @@ export class HistoricalPeriodsComponent implements OnInit {
     this.getHistoricalPeriods();
   }
   public getHistoricalPeriods() {
-    this.http.get(this.url).subscribe((data) => {
-         this.historicalPeriods.push(data);
+    this.http.get(this.url).subscribe((response: any) => {
+        this.historicalPeriods = response.data;
     });
-  }
+}
 }
