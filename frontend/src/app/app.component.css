@@ -1,10 +1,6 @@
-.main-title {
-  color: #FEE872;
-  font-family: 'Comfortaa';
-}
-
  body, header {
       background-color: #33255B;
+     color: white;
       margin: 0;
       border: 0;
       padding: 0;

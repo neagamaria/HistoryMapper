@@ -1,0 +1,13 @@
+img {
+    width: 120px;
+    height: 100px;
+}
+
+
+.name {
+  color: #FEE872;
+  font-weight: 900;
+  font-size: 20px;
+  -webkit-text-stroke: 1px transparent;
+}
+

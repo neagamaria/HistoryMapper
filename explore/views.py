@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from django.http import HttpResponse
+from django.http import HttpResponse, JsonResponse
 from django.conf import settings
 from django.db import connection
 from .models import HistoricalPeriod, HistoricalPeriodSerializer
@@ -29,5 +29,7 @@ def display_tables(request):
 # API for retrieving historical periods from the db
 class HistoricalPeriodsAPIView(APIView):
     def get(self, request):
-        historical_periods = serializers.serialize('json', HistoricalPeriod.objects.all())
-        return Response({'data':historical_periods})
+        historical_periods = HistoricalPeriod.objects.all()
+        data = [{'name': period.name, 'start_year': period.start_year, 'end_year': period.end_year, 'era': period.era,
+                 'description': period.description} for period in historical_periods]
+        return JsonResponse({'data': data})

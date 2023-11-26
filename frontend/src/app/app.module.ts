@@ -4,7 +4,8 @@ import { HttpClientModule } from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HelloMenuComponent } from './hello-menu/hello-menu.component';
-import { HistoricalPeriodsComponent } from './historical-periods/historical-periods.component';
+import {RouterOutlet} from "@angular/router";
+import {HistoricalPeriodsComponent} from "./historical-periods/historical-periods.component";
 
 @NgModule({
   declarations: [
@@ -15,7 +16,8 @@ import { HistoricalPeriodsComponent } from './historical-periods/historical-peri
   imports: [
     BrowserModule,
     AppRoutingModule,
-    HttpClientModule
+    HttpClientModule,
+    RouterOutlet
   ],
   providers: [],
   bootstrap: [AppComponent]
