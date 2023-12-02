@@ -4,6 +4,22 @@ img {
 }
 
 
+table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-bottom: 10px;
+    }
+
+th {
+  padding: 10px;
+  text-align: center;
+}
+
+td {
+  padding: 0;
+  height: 5px;
+}
+
 .name {
   color: #FEE872;
   font-weight: 900;
@@ -11,3 +27,13 @@ img {
   -webkit-text-stroke: 1px transparent;
 }
 
+.years {
+  font-size: 60%;
+  padding: 0;
+  text-align: center;
+}
+
+.bullet {
+  font-size: 220%;
+  text-align: center;
+}

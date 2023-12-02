@@ -1,16 +1,26 @@
 <div>
-   <div style="text-align: right"><img src="assets/Logo.png" alt="Description of the image"> <br></div>
+  <div [style.text-align]="'right'">
+    <img src="assets/Logo.png" alt="Description of the image"> <br>
+  </div>
   <br><br><br>
 
-    <table>
-      <tr *ngFor="let hp of historicalPeriods">
-        <td>{{hp.id}}</td>
-        <td class="name">{{hp.name}}</td>
-        <td>{{hp.start_year}}</td>
-        <td>{{hp.end_year}}</td>
-        <td>{{hp.era}}</td>
-        <br>
-        <td>{{hp.description}}</td>
-      </tr>
-    </table>
+  <h1 class="title" style="text-align: center">Follow the Road of Human History...</h1>
+  <br><br><br>
+
+  <table>
+    <tr>
+      <th *ngFor="let hp of historicalPeriods">{{ hp.name }}</th>
+    </tr>
+     <!-- bullets for each historical period -->
+    <tr>
+      <td class="bullet" *ngFor="let hp of historicalPeriods">&#8226;</td>
+    </tr>
+     <!-- periods of time -->
+    <tr>
+      <td class="years" *ngFor="let hp of historicalPeriods">
+        {{ hp.start_year }} - {{ hp.end_year }} {{ hp.era }}
+      </td>
+    </tr>
+  </table>
 </div>
+
