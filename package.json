@@ -1,5 +1,6 @@
 {
   "dependencies": {
-    "@angular/google-maps": "^17.0.1"
+    "@angular/google-maps": "^17.0.2",
+    "@types/googlemaps": "^3.43.3"
   }
 }

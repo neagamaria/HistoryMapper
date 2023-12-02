@@ -6,18 +6,22 @@ import { AppComponent } from './app.component';
 import { HelloMenuComponent } from './hello-menu/hello-menu.component';
 import {RouterOutlet} from "@angular/router";
 import {HistoricalPeriodsComponent} from "./historical-periods/historical-periods.component";
+import { ExploreMapsComponent } from './explore-maps/explore-maps.component';
+import {GoogleMapsModule} from '@angular/google-maps'
 
 @NgModule({
   declarations: [
     AppComponent,
     HelloMenuComponent,
-    HistoricalPeriodsComponent
+    HistoricalPeriodsComponent,
+    ExploreMapsComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
-    RouterOutlet
+    RouterOutlet,
+    GoogleMapsModule,
   ],
   providers: [],
   bootstrap: [AppComponent]
