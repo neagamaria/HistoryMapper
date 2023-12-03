@@ -1,4 +1,4 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 
 @Component({
   selector: 'app-explore-maps',
@@ -6,27 +6,21 @@ import {Component, OnInit, ViewChild} from '@angular/core';
   styleUrls: ['./explore-maps.component.css']
 })
 export class ExploreMapsComponent implements OnInit{
-  constructor() {}
-  ngOnInit(): void {}
-
-  display: any;
-  center: google.maps.LatLngLiteral = {
-     lat:  51.509865,
-     lng: -0.118092
+  ngOnInit(): void {
   }
 
-  zoom = 3;
+  map: any;
 
-  moveMap(event: google.maps.MapMouseEvent) {
-    if(event.latLng != null)
-      this.center =  (event.latLng.toJSON());
+  constructor() {
+    this.initMap();
   }
 
-
-  move(event: google.maps.MapMouseEvent) {
-    if(event.latLng != null)
-      this.display = event.latLng.toJSON();
+  async initMap(): Promise<void> {
+    const{Map} = await google.maps.importLibrary("maps") as google.maps.MapsLibrary;
+     this.map = new Map(document.getElementById("map") as HTMLElement, {
+      center: { lat: -34.397, lng: 150.644 },
+      zoom: 8,
+  });
   }
-
 }
 
