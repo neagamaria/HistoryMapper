@@ -2,7 +2,7 @@ from django.shortcuts import render
 from django.http import HttpResponse, JsonResponse
 from django.conf import settings
 from django.db import connection
-from .models import HistoricalPeriod, HistoricalPeriodSerializer
+from .models import HistoricalPeriod
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from django.core import serializers
