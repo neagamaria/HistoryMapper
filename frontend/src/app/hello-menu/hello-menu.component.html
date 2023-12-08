@@ -1,34 +1,45 @@
 <div style="text-align:center">
-  <img src="assets/Logo.png" alt="Description of the image">
-  <br> <br> <br>
+  <img src="assets/Logo.png" alt="HistoryMapperLogo">
+  <br> <br> <br> <br> <br>
   <h1 class="main-title">Ready to step through time?</h1>
-  <br> <br> <br>
+  <br> <br>
 </div>
-<br><br><br>
-<div class="menu">
+<br>
+<div style="text-align:center">
+  <br><br>
+  <div *ngIf="!displayBackgroundImg">
+    <img src="assets/arrow-down.png" alt="Press arrow to see options" (click)="clickOnArrow()"/>
+  </div>
 
-  <table style="width:100%">
-    <br><br><br>
-    <tr>
-      <td>
-        <a class="category" href='/explore-maps'>
-          <div>explore maps</div>
-        </a>
-      </td>
-
-      <td>
-        <a class="category" href='/historical-periods'>
-          <div>historical periods</div>
-        </a>
-      </td>
-      <td class="category">search</td>
-    </tr>
-    <tr>
-      <td><i class="bi bi-compass"></i></td>
-      <td><i class="bi bi-hourglass"></i></td>
-      <td><i class="bi bi-search"></i></td>
-    </tr>
-  </table>
-  <th></th>
+  <div *ngIf="displayBackgroundImg">
+    <img src="assets/arrow-up.png" alt="Press arrow to hide options" (click)="clickOnArrow()"/>
+    <br><br>
+    <div class="menu-container">
+      <div class="menu">
+        <table>
+          <br><br><br><br><br><br>
+          <tr>
+            <td>
+              <a class="category" href='/explore-maps'>
+                <div>explore maps</div>
+              </a>
+            </td>
+            <td>
+              <a class="category" href='/historical-periods'>
+                <div>historical periods</div>
+              </a>
+            </td>
+            <td class="category">search</td>
+          </tr>
+          <tr>
+            <td><i class="bi bi-compass"></i></td>
+            <td><i class="bi bi-hourglass"></i></td>
+            <td><i class="bi bi-search"></i></td>
+          </tr>
+        </table>
+        <th></th>
+      </div>
+    </div>
+  </div>
 </div>
 

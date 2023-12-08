@@ -6,5 +6,13 @@ import { Component } from '@angular/core';
   styleUrls: ['./hello-menu.component.css']
 })
 export class HelloMenuComponent {
+  // indicates if the bottom image should be displayed
+  displayBackgroundImg = false;
+
+  clickOnArrow()
+  {
+    this.displayBackgroundImg = !this.displayBackgroundImg;
+  }
+
 
 }

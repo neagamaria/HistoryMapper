@@ -7,6 +7,9 @@ import { HelloMenuComponent } from './hello-menu/hello-menu.component';
 import {RouterOutlet} from "@angular/router";
 import {HistoricalPeriodsComponent} from "./historical-periods/historical-periods.component";
 import { ExploreMapsComponent } from './explore-maps/explore-maps.component';
+import {CommonModule} from '@angular/common';
+import { FooterComponent } from './footer/footer.component';
+import { HeaderComponent } from './header/header.component';
 
 @NgModule({
   declarations: [
@@ -14,12 +17,15 @@ import { ExploreMapsComponent } from './explore-maps/explore-maps.component';
     HelloMenuComponent,
     HistoricalPeriodsComponent,
     ExploreMapsComponent,
+    FooterComponent,
+    HeaderComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
     RouterOutlet,
+    CommonModule
   ],
   providers: [],
   bootstrap: [AppComponent]
