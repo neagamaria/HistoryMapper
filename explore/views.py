@@ -36,7 +36,7 @@ class HistoricalPeriodsAPIView(APIView):
 
 
 # API for retrieving events from a given period from the db
-class Events(APIView):
+class EventsBetweenYearsAPIView(APIView):
     def get(self, request, start_year, start_era, end_year, end_era):
         if start_era == 'BC':
             start_year = -start_year
@@ -44,12 +44,14 @@ class Events(APIView):
             end_year = -end_year
 
         events = Event.objects.raw('''SELECT * FROM explore_event
-                                    WHERE (era = 'BC' AND -1 * EXTRACT(YEAR FROM event_date)  >=  %d AND -1 * EXTRACT(YEAR FROM event_date) <= -1 * %d)
-                                    OR (era = 'AD' AND EXTRACT(YEAR FROM event_date)  >=  %d AND EXTRACT(YEAR FROM event_date) <= %d)''',
+                                    WHERE (era = 'BC' AND -1 * EXTRACT(YEAR FROM event_date)  >=  %s AND -1 * EXTRACT(YEAR FROM event_date) <= -1 * %s)
+                                    OR (era = 'AD' AND EXTRACT(YEAR FROM event_date) >= %s AND EXTRACT(YEAR FROM event_date) <= %s)''',
                                    [start_year, end_year, start_year, end_year])
-
+        print(events.__len__())
         data = [{'name': event.name, 'event_date': event.event_date, 'era': event.era, 'location': event.location,
-                 'description': event.description, "historical_period": event.hisotrical_period,
-                 "event_type": event.event_type, "category": event.category, "tags": event.tag, "historical_area": event.historical_area} for event in events]
+                 'description': event.description, "historical_period": event.historical_period.name,
+                 "event_type": event.event_type.name, "category": event.category.name, "tags": event.tag.name, "historical_area": event.historical_area.name} for event in events]
 
         return JsonResponse({'data': data})
+
+

@@ -1,4 +1,6 @@
 import {Component, OnInit} from '@angular/core';
+import {HttpClient} from "@angular/common/http";
+
 
 @Component({
   selector: 'app-explore-maps',
@@ -12,8 +14,22 @@ export class ExploreMapsComponent implements OnInit {
   // the map variable
   map: any;
 
+  // url for the events API
+  url = '';
+
+  // events
+  eventsBetweenYears: any[] = [];
+
+  // TODO get values from period selection
+  // values obtained from form
+    startYear = 900;
+    startEra = 'AD';
+    endYear = 1000;
+    endEra = 'AD';
+
+
   // create the map when the component is created
-  constructor() {
+  constructor(private http: HttpClient) {
     this.initMap();
   }
 
@@ -26,5 +42,21 @@ export class ExploreMapsComponent implements OnInit {
       zoom: 8,
     });
   }
+
+  // get all events in a selected period of time
+  getEventsBetweenYears(): void {
+    this.url = `http://127.0.0.1:8000/api/events-between-${this.startYear}-${this.startEra}-${this.endYear}-${this.endEra}`
+
+     this.http.get(this.url).subscribe((response: any): any => {
+        this.eventsBetweenYears = response.data;
+      }
+    );
+  }
+
+  // submit period of time
+  submitYears(): void {
+    this.getEventsBetweenYears();
+  }
+
 }
 

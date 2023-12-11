@@ -7,7 +7,7 @@ import {HttpClient} from "@angular/common/http";
   styleUrls: ['./historical-periods.component.css']
 })
 export class HistoricalPeriodsComponent {
-  url: string = 'http://127.0.0.1:8000/api/historical-periods/';
+  url: string = 'http://127.0.0.1:8000/api/historical_periods/';
 
   historicalPeriods: any[] = [];
 

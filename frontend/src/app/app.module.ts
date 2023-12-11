@@ -10,6 +10,7 @@ import { ExploreMapsComponent } from './explore-maps/explore-maps.component';
 import {CommonModule} from '@angular/common';
 import { FooterComponent } from './footer/footer.component';
 import { HeaderComponent } from './header/header.component';
+import {FormsModule} from "@angular/forms";
 
 @NgModule({
   declarations: [
@@ -20,13 +21,14 @@ import { HeaderComponent } from './header/header.component';
     FooterComponent,
     HeaderComponent,
   ],
-  imports: [
-    BrowserModule,
-    AppRoutingModule,
-    HttpClientModule,
-    RouterOutlet,
-    CommonModule
-  ],
+    imports: [
+        BrowserModule,
+        AppRoutingModule,
+        HttpClientModule,
+        RouterOutlet,
+        CommonModule,
+        FormsModule
+    ],
   providers: [],
   bootstrap: [AppComponent]
 })
