@@ -6,7 +6,7 @@ from django.db import models
 # main model, info to be displayed on map
 class Event(models.Model):
     name = models.CharField(max_length=100, unique=True)
-    date = models.DateField()
+    event_date = models.DateField()
     era = models.CharField(max_length=10)
     location = models.CharField(max_length=100)
     description = models.TextField(blank=True)

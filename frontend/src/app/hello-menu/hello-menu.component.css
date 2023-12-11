@@ -1,5 +1,6 @@
 .menu-container {
   background-image: url('/assets/background.jpg');
+  background-size: cover;
   width: 98%;
   height: 80vh;
   overflow: hidden;
