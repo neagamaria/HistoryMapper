@@ -13,7 +13,7 @@ The HistoryMapper application has a backend created in Python with Django framew
 
 
 ## Bibliography
-### For implementation
+#### For implementation
 ~Backend~
 Tutorial: [Writing your first Django app, part 2 | Django documentation | Django (djangoproject.com)](https://docs.djangoproject.com/en/4.2/intro/tutorial02/)
 Git: [did_django_google_maps_api/main/templates/main/base.html at main · bobby-didcoding/did_django_google_maps_api (github.com)
@@ -25,7 +25,7 @@ Display of a Google map in Angular: https://www.bing.com/videos/riverview/relate
 https://developers.google.com/maps/documentation/javascript
 
 
-### For historical information
+#### For historical information
 - https://www.history.com/news/prehistoric-ages-timeline
 - https://www.yourdictionary.com/articles/historical-eras-list
 - https://www.history.com/topics/middle-ages/middle-ages
