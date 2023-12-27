@@ -36,10 +36,46 @@ export class ExploreMapsComponent implements OnInit {
   // promise object to produce value at some point in time
   async initMap(): Promise<void> {
     const {Map} = await google.maps.importLibrary("maps") as google.maps.MapsLibrary;
+
+     // the styles array for the map
+    const mapStyles: google.maps.MapTypeStyle[] = [
+    {
+      featureType: 'water',
+      elementType: 'geometry',
+      stylers: [{ color: '#D2E5E4' }]
+    },
+    {
+      featureType: 'landscape',
+      elementType: 'geometry',
+      stylers: [{ color: '#F4F3E4' }]
+    },
+    {
+      featureType: 'road',
+      elementType: 'geometry',
+      stylers: [{ color: '#F4F3E4' }]
+    },
+    {
+    featureType: 'road',
+    elementType: 'labels',
+    stylers: [{ visibility: 'off' }]
+    },
+    {
+    featureType: 'poi',
+    elementType: 'labels',
+    stylers: [{ visibility: 'off' }]
+    },
+    //{
+    // featureType: 'landscape.natural',
+    // elementType: 'geometry',
+    // stylers: [{ color: '#DDF6E4' }]
+    // },
+  ];
+
     this.map = new Map(document.getElementById("map") as HTMLElement, {
       // coordinates of London
       center: {lat: 51.509865, lng: -0.118092},
       zoom: 8,
+      styles: mapStyles
     });
   }
 
