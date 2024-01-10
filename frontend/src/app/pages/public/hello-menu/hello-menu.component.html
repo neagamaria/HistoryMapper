@@ -1,5 +1,5 @@
 <div style="text-align:center">
-  <img src="assets/Logo.png" alt="HistoryMapperLogo">
+  <img src="../../../../assets/Logo.png" alt="HistoryMapperLogo">
   <br> <br> <br> <br> <br>
   <h1 class="main-title">Ready to step through time?</h1>
   <br> <br>
@@ -8,11 +8,11 @@
 <div style="text-align:center">
   <br><br>
   <div *ngIf="!displayBackgroundImg">
-    <img src="assets/arrow-down.png" alt="Press arrow to see options" (click)="clickOnArrow()"/>
+    <img src="../../../../assets/arrow-down.png" alt="Press arrow to see options" (click)="clickOnArrow()"/>
   </div>
 
   <div *ngIf="displayBackgroundImg">
-    <img src="assets/arrow-up.png" alt="Press arrow to hide options" (click)="clickOnArrow()"/>
+    <img src="../../../../assets/arrow-up.png" alt="Press arrow to hide options" (click)="clickOnArrow()"/>
     <br><br>
     <div class="menu-container">
       <div class="menu">
@@ -20,14 +20,10 @@
           <br><br><br><br><br><br>
           <tr>
             <td>
-              <a class="category" href='/explore-maps'>
-                <div>explore maps</div>
-              </a>
+              <a class="category"(click)="goToExploreMaps()">explore maps</a>
             </td>
             <td>
-              <a class="category" href='/historical-periods'>
-                <div>historical periods</div>
-              </a>
+              <a class="category" (click)="goToHistoricalPeriods()">historical periods</a>
             </td>
             <td class="category">search</td>
           </tr>

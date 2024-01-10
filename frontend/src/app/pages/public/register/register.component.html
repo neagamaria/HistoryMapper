@@ -1,0 +1,34 @@
+<div>
+  <h2>Register</h2>
+  <form [formGroup]="form" (ngSubmit)="register()">
+    <div>
+      <label for="username">Username:</label>
+      <input type="text" id="username" formControlName="username" required>
+      <div *ngIf="form.get('username')?.hasError('required')">Username is required.</div>
+    </div>
+
+    <div>
+      <label for="email">Email:</label>
+      <input type="text" id="email" formControlName="email" required email>
+      <div *ngIf="form.get('email')?.hasError('required')">Email is required.</div>
+      <div *ngIf="form.get('email')?.hasError('email')">Invalid email format.</div>
+    </div>
+
+    <div>
+      <label for="email">Password:</label>
+      <input type="text" id="password" formControlName="password" required min="6">
+      <div *ngIf="form.get('password')?.hasError('required')">Password is required.</div>
+      <div *ngIf="form.get('password')?.hasError('min')">Password must have at least 6 characters.</div>
+    </div>
+
+
+    <button type="submit" [disabled]="form.invalid">Register</button>
+  </form>
+
+  <div *ngIf="this.registerData">
+  <p>{{this.registerData}}</p>
+</div>
+</div>
+
+<br/><br/>
+<p>Already have an account? Go to <a (click)="goToLogin()">Login</a></p>

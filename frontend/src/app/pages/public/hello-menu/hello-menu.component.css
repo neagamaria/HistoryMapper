@@ -1,12 +1,12 @@
 .menu-container {
-  background-image: url('/assets/background.jpg');
+  background-image: url('../../../../assets/background.jpg');
   background-size: cover;
   width: 98%;
   height: 80vh;
   overflow: hidden;
 }
 
-/*before creates elemnt that is the first child of the selected element*/
+/*before creates element that is the first child of the selected element*/
 .menu-container::before {
   filter: blur(2px);
   z-index: -1; /* background image placed behind text */
@@ -35,7 +35,6 @@
 .category {
   color: white;
   text-align: center;
-
 }
 
 .background-img {
@@ -48,3 +47,4 @@ table {
   text-align: center;
   width: 100%;
 }
+

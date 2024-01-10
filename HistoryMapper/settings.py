@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'explore',
     'rest_framework',  # for connecting the endpoints of the APIs to Angular frontend app
+    'rest_framework.authtoken',
     'corsheaders',
 
 ]
@@ -140,7 +141,6 @@ STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'static'),
 ]
 
-STATIC_URL = '/static/'
 
 # STATIC_ROOT = os.path.join(BASE_DIR, 'static_cdn')
 

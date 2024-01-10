@@ -1,43 +1,13 @@
-import requests
-from django.shortcuts import render
-from django.http import HttpResponse, JsonResponse
-from django.conf import settings
-from django.db import connection
-from .models import HistoricalPeriod, Event, MapLocation
-from rest_framework.views import APIView
-from rest_framework.response import Response
-from django.core import serializers
-
-
-# view for the main page
-def index(request):
-    return HttpResponse("HistoryMapper")
-
-
-# view for displaying a map
-def display_map(request):
-    context = {"google_api_key": settings.GOOGLE_API_KEY}
-    return render(request, 'display_map.html', context)
-
-
-# TODO delete/ alter this view
-def display_tables(request):
-    historical_periods = HistoricalPeriod.objects.all()
-    context = {'historical_periods': historical_periods}
-    return render(request, 'display_tables.html', context)
-
-
-# API for retrieving historical periods from the db
-class HistoricalPeriodsAPIView(APIView):
-    @staticmethod
-    def get(request):
-        historical_periods = HistoricalPeriod.objects.all()
-        data = [{'name': period.name, 'start_year': period.start_year, 'end_year': period.end_year, 'era': period.era,
-                 'description': period.description} for period in historical_periods]
-        return JsonResponse({'data': data})
-
-
 # API for retrieving events from a given period from the db
+import requests
+from django.http import JsonResponse
+from rest_framework.views import APIView
+
+from HistoryMapper import settings
+from explore.models import MapLocation, Event
+
+
+# API endpoints for getting events from the db and displaying them on map
 class EventsBetweenYearsAPIView(APIView):
     # function that calls the Geocoding API
     @staticmethod
@@ -68,7 +38,7 @@ class EventsBetweenYearsAPIView(APIView):
                 longitude=lng
             )
 
-    # get all events in a time period and their coordinates
+    # get all events in a time period with their coordinates
     def get(self, request, start_year, start_era, end_year, end_era):
         if start_era == 'BC':
             start_year = -start_year

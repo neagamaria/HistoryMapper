@@ -1,6 +1,6 @@
-from django.urls import path
+import rest_framework
+from django.urls import path, include
 from . import views
-from django.views.generic import RedirectView
 
 # URLs for the explore app
 urlpatterns = [
@@ -9,5 +9,7 @@ urlpatterns = [
     path("display-tables", views.display_tables, name="display-tables"),
     path('api/historical-periods/', views.HistoricalPeriodsAPIView.as_view(), name='historical-places-api'),
     path('api/events-between-<int:start_year>-<str:start_era>-<int:end_year>-<str:end_era>',
-         views.EventsBetweenYearsAPIView.as_view(), name="events-between-years-api")
+         views.EventsBetweenYearsAPIView.as_view(), name="events-between-years-api"),
+    path('api/registration/', views.RegistrationAPI.as_view(), name="registration-api"),
+    path('api/login/', views.LoginAPI.as_view(), name="login-api")
 ]
