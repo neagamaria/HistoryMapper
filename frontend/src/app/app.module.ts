@@ -13,6 +13,7 @@ import { HeaderComponent } from './pages/public/header/header.component';
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import { RegisterComponent } from './pages/public/register/register.component';
 import { LoginComponent } from './pages/public/login/login.component';
+import { HistoricalPeriodInfoComponent } from './pages/public/historical-period-info/historical-period-info.component';
 
 @NgModule({
   declarations: [
@@ -24,6 +25,7 @@ import { LoginComponent } from './pages/public/login/login.component';
     HeaderComponent,
     RegisterComponent,
     LoginComponent,
+    HistoricalPeriodInfoComponent,
   ],
     imports: [
         BrowserModule,

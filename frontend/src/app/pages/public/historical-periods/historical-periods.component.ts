@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import {HttpClient} from "@angular/common/http";
+import {HistoricalPeriodsService} from "../../../services/historical-periods.service";
 
 @Component({
   selector: 'app-historical-periods',
@@ -11,15 +12,10 @@ export class HistoricalPeriodsComponent {
 
   historicalPeriods: any[] = [];
 
-  constructor(private http: HttpClient)
-  {
-      this.getHistoricalPeriods();
-  }
-
-  public getHistoricalPeriods() {
-    this.http.get(this.url).subscribe((response: any): any => {
-        this.historicalPeriods = response.data;
-      }
-    );
+  constructor(private periodsService: HistoricalPeriodsService, private http: HttpClient) {
+    // obtain all periods with the service function that calls the API
+      periodsService.getHistoricalPeriods();
+      setTimeout(() =>
+         this.historicalPeriods = periodsService.historicalPeriods, 200);
   }
 }
