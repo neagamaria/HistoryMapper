@@ -20,20 +20,41 @@ td {
   height: 5px;
 }
 
-.name {
-  color: #FEE872;
-  font-weight: 900;
-  font-size: 20px;
-  -webkit-text-stroke: 1px transparent;
-}
-
-.years {
-  font-size: 60%;
-  padding: 0;
-  text-align: center;
-}
-
 .bullet {
   font-size: 220%;
   text-align: center;
 }
+
+.big-container {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+}
+
+.container {
+  width: 600px;
+  height: 500px;
+  text-align: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  border: 10px solid black;
+}
+
+.name {
+  font-size: 500%;
+  font-weight: 900;
+  text-shadow: 3px 3px lightgrey;
+}
+
+.name:hover{
+  font-size: 570%;
+}
+
+.years {
+  font-size: 300%;
+  padding: 0;
+  text-align: center;
+  font-style: italic;
+}
+
+

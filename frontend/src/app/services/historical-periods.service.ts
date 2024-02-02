@@ -1,5 +1,7 @@
 import { Injectable } from '@angular/core';
 import {HttpClient} from "@angular/common/http";
+import {firstValueFrom} from "rxjs";
+
 
 @Injectable({
   providedIn: 'root'
@@ -23,18 +25,19 @@ export class HistoricalPeriodsService {
     );
   }
 
-  public getHistoricalPeriodById(id: string) {
-
-    if(this.periodId != "") {
-      // change url to get only one period
-      let url1 = this.url + id;
-
-      this.http.get(url1).subscribe((response: any): any => {
-        this.historicalPeriod = response.data;
-      }
-    );
+  public async getHistoricalPeriodById(id: string): Promise<void> {
+  if (this.periodId != "") {
+    let url1 = this.url + id;
+    try {
+      const response: any = await firstValueFrom(this.http.get<any>(url1));
+      this.historicalPeriod = response.data;
+      console.log("HP IN SERVICE: ", this.historicalPeriod);
+    }
+    catch (error) {
+      console.error("Error fetching historical period:", error);
     }
   }
+}
 
   public getId() {
     return this.periodId;

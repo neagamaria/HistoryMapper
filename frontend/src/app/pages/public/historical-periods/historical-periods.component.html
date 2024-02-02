@@ -1,26 +1,14 @@
 <div>
-  <div [style.text-align]="'right'">
-    <img src="../../../../assets/Logo.png" alt="Description of the image"> <br>
-  </div>
   <br><br><br>
 
-  <h1 class="title" style="text-align: center">Follow the Road of Human History...</h1>
+  <h1 style="text-align: center">Follow the Road of Human History...</h1>
   <br><br><br>
 
-  <table>
-    <tr>
-      <th *ngFor="let hp of historicalPeriods">{{ hp.name }}</th>
-    </tr>
-     <!-- bullets for each historical period -->
-    <tr>
-      <td class="bullet" *ngFor="let hp of historicalPeriods">&#8226;</td>
-    </tr>
-     <!-- periods of time -->
-    <tr>
-      <td class="years" *ngFor="let hp of historicalPeriods">
-        {{ hp.start_year }} - {{ hp.end_year }} {{ hp.era }}
-      </td>
-    </tr>
-  </table>
+    <div class="big-container" *ngFor="let hp of historicalPeriods">
+      <div class="container" [ngStyle]="{'background-image': 'linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.7)), url(../../../../assets/' + hp.id + '.jpg)'}">
+        <br/>
+        <div class="name"><a (click)="goToHistoricalPeriodInfo(hp.id)">{{ hp.name }}</a> </div>
+        <div class="years">{{ hp.start_year }} - {{ hp.end_year }} {{ hp.era }}</div>
+      </div>
+    </div>
 </div>
-

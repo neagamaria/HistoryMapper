@@ -17,6 +17,16 @@ export class HeaderComponent {
     if(this.username == null)
      this.router.navigate(['/login']).then();
   }
+
+  //go to home page
+  goToHomePage():void {
+    this.router.navigate(['/']).then();
+  }
+
+  goToMap(): void {
+    this.router.navigate(['/explore-maps']).then();
+  }
+
   // set name of the logged-in user if existent
   getUserName() : any {
     console.log(this.userService.getCurrentUsername());

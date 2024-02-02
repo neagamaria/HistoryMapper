@@ -1,21 +1,29 @@
-import { Component } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {HistoricalPeriodsService} from "../../../services/historical-periods.service";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-historical-period-info',
   templateUrl: './historical-period-info.component.html',
   styleUrls: ['./historical-period-info.component.css']
 })
-export class HistoricalPeriodInfoComponent {
+export class HistoricalPeriodInfoComponent implements OnInit {
   historicalPeriod: any = [];
-  constructor(private periodsService: HistoricalPeriodsService) {
+  id = "";
+  constructor(private periodsService: HistoricalPeriodsService, private router: Router) {}
+
+  async ngOnInit() {
     // get current id
-    let id = periodsService.getId();
+    this.id = this.periodsService.getId();
     // obtain a single period based on id with the service function that calls the API
+    if (this.id != null) {
+      await this.periodsService.getHistoricalPeriodById(this.id);
+      this.historicalPeriod = this.periodsService.historicalPeriod[0];
 
-      periodsService.getHistoricalPeriodById(id);
-      setTimeout(() =>
-         this.historicalPeriod = periodsService.historicalPeriod, 200);
+      console.log("PERIOD GOT FROM SERVICE IN HP-INFO", this.historicalPeriod.name);
+    }
+    else {
+      this.router.navigate(['/historical-periods']).then();
+    }
   }
-
 }

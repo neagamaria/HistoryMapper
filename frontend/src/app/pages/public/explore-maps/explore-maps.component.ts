@@ -7,9 +7,7 @@ import {HttpClient} from "@angular/common/http";
   templateUrl: './explore-maps.component.html',
   styleUrls: ['./explore-maps.component.css']
 })
-export class ExploreMapsComponent implements OnInit {
-  ngOnInit(): void {
-  }
+export class ExploreMapsComponent implements OnInit{
 
   // the map variable
   map: any;
@@ -33,7 +31,11 @@ export class ExploreMapsComponent implements OnInit {
 
   // create the map when the component is created
   constructor(private http: HttpClient) {
-    // place markers only after map was initialized
+
+  }
+
+  ngOnInit() {
+     // place markers only after map was initialized
     this.initMap().then(() => {
       this.submitYears();
     });

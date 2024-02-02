@@ -7,6 +7,12 @@
       font-family: 'Comfortaa';
     }
 
+ h1 {
+   font-size: 100px !important;
+   text-align: center;
+   color: white;
+ }
+
  html, body {
       height: 100%;
       width: 100%;
@@ -14,9 +20,6 @@
       padding: 0;
     }
 
- img {
-
- }
 
 @font-face {
   font-family: 'Comfortaa';
