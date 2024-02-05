@@ -83,7 +83,7 @@ export class ExploreMapsComponent implements OnInit{
     this.map = new Map(document.getElementById("map") as HTMLElement, {
       // coordinates of London
       center: {lat: 51.509865, lng: -0.118092},
-      zoom: 8,
+      zoom: 6,
       styles: mapStyles
     });
   }

@@ -14,7 +14,7 @@ import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import { RegisterComponent } from './pages/public/register/register.component';
 import { LoginComponent } from './pages/public/login/login.component';
 import { HistoricalPeriodInfoComponent } from './pages/public/historical-period-info/historical-period-info.component';
-
+import { QuizzesComponent } from './pages/private/quizzes/quizzes.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -26,6 +26,7 @@ import { HistoricalPeriodInfoComponent } from './pages/public/historical-period-
     RegisterComponent,
     LoginComponent,
     HistoricalPeriodInfoComponent,
+    QuizzesComponent,
   ],
     imports: [
         BrowserModule,

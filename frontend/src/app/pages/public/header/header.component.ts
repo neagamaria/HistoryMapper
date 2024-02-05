@@ -28,10 +28,9 @@ export class HeaderComponent {
   }
 
   // set name of the logged-in user if existent
-  getUserName() : any {
-    console.log(this.userService.getCurrentUsername());
+  getUserName() {
     this.username = this.userService.getCurrentUsername();
-    return this.userService.getCurrentUsername();
+    return this.username;
   }
 
   // log out from account

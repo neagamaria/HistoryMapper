@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Event, EventType, Category, Tag, HistoricalArea, HistoricalPeriod, MapLocation
+from .models import Event, EventType, Category, Tag, HistoricalArea, HistoricalPeriod, MapLocation, Question, Quiz
 from django.contrib.auth.models import User
 
 # register models here to be displayed on admin page
@@ -10,3 +10,5 @@ admin.site.register(Tag)
 admin.site.register(HistoricalArea)
 admin.site.register(HistoricalPeriod)
 admin.site.register(MapLocation)
+admin.site.register(Quiz)
+admin.site.register(Question)

@@ -7,6 +7,7 @@ import {ExploreMapsComponent} from "./pages/public/explore-maps/explore-maps.com
 import {RegisterComponent} from "./pages/public/register/register.component";
 import {LoginComponent} from "./pages/public/login/login.component";
 import {HistoricalPeriodInfoComponent} from "./pages/public/historical-period-info/historical-period-info.component";
+import {QuizzesComponent} from "./pages/private/quizzes/quizzes.component";
 
 const routes: Routes = [
   { path: '', component: HelloMenuComponent },
@@ -14,7 +15,8 @@ const routes: Routes = [
   { path: 'historical-period-info', component: HistoricalPeriodInfoComponent},
   { path: 'explore-maps', component: ExploreMapsComponent },
   {path: 'register', component: RegisterComponent},
-  {path: 'login', component: LoginComponent}
+  {path: 'login', component: LoginComponent},
+  {path: 'quizzes', component: QuizzesComponent}
 ];
 
 @NgModule({

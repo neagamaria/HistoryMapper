@@ -31,7 +31,6 @@ export class HistoricalPeriodsService {
     try {
       const response: any = await firstValueFrom(this.http.get<any>(url1));
       this.historicalPeriod = response.data;
-      console.log("HP IN SERVICE: ", this.historicalPeriod);
     }
     catch (error) {
       console.error("Error fetching historical period:", error);

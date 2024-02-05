@@ -1,4 +1,4 @@
-<div>
+<div class="container">
   <h2>Register</h2>
   <form [formGroup]="form" (ngSubmit)="register()">
     <div>
@@ -21,14 +21,14 @@
       <div *ngIf="form.get('password')?.hasError('min')">Password must have at least 6 characters.</div>
     </div>
 
+    <br/>
 
-    <button type="submit" [disabled]="form.invalid">Register</button>
+    <button type="submit" [disabled]="form.invalid" class="btn btn-outline-light" style="border: 3px solid white;">Register</button>
   </form>
 
-  <div *ngIf="this.registerData">
-  <p>{{this.registerData}}</p>
-</div>
-</div>
+  <div *ngIf="this.registerData"><p>{{this.registerData}}</p></div>
 
-<br/><br/>
-<p>Already have an account? Go to <a (click)="goToLogin()">Login</a></p>
+  <br/><br/>
+  <p>Already have an account? Go to <a (click)="goToLogin()" class="btn btn-link">Log in</a>
+  </p>
+</div>

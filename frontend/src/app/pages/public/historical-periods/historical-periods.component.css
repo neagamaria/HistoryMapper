@@ -40,15 +40,17 @@ td {
   border: 10px solid black;
 }
 
+.container:hover{
+  width: 650px;
+  height: 550px;
+}
+
 .name {
   font-size: 500%;
   font-weight: 900;
   text-shadow: 3px 3px lightgrey;
 }
 
-.name:hover{
-  font-size: 570%;
-}
 
 .years {
   font-size: 300%;

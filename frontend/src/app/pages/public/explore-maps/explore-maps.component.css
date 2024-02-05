@@ -1,5 +1,20 @@
-.google-map {
-  height: 70%;
-  width: 90%;
-
+.container {
+  text-align: center;
+  align-items: center;
 }
+
+.map-container {
+  width: 90%;
+  height: 180%;
+  border: 10px solid white;
+}
+
+.google-map {
+  height: 100%;
+  width: 100%;
+}
+
+h2 {
+  font-size: 200%;
+}
+

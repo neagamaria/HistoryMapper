@@ -1,0 +1,33 @@
+.big-container {
+  text-align: center;
+}
+
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.quiz-container {
+  width: 450px;
+  height: 350px;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  border: 20px solid black;
+
+}
+
+.quiz-container:hover {
+  width: 480px;
+  height: 380px;
+}
+
+.name {
+  font-size: 200%;
+  font-weight: 900;
+  text-shadow: 1px 1px lightgrey;
+}
