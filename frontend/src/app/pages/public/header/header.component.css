@@ -1,7 +1,7 @@
 
 .grid-container {
   height: 80px;
-  background-color: #DE4137;
+  background-color: #B83333;
   border-bottom: 2px solid white;
   display: grid;
   grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;

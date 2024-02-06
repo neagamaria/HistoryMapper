@@ -32,7 +32,7 @@
   <div *ngIf="this.result < 50"></div>
   <div class="result">{{this.result}}%</div>
   <div style="font-size: 120%;">
-    <div style="color:#DE4137;" *ngIf="this.result < 50">
+    <div style="color:#B83333;" *ngIf="this.result < 50">
       That's ok!
     </div>
     <div style="color:lightpink" *ngIf="this.result >= 50 && this.result < 90">
@@ -42,5 +42,5 @@
       Great!
     </div>
 </div>
-   <p>Go back to <a class="btn btn-link" (click)="this.goToQuizzes()">Quizzes</a>
+   <p>Go back to <a class="btn btn-link" [style]="'color:lightpink;'" (click)="this.goToQuizzes()">Quizzes</a>
 </div>
