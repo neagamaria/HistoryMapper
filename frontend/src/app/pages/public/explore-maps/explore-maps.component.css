@@ -5,8 +5,9 @@
 
 .map-container {
   width: 90%;
-  height: 180%;
+  height: auto;
   border: 10px solid white;
+  margin-left: 5%;
 }
 
 .google-map {
@@ -15,6 +16,14 @@
 }
 
 h2 {
-  font-size: 200%;
+  font-size: 250%;
 }
 
+label {
+  width: 90px;
+
+}
+
+input {
+  width: 80px;
+}

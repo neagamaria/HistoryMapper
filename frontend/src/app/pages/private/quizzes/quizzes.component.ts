@@ -15,13 +15,17 @@ export class QuizzesComponent implements OnInit{
 
   async ngOnInit() {
       this.currentUser = this.userService.getCurrentUsername();
-
+      // page can not be accessed for no logged-in user
       if (this.currentUser == null) {
           this.router.navigate(['/login']).then();
       } else {
           // obtain all periods with the service function that calls the API
-          await this.quizzesService.getQuizzes();
-          this.quizzes = this.quizzesService.quizzes;
+          this.quizzes = await this.quizzesService.getQuizzes();
       }
+  }
+
+  goToQuizQuestions(id: string) {
+    this.quizzesService.setId(id);
+    this.router.navigate(['/quiz-questions']).then();
   }
 }

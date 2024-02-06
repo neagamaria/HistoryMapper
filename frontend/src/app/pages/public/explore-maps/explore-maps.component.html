@@ -2,13 +2,6 @@
 <div class="container">
 
     <h2>Discover events on map!</h2>
-    <br/><br/>
-    <div class="map-container">
-
-        <br/><br/>
-        <div id="map" [style.height]="'900px'"></div>
-        <br><br><br>
-    </div>
 
     <br><br><br>
     <h2>Choose time range:</h2>
@@ -23,38 +16,13 @@
         <input type="number" id="endYear" name="endYear" [(ngModel)]="this.endYear">
         <label for="endEra">End Era:</label>
         <input type="text" id="endEra" name="endEra" [(ngModel)]="this.endEra">
+      <br/><br/>
         <button type="submit" class="btn btn-outline-light">Get Events</button>
     </form>
 
-    <div *ngIf="this.eventsBetweenYears && eventsBetweenYears.length > 0">
-        <table>
-            <tr>
-                <th *ngFor="let e of this.eventsBetweenYears">{{ e.name }}</th>
-            </tr>
-            <tr>
-                <td *ngFor="let e of this.eventsBetweenYears">{{e.event_date}}</td>
-            </tr>
-
-            <tr>
-                <td *ngFor="let e of this.eventsBetweenYears">{{e.era}}</td>
-            </tr>
-            <tr>
-                <td *ngFor="let e of this.eventsBetweenYears">{{e.location}}</td>
-            </tr>
-            <tr>
-                <td *ngFor="let e of this.eventsBetweenYears">{{e.category}}</td>
-            </tr>
-            <tr>
-                <td *ngFor="let e of this.eventsBetweenYears">{{e.description}}</td>
-            </tr>
-          <tr>
-                <td *ngFor="let e of this.eventsBetweenYears">{{e.latitude}}</td>
-          </tr>
-          <tr>
-                <td *ngFor="let e of this.eventsBetweenYears">{{e.longitude}}</td>
-          </tr>
-        </table>
+  <br/><br/>
+    <div class="map-container">
+        <div id="map" [style.height]="'900px'"></div>
     </div>
+
 </div>
-
-

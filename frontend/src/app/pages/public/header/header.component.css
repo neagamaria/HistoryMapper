@@ -29,6 +29,8 @@
   font-size: 30px;
 }
 
+i {  cursor: pointer;}
+
 .grid-username {
   grid-column: 14;
   grid-row-start: 2;

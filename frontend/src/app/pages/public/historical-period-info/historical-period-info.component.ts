@@ -18,9 +18,7 @@ export class HistoricalPeriodInfoComponent implements OnInit {
     // obtain a single period based on id with the service function that calls the API
     if (this.id != null) {
       await this.periodsService.getHistoricalPeriodById(this.id);
-      this.historicalPeriod = this.periodsService.historicalPeriod[0];
-
-      console.log("PERIOD GOT FROM SERVICE IN HP-INFO", this.historicalPeriod.name);
+      setTimeout(() => {this.historicalPeriod = this.periodsService.getHistoricalPeriod();})
     }
     else {
       this.router.navigate(['/historical-periods']).then();

@@ -4,7 +4,7 @@
     <div *ngFor="let q of this.quizzes.quizzes">
       <div class="quiz-container" [ngStyle]="{'background-image': 'linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.7)), url(../../../../assets/quiz' + q.id + '.jpg)'}">
         <div class="name">{{q.title}}</div>
-        <button type="button" class="btn btn-outline-light" style="border: 3px solid white;">Start</button>
+        <button type="button" class="btn btn-outline-light" style="border: 3px solid white;" (click)="goToQuizQuestions(q.id)">Start</button>
       </div>
     </div>
   </div>

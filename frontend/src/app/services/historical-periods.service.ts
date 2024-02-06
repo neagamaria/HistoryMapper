@@ -8,13 +8,13 @@ import {firstValueFrom} from "rxjs";
 })
 export class HistoricalPeriodsService {
 
-   url: string = 'http://127.0.0.1:8000/api/historical-periods/';
+   private url: string = 'http://127.0.0.1:8000/api/historical-periods/';
 
-   historicalPeriods: any[] = [];
+   private historicalPeriods: any[] = [];
 
-   historicalPeriod: any = [];
+   private historicalPeriod: any = [];
 
-   periodId: string = "";
+   private periodId: string = "";
 
   constructor(private http: HttpClient) {}
 
@@ -45,4 +45,14 @@ export class HistoricalPeriodsService {
   public setId(id: string) {
     this.periodId = id;
   }
+
+  public getHistoricalPeriod() {
+    return this.historicalPeriod[0];
+  }
+
+  public getHistoricalPeriodsValue(): any {
+    console.log(this.historicalPeriods);
+    return this.historicalPeriods;
+  }
+
 }

@@ -5,9 +5,7 @@ import { Injectable } from '@angular/core';
 })
 export class UserService {
   private currentUser: any = null;
-  constructor() {
-    console.log("CONSTRUCTOR: ", this.currentUser);
-  }
+  constructor() {}
 
   // set the user that is logged in
   setCurrentUser(user: any): void {
@@ -19,7 +17,6 @@ export class UserService {
     if(this.currentUser == null)
       return null;
 
-    console.log("USERNAME IN SERVICE: ", this.currentUser.user.username);
     return this.currentUser.user.username;
   }
 

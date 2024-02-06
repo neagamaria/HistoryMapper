@@ -1,9 +1,12 @@
 footer {
   background-color: #DE4137;
   width: 100%;
-  height: 30%;
+  position: absolute;
+  margin-bottom: 0;
+  height: 13%;
   color: white;
   font-size: small;
   text-align: center;
   font-family: 'Comfortaa';
+  border-top: 2px solid white;
 }

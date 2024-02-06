@@ -1,7 +1,7 @@
 .menu-container {
   background-image: url('../../../../assets/background.jpg');
   background-size: cover;
-  width: 98%;
+  width: 100%;
   height: 80vh;
   overflow: hidden;
 }
@@ -30,6 +30,7 @@
   text-align: center;
   font-size: 180%;
   text-shadow: 3px 3px black;
+  cursor: pointer;
 }
 
 .category:hover{

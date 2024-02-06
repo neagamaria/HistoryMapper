@@ -1,0 +1,40 @@
+.big-container {
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.question-container {
+  width: 90%;
+  height: 80%;
+  border: 10px solid white;
+  margin-left: 5%;
+}
+
+.answer-container {
+  font-size: 120%;
+}
+
+.answer-container:hover{
+  color: lightpink;
+  cursor: pointer;
+}
+
+.result-container {
+  height: 800%;
+}
+.result {
+  font-size: 500%;
+}
+
+h2 {
+  font-size: 180%;
+}
+
+p {
+  font-size: 100%;
+}
+
+label {
+  cursor: pointer;
+  margin-left: 3px;
+}

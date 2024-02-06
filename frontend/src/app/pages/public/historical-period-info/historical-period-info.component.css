@@ -19,13 +19,12 @@ h2 {
 
 p {
   float: none;
-  width: 50%;
-  height: 120%;
   text-align: center;
 }
 
 .descr {
   text-align: center;
+  padding: 10px;
 }
 
 .faded {

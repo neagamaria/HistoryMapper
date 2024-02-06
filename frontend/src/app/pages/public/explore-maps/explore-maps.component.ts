@@ -25,7 +25,7 @@ export class ExploreMapsComponent implements OnInit{
   // values obtained from form
   startYear = 0;
   startEra = 'AD';
-  endYear = 2000;
+  endYear = 0;
   endEra = 'AD';
 
 
@@ -100,7 +100,6 @@ export class ExploreMapsComponent implements OnInit{
 
   }
 
-
   // submit period of time
   submitYears(): void {
     // clear all info on map
@@ -109,26 +108,35 @@ export class ExploreMapsComponent implements OnInit{
     this.getEventsBetweenYears();
     // create markers after a delay, to make sure the http request in getEventsBetweenYears is completed
     setTimeout(() => {
-      this.createMarkers();
+      this.createMarkers(this.map);
     }, 200);
   }
 
 
   // create markers to be displayed on map
-  createMarkers(): void {
+  createMarkers(map: any): void {
     for (const e of this.eventsBetweenYears) {
       // establish coordinates for marker
       let latLng = {lat: Number(e.latitude), lng: Number(e.longitude)};
+      //establish data to be displayed on map
+      let data = e.name + " (" + e.event_date + " " + e.era + ") - " + e.description;
+      let infoWindow = new google.maps.InfoWindow({
+      content: "<p style='color:black; font-weight: bold; font-family:\'Comfortaa;\''>" + data + "</p>"
+    });
       // set the position and title for marker
       let marker = new google.maps.Marker({
         position: latLng,
         title: e.title
       })
 
+      google.maps.event.addListener(marker, 'click', function() {
+      infoWindow.open(map,marker);
+    });
+
       // add marker to the array of markers
       this.markers.push(marker);
       //set marker on map
-      marker.setMap(this.map)
+      marker.setMap(map)
     }
   }
 
