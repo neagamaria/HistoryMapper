@@ -1,0 +1,46 @@
+<div class="big-container" [ngStyle]="{'background-image': 'linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.7)), url(../../../../assets/quiz' + this.id + '.jpg)'}">
+<form #quizForm="ngForm" (ngSubmit)="this.calculateResult(quizForm)" *ngIf="!this.isFinished">
+  <div *ngFor="let question of this.questions; let i = index">
+  <div class="question-container">
+    <h2>{{question.description}}</h2>
+    <br/>
+    <div class="answer-container">
+        <input type="radio" [value]="1" [name]="'answer' + i" [(ngModel)]="selectedAnswers[i]" [id]="i + 'answer1'">
+      <label [for]="i + 'answer1'">{{question.answer1}}</label>
+      </div><br/>
+      <div class="answer-container">
+        <input type="radio" [value]="2" [name]="'answer' + i" [(ngModel)]="selectedAnswers[i]" [id]="i + 'answer2'">
+        <label [for]="i + 'answer2'">{{question.answer2}}</label>
+      </div><br/>
+      <div class="answer-container">
+        <input type="radio" [value]="3" [name]="'answer' + i" [(ngModel)]="selectedAnswers[i]" [id]="i + 'answer3'">
+        <label [for]="i + 'answer3'">{{question.answer3}}</label>
+      </div><br/>
+      <div class="answer-container">
+        <input type="radio" [value]="4" [name]="'answer' + i" [(ngModel)]="selectedAnswers[i]" [id]="i + 'answer4'">
+        <label [for]="i + 'answer4'">{{question.answer4}}</label>
+      </div><br/>
+  </div>
+</div>
+  <br/><br/>
+   <button type="submit" class="btn btn-outline-light">Submit</button>
+</form>
+</div>
+
+<div class="result-container" *ngIf="this.isFinished">
+  <h2>Your result to the quiz is: </h2>
+  <div *ngIf="this.result < 50"></div>
+  <div class="result">{{this.result}}%</div>
+  <div style="font-size: 120%;">
+    <div style="color:#B83333;" *ngIf="this.result < 50">
+      That's ok!
+    </div>
+    <div style="color:lightpink" *ngIf="this.result >= 50 && this.result < 90">
+      Nice!
+    </div>
+    <div *ngIf="this.result >= 90">
+      Great!
+    </div>
+</div>
+   <p>Go back to <a class="btn btn-link" [style]="'color:lightpink;'" (click)="this.goToQuizzes()">Quizzes</a>
+</div>

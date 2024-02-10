@@ -1,0 +1,29 @@
+.container {
+  text-align: center;
+  align-items: center;
+}
+
+.map-container {
+  width: 90%;
+  height: auto;
+  border: 10px solid white;
+  margin-left: 5%;
+}
+
+.google-map {
+  height: 100%;
+  width: 100%;
+}
+
+h2 {
+  font-size: 250%;
+}
+
+label {
+  width: 90px;
+
+}
+
+input {
+  width: 80px;
+}

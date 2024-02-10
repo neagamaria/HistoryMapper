@@ -1,0 +1,36 @@
+@font-face {
+  font-family: 'BeiondWanderland';
+  src: url('/app/fonts/beyond-wonderland/Beyond Wonderland.ttf') format('truetype');
+  font-weight: bold;
+  font-style: italic;
+}
+
+h2 {
+    text-align: center;
+    background: linear-gradient(45deg, white, lightyellow); /* Adjust gradient angle/direction and colors as needed */
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    -webkit-text-fill-color: transparent;
+    font-size: 500% !important;
+    font-weight: 900;
+    text-shadow: 3px 3px lightgrey;
+  }
+
+p {
+  float: none;
+  text-align: center;
+}
+
+.descr {
+  text-align: center;
+  padding: 10px;
+}
+
+.faded {
+    text-align: center;
+    font-family: 'Comfortaa';
+    opacity: 0.8;
+    font-size: 40px !important;
+    font-style: italic;
+}

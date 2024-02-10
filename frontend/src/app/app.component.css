@@ -1,0 +1,36 @@
+ body, header {
+      background-color: black;
+      align-items: center;
+      text-align: center;
+      color: white;
+      margin: 0;
+      border: 0;
+      padding: 0;
+      font-family: 'Comfortaa';
+
+    }
+
+ h1 {
+   font-size: 100px !important;
+   text-align: center;
+   color: white;
+ }
+
+ html, body {
+      height: 100%;
+      width: 100%;
+      margin: 0;
+      padding: 0;
+    }
+
+.content {
+    flex: 1;
+  min-height: calc(100vh - 20vh);
+}
+
+@font-face {
+  font-family: 'Comfortaa';
+  src: url('fonts/Comfortaa/Comfortaa-VariableFont_wght.ttf') format('woff2'),
+       url('fonts/Comfortaa/Comfortaa-VariableFont_wght.ttf') format('woff'),
+       url('fonts/Comfortaa/Comfortaa-VariableFont_wght.ttf') format('truetype');
+}

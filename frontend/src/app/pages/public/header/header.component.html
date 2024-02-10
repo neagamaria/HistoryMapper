@@ -1,0 +1,21 @@
+<div class="grid-container">
+  <div class="grid-logo">
+    <img src="../../../../assets/Logo1.png" alt="HistoryMapperLogo1">
+  </div>
+  <div class="grid-home">
+     <i (click)="goToHomePage()" class="bi bi-house-fill"></i>
+  </div>
+  <div class="grid-map">
+    <i (click)="goToMap()" class="bi bi-geo-alt-fill"></i>
+  </div>
+  <div class="grid-username">
+    <i (click)="goToLogin()" class="bi bi-person"></i>
+    <div class="dropdown"><span>{{ this.getUserName()}}</span>
+      <div class="dropdown-content">
+        <br/>
+        <p style="color:black; font-size: 15px"> <a class="btn btn-outline-dark" (click)="this.logoutUser()">Log out</a></p>
+
+      </div>
+    </div>
+  </div>
+</div>

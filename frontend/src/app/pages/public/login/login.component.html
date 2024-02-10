@@ -1,0 +1,21 @@
+<div class="container">
+  <h2>Log in to your account</h2>
+  <br/><br/>
+  <form [formGroup]="form" (ngSubmit)="login()">
+    <div>
+      <label for="username">Username:</label>
+      <input type="text" id="username" formControlName="username">
+    </div>
+    <br/>
+    <div>
+      <label for="password">Password:</label>
+      <input type="password" id="password" formControlName="password">
+    </div>
+    <br/>
+    <button type="submit" class="btn btn-outline-light" style="border: 3px solid white;">Log in</button>
+  </form>
+
+  <br/><br/>
+  <p>Do not have an account? Go to <a class="btn btn-link" [style]="'color: lightpink'" (click)="goToRegister()">Registration</a>
+  </p>
+</div>
