@@ -7,6 +7,7 @@
       border: 0;
       padding: 0;
       font-family: 'Comfortaa';
+
     }
 
  h1 {
@@ -22,6 +23,10 @@
       padding: 0;
     }
 
+.content {
+    flex: 1;
+  min-height: calc(100vh - 20vh);
+}
 
 @font-face {
   font-family: 'Comfortaa';
