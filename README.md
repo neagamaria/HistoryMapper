@@ -18,11 +18,13 @@ The HistoryMapper application has a backend created in Python with Django framew
 Tutorial: [Writing your first Django app, part 2 | Django documentation | Django (djangoproject.com)](https://docs.djangoproject.com/en/4.2/intro/tutorial02/)
 Git: [did_django_google_maps_api/main/templates/main/base.html at main · bobby-didcoding/did_django_google_maps_api (github.com)
 ](https://github.com/bobby-didcoding/did_django_google_maps_api/blob/main/main/templates/main/base.html)https://github.com/bobby-didcoding/did_django_google_maps_api/blob/main/main/templates/main/base.html
+AUthentication system: https://www.bing.com/videos/riverview/relatedvideo?&q=django+rest_framework+authentication+angular&&mid=52C326912E43AC9C217152C326912E43AC9C2171&&FORM=VRDGAR
 
 ##### Frontend
 Logo creation: https://looka.com/logo-maker/
 Display of a Google map in Angular: https://www.bing.com/videos/riverview/relatedvideo?&q=display+google+maps+with+angular+9+&&mid=6DE7E831C0AFD20A0CC06DE7E831C0AFD20A0CC0&&FORM=VRDGAR
 https://developers.google.com/maps/documentation/javascript
+Markers on map: https://stackoverflow.com/questions/46937595/set-multiple-markers-with-angular-4-and-google-maps
 
 
 #### For historical information
