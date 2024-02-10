@@ -2,7 +2,7 @@
 
 ## Overview
 
-This is an application for exploring historical maps and learning more about events that happened in the past. You can navigate through historical periods, seeing how the maps change in time. What is more, the events displayed on the maps have suggesting descriptions, pictures, and other useful information for better understaning History. You can also learn more about the ruling dynasties of the places you explore. Filter the events by searching relevant names, places, periods or tags, and see the documentation about each historical era to clearly position the information in time.
+This is an application for exploring historical maps and learning more about events that happened in the past. You can navigate through historical periods, seeing how the maps change in time. What is more, the events displayed on the maps have suggesting descriptions, and other useful information for better understaning History and clearly positioning the information in time. You can make an account for having access to the quizzes that test the information you have learnt, all arganized on a specific historical topic.
 
 ## Technologies
 
