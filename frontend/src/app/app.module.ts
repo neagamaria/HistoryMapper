@@ -16,6 +16,7 @@ import { LoginComponent } from './pages/public/login/login.component';
 import { HistoricalPeriodInfoComponent } from './pages/public/historical-period-info/historical-period-info.component';
 import { QuizzesComponent } from './pages/private/quizzes/quizzes.component';
 import { QuizQuestionsComponent } from './pages/private/quiz-questions/quiz-questions.component';
+import { NgxSliderModule } from '@angular-slider/ngx-slider';
 @NgModule({
   declarations: [
     AppComponent,
@@ -32,6 +33,7 @@ import { QuizQuestionsComponent } from './pages/private/quiz-questions/quiz-ques
   ],
     imports: [
         BrowserModule,
+        NgxSliderModule,
         AppRoutingModule,
         HttpClientModule,
         RouterOutlet,

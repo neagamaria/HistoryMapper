@@ -20,40 +20,36 @@ td {
   height: 5px;
 }
 
-.bullet {
-  font-size: 220%;
-  text-align: center;
-}
-
 .big-container {
   display: flex;
-  flex-direction: row;
-  align-items: flex-start;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+}
+
+.mid-container {
+  padding: 80px;
 }
 
 .container {
-  width: 600px;
-  height: 500px;
+  padding: 10%;
+  flex-direction: column;
+  width: 400px;
+  height: 300px;
   text-align: center;
   background-repeat: no-repeat;
   background-size: cover;
-  border: 10px solid black;
-}
-
-.container:hover{
-  width: 650px;
-  height: 550px;
+  border-bottom: 2px solid white;
 }
 
 .name {
-  font-size: 500%;
+  font-size: 200%;
   font-weight: 900;
-  text-shadow: 3px 3px lightgrey;
 }
 
 
 .years {
-  font-size: 300%;
+  font-size: 150%;
   padding: 0;
   text-align: center;
   font-style: italic;

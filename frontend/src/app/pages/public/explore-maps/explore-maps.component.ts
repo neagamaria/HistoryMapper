@@ -1,15 +1,36 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, ViewEncapsulation} from '@angular/core';
 import {HttpClient} from "@angular/common/http";
+import {Options} from '@angular-slider/ngx-slider';
 
 
 @Component({
   selector: 'app-explore-maps',
   templateUrl: './explore-maps.component.html',
-  styleUrls: ['./explore-maps.component.css']
+  styleUrls: ['./explore-maps.component.css'],
+  // to avoid children encapsulation problems
+  encapsulation: ViewEncapsulation.None
 })
 export class ExploreMapsComponent implements OnInit{
 
-  // the map variable
+  // variables for timeline
+  minVal = -2000;
+  maxVal = 2024;
+  options: Options = {
+    floor: -2000,
+    ceil: 2024,
+    step: 1,
+    //showTicks: true,
+    translate: (value: number): string => {
+      if (value < 0) {
+        return `${-value} BC`;
+      } else {
+        return `${value} AD`;
+      }
+    },
+  };
+
+
+  // map variable
   map: any;
 
   // all markers on map
@@ -91,6 +112,30 @@ export class ExploreMapsComponent implements OnInit{
 
   // get all events in a selected period of time
   getEventsBetweenYears(): void {
+    if(this.minVal < 0)
+    {
+      this.startYear = -this.minVal;
+      this.startEra = "BC";
+    }
+    else
+    {
+      this.startYear = this.minVal;
+      this.startEra = "AD";
+    }
+
+    if(this.maxVal < 0)
+    {
+      this.endYear = -this.maxVal;
+      this.endEra = "BC";
+    }
+    else
+    {
+      this.endYear = this.maxVal;
+      this.endEra = "AD";
+    }
+
+    console.log(this.startYear);
+
     this.url = `http://127.0.0.1:8000/api/events-between-${this.startYear}-${this.startEra}-${this.endYear}-${this.endEra}`
 
     this.http.get(this.url).subscribe((response: any): any => {
