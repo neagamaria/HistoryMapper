@@ -1,4 +1,3 @@
-
 <div class="container">
 
     <h2>Discover events on map!</h2>
@@ -7,18 +6,9 @@
     <h2>Choose time range:</h2>
     <br/>
     <!--TODO change this to time axis-->
-    <form (ngSubmit)="submitYears()">
-        <label for="startYear">Start Year:</label>
-        <input type="number" id="startYear" name="startYear" [(ngModel)]="this.startYear">
-        <label for="startEra">Start Era:</label>
-        <input type="text" id="startEra" name="startEra" [(ngModel)]="this.startEra">
-        <label for="endYear">End Year:</label>
-        <input type="number" id="endYear" name="endYear" [(ngModel)]="this.endYear">
-        <label for="endEra">End Era:</label>
-        <input type="text" id="endEra" name="endEra" [(ngModel)]="this.endEra">
-      <br/><br/>
-        <button type="submit" class="btn btn-outline-light">Get Events</button>
-    </form>
+    <div class="slider">
+      <ngx-slider [(value)]="this.minVal" [(highValue)]="this.maxVal" [options]="this.options" (userChange)="this.submitYears()"></ngx-slider>
+    </div>
 
   <br/><br/>
     <div class="map-container">

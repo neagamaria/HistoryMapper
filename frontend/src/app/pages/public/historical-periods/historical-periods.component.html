@@ -1,16 +1,19 @@
 <div>
   <br><br><br>
 
-  <h1 style="text-align: center">Follow the Road of Human History...</h1>
+  <h1 style="text-align: center">Follow the Road of Human History</h1>
   <br><br><br>
 
-    <div class="big-container" *ngFor="let hp of historicalPeriods">
-      <div class="container" [ngStyle]="{'background-image': 'linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.7)), url(../../../../assets/' + hp.id + '.jpg)'}">
+    <div class="big-container">
+      <div class="mid-container" *ngFor="let hp of historicalPeriods">
+      <div class="container" [ngStyle]="{'background-image': 'linear-gradient(rgba(0,0,0,0.1), rgba(0,0,0,0.7)), url(../../../../assets/' + hp.id + '.jpg)'}">
         <br/>
         <div class="name">{{ hp.name }}</div>
         <div class="years">{{ hp.start_year }} - {{ hp.end_year }} {{ hp.era }}</div>
+        <br/>
         <a (click)="goToHistoricalPeriodInfo(hp.id)"class="btn btn-outline-light" style="border: 3px solid white;font-size: 160%;">View
         </a>
+      </div>
       </div>
     </div>
 </div>

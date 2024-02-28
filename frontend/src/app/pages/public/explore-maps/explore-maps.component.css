@@ -3,6 +3,42 @@
   align-items: center;
 }
 
+.slider {
+  padding: 30px;
+}
+span.ngx-slider-span.ngx-slider-pointer.ngx-slider-pointer-min {
+  background-color: #B83333;
+}
+
+span.ngx-slider-span.ngx-slider-pointer.ngx-slider-pointer-max {
+  background-color: #B83333;
+}
+
+span.ngx-slider-span.ngx-slider-pointer.ngx-slider-pointer-min::after {
+  background-color: white;
+}
+
+span.ngx-slider-span.ngx-slider-pointer.ngx-slider-pointer-max::after {
+  background-color: white;
+}
+
+div.ngx-slider-inner-tooltip {
+    display: none;
+}
+
+span.ngx-slider-span.ngx-slider-bar.ngx-slider-selection {
+  background-color: #B83333 !important;
+}
+
+span.ngx-slider-span.ngx-slider-bubble.ngx-slider-model-value {
+  color: lightgrey;
+}
+
+span.ngx-slider-span.ngx-slider-bubble.ngx-slider-model-high {
+  color: lightgrey;
+}
+
+
 .map-container {
   width: 90%;
   height: auto;
