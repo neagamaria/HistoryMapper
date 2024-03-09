@@ -17,6 +17,7 @@ import { HistoricalPeriodInfoComponent } from './pages/public/historical-period-
 import { QuizzesComponent } from './pages/private/quizzes/quizzes.component';
 import { QuizQuestionsComponent } from './pages/private/quiz-questions/quiz-questions.component';
 import { NgxSliderModule } from '@angular-slider/ngx-slider';
+import { AdminPageComponent } from './pages/private/admin-page/admin-page.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -30,6 +31,7 @@ import { NgxSliderModule } from '@angular-slider/ngx-slider';
     HistoricalPeriodInfoComponent,
     QuizzesComponent,
     QuizQuestionsComponent,
+    AdminPageComponent,
   ],
     imports: [
         BrowserModule,

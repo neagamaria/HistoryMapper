@@ -10,13 +10,10 @@ class Event(models.Model):
     era = models.CharField(max_length=10)
     location = models.CharField(max_length=100)
     description = models.TextField(blank=True)
-    image = models.ImageField(verbose_name="Event Image", width_field=None, height_field=None, blank=True)
     # foreign keys
     historical_period = models.ForeignKey("HistoricalPeriod", on_delete=models.CASCADE)
     event_type = models.ForeignKey("EventType", on_delete=models.CASCADE)
-    category = models.ManyToManyField("Category", related_name="categories", related_query_name="category", blank=True)
-    tag = models.ManyToManyField("Tag", related_name="tags", related_query_name="tag", blank=True)
-    historical_area = models.ForeignKey("HistoricalArea", on_delete=models.CASCADE, default=None)
+    category = models.ForeignKey("Category", on_delete=models.CASCADE, blank=True)
 
 
 # type of historical Event
