@@ -2,4 +2,5 @@ from .authentication_view import *
 from .events_view import *
 from .periods_view import *
 from .quizzes_view import *
+from .db_info import *
 from .views import *

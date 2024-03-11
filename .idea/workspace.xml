@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="f896f08b-b189-43d1-bd3c-d7a6251c738a" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/explore/views/db_info.py" beforeDir="false" afterPath="$PROJECT_DIR$/explore/views/db_info.py" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="DjangoConsoleOptions" custom-start-script="import sys; print('Python %s on %s' % (sys.version, sys.platform))&#10;import django; print('Django %s' % django.get_version())&#10;sys.path.extend([WORKING_DIR_AND_PYTHON_PATHS])&#10;if 'setup' in dir(django): django.setup()&#10;import django_manage_shell; django_manage_shell.run(PROJECT_ROOT)">
+    <option name="myCustomStartScript" value="import sys; print('Python %s on %s' % (sys.version, sys.platform))&#10;import django; print('Django %s' % django.get_version())&#10;sys.path.extend([WORKING_DIR_AND_PYTHON_PATHS])&#10;if 'setup' in dir(django): django.setup()&#10;import django_manage_shell; django_manage_shell.run(PROJECT_ROOT)" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Python Script" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="InvalidFacetManager">
+    <ignored-facets>
+      <facet id="HistoryMapper/invalid/Django" />
+    </ignored-facets>
+  </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
+  </component>
+  <component name="ProjectColorInfo">{
+  &quot;customColor&quot;: &quot;&quot;,
+  &quot;associatedIndex&quot;: 4
+}</component>
+  <component name="ProjectId" id="2YzrTDowmXvmo5rtVsTSpZCnwFg" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;Python.events_view.executor&quot;: &quot;Run&quot;,
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;ToolWindowDuplicates.ShowToolbar&quot;: &quot;false&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/maria/PycharmProjects/HistoryMapper&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;promo.django&quot;,
+    &quot;ts.external.directory.path&quot;: &quot;C:\\Users\\maria\\PycharmProjects\\HistoryMapper\\frontend\\node_modules\\typescript\\lib&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  }
+}</component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\maria\PycharmProjects\HistoryMapper\frontend\src\app\pages\private" />
+      <recent name="C:\Users\maria\PycharmProjects\HistoryMapper\frontend\src\app\pages\public" />
+      <recent name="C:\Users\maria\PycharmProjects\HistoryMapper\frontend\src\assets" />
+      <recent name="C:\Users\maria\PycharmProjects\HistoryMapper\frontend\src\app" />
+      <recent name="C:\Users\maria\PycharmProjects\HistoryMapper\explore\views" />
+    </key>
+  </component>
+  <component name="SharedIndexes">
+    <attachedChunks>
+      <set>
+        <option value="bundled-python-sdk-d68999036c7f-d3b881c8e49f-com.jetbrains.pycharm.community.sharedIndexes.bundled-PC-233.14475.56" />
+      </set>
+    </attachedChunks>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="f896f08b-b189-43d1-bd3c-d7a6251c738a" name="Changes" comment="" />
+      <created>1701539258473</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1701539258473</updated>
+      <workItem from="1701539258473" duration="11635000" />
+      <workItem from="1701590289401" duration="5292000" />
+      <workItem from="1701595918904" duration="5798000" />
+      <workItem from="1701683858849" duration="2470000" />
+      <workItem from="1701695147065" duration="711000" />
+      <workItem from="1701697316723" duration="6620000" />
+      <workItem from="1701764899974" duration="6300000" />
+      <workItem from="1701982582266" duration="2183000" />
+      <workItem from="1702018826873" duration="7112000" />
+      <workItem from="1702120076086" duration="7024000" />
+      <workItem from="1702287582724" duration="3403000" />
+      <workItem from="1702291045440" duration="1736000" />
+      <workItem from="1702301306027" duration="9203000" />
+      <workItem from="1702314468211" duration="769000" />
+      <workItem from="1702370520014" duration="273000" />
+      <workItem from="1702374802603" duration="414000" />
+      <workItem from="1702896845163" duration="24000" />
+      <workItem from="1702975108524" duration="5849000" />
+      <workItem from="1703581753484" duration="6943000" />
+      <workItem from="1703676473102" duration="10151000" />
+      <workItem from="1704211350221" duration="438000" />
+      <workItem from="1704272136282" duration="4089000" />
+      <workItem from="1704358875752" duration="4034000" />
+      <workItem from="1704717724420" duration="6663000" />
+      <workItem from="1704738145386" duration="4070000" />
+      <workItem from="1704742274155" duration="3000" />
+      <workItem from="1704784699848" duration="7221000" />
+      <workItem from="1704816406148" duration="4499000" />
+      <workItem from="1704874858203" duration="10521000" />
+      <workItem from="1704993359169" duration="596000" />
+      <workItem from="1705572409389" duration="7490000" />
+      <workItem from="1706777639027" duration="11445000" />
+      <workItem from="1706860306029" duration="15088000" />
+      <workItem from="1707071535175" duration="6755000" />
+      <workItem from="1707078442052" duration="190000" />
+      <workItem from="1707118867179" duration="16272000" />
+      <workItem from="1707206424261" duration="8852000" />
+      <workItem from="1707222204525" duration="6669000" />
+      <workItem from="1707249908426" duration="1314000" />
+      <workItem from="1707251633053" duration="1860000" />
+      <workItem from="1707553940766" duration="5710000" />
+      <workItem from="1708973293502" duration="6930000" />
+      <workItem from="1709114336645" duration="615000" />
+      <workItem from="1709129594705" duration="9313000" />
+      <workItem from="1709195248291" duration="1801000" />
+      <workItem from="1709477860375" duration="5476000" />
+      <workItem from="1709730000994" duration="66000" />
+      <workItem from="1709730082916" duration="376000" />
+      <workItem from="1709730711857" duration="2000" />
+      <workItem from="1709730922082" duration="34000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+</project>
