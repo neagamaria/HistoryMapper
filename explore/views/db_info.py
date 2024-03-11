@@ -149,9 +149,9 @@ class DBPediaAPIView(APIView):
                     data.append(event)
 
                     # insert raw into DB
-                    raw = Event(name=event_label, event_date=event_date, era='AD', location=event_location,
-                                description=event_desc, historical_period_id=historical_period_id,
-                                event_type_id=event_type_id, category_id=event_category_id)
-                    raw.save()
+                    # raw = Event(name=event_label, event_date=event_date, era='AD', location=event_location,
+                    #             description=event_desc, historical_period_id=historical_period_id,
+                    #             event_type_id=event_type_id, category_id=event_category_id)
+                    # raw.save()
 
         return JsonResponse({'data': data})

@@ -13,8 +13,8 @@ import {Options} from '@angular-slider/ngx-slider';
 export class ExploreMapsComponent implements OnInit{
 
   // variables for timeline
-  minVal = -2000;
-  maxVal = 2024;
+  minVal = -100;
+  maxVal = 100;
   options: Options = {
     floor: -2000,
     ceil: 2024,
@@ -29,7 +29,6 @@ export class ExploreMapsComponent implements OnInit{
     },
   };
 
-
   // map variable
   map: any;
 
@@ -42,7 +41,6 @@ export class ExploreMapsComponent implements OnInit{
   // events to be displayed on map
   eventsBetweenYears: any[] = [];
 
-  // TODO get values from period selection
   // values obtained from form
   startYear = 0;
   startEra = 'AD';
@@ -52,7 +50,6 @@ export class ExploreMapsComponent implements OnInit{
 
   // create the map when the component is created
   constructor(private http: HttpClient) {
-
   }
 
   ngOnInit() {
@@ -103,8 +100,8 @@ export class ExploreMapsComponent implements OnInit{
 
     this.map = new Map(document.getElementById("map") as HTMLElement, {
       // coordinates of London
-      center: {lat: 51.509865, lng: -0.118092},
-      zoom: 6,
+      center: {lat: 49.8038, lng: 15.4749},
+      zoom: 5,
       styles: mapStyles
     });
   }
@@ -143,6 +140,7 @@ export class ExploreMapsComponent implements OnInit{
       }
     );
 
+    console.log(this.eventsBetweenYears);
   }
 
   // submit period of time
@@ -154,12 +152,13 @@ export class ExploreMapsComponent implements OnInit{
     // create markers after a delay, to make sure the http request in getEventsBetweenYears is completed
     setTimeout(() => {
       this.createMarkers(this.map);
-    }, 200);
+    }, 1000);
   }
 
 
   // create markers to be displayed on map
   createMarkers(map: any): void {
+    this.clearMap();
     for (const e of this.eventsBetweenYears) {
       // establish coordinates for marker
       let latLng = {lat: Number(e.latitude), lng: Number(e.longitude)};
@@ -184,7 +183,6 @@ export class ExploreMapsComponent implements OnInit{
       marker.setMap(map)
     }
   }
-
 
   // remove all previous markers from map
   clearMap(): void {
