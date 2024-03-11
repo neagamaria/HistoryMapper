@@ -52,7 +52,7 @@ class DBPediaAPIView(APIView):
 
         return results
 
-    # obtain location based on latitude and longitude
+    # obtain location based on latitude and longitude - reverse geocoding
     @staticmethod
     def get_location(self, lat, lng):
         url = f"https://maps.googleapis.com/maps/api/geocode/json?latlng={lat},{lng}&key={settings.GOOGLE_API_KEY}"
@@ -67,8 +67,6 @@ class DBPediaAPIView(APIView):
 
             if item['types'][0] == 'country':
                 country = item['short_name']
-        # locality = data['results'][0]['address_components']['city']
-        # country_short_name = data['results'][0]['address_components']['country_short']
 
         location = locality + ',' + country
 
@@ -76,7 +74,7 @@ class DBPediaAPIView(APIView):
 
     # add data to database
     def get(self, wiki):
-        wiki_category = "Battles_involving_Wallachia"
+        wiki_category = "Battles_involving_Moldavia"
         event_type = "Battle"
         data = []
 
@@ -128,14 +126,20 @@ class DBPediaAPIView(APIView):
                 # get location based on coordinates
                 event_location = self.get_location(self, event_lat, event_lng)
 
-                categ = "Wallachia"
+                categ = "Moldavia"
 
                 event_category = Category.objects.raw('''SELECT id FROM explore_category
-                                                                        WHERE name = %s''', [categ])
+                                                       WHERE name = %s''', [categ])
+
+                # insert category in db if it doesn't already exist
+                if not event_category:
+                    category_to_insert = Category(name=categ)
+                    category_to_insert.save()
+                    event_category = Category.objects.raw('''SELECT id FROM explore_category
+                                                            WHERE name = %s''', [categ])
                 event_category_id = event_category[0].id
 
                 if event_location != '':
-
                     event = {'name': event_label, 'event_date': event_date,
                              'era': 'AD', 'location': event_location, 'description': event_desc,
                              'historical_period': historical_period_id, 'event_type': event_type_id,
