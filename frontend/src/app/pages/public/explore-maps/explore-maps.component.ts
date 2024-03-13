@@ -74,12 +74,12 @@ export class ExploreMapsComponent implements OnInit{
       {
         featureType: 'landscape',
         elementType: 'geometry',
-        stylers: [{color: '#F4F3E4'}]
+        stylers: [{color: '#EDEAD4'}]
       },
       {
         featureType: 'road',
         elementType: 'geometry',
-        stylers: [{color: '#F4F3E4'}]
+        stylers: [{color: '#CAC6B1'}]
       },
       {
         featureType: 'road',

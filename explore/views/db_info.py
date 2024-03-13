@@ -73,9 +73,9 @@ class DBPediaAPIView(APIView):
         return location
 
     # add data to database
-    def get(self, wiki):
-        wiki_category = "Battles_involving_Moldavia"
-        event_type = "Battle"
+    def get(self, response, wiki_category, event_type, categ):
+        # wiki_category = "Battles_involving_Moldavia"
+        # event_type = "Battle"
         data = []
 
         # get all data from Dbpedia API
@@ -108,50 +108,50 @@ class DBPediaAPIView(APIView):
             if event_lng != "" and event_lat != "":
                 # test if event already exists
                 year, month, day = event_date.split('-')
+                # test if current event is already in the database
                 db_events = Event.objects.raw('''SELECT id FROM explore_event WHERE
                                                 name = %s AND EXTRACT(YEAR FROM event_date) = %s
                                                 AND EXTRACT(MONTH FROM event_date) = %s
                                                 AND EXTRACT(DAY FROM event_date) = %s''',
                                               [event_label, year, month, day])
-                if db_events:
-                    continue
 
-                # TODO make logic for 'BC' events as well
-                # find historical period for event
-                historical_period = HistoricalPeriod.objects.raw('''SELECT id FROM explore_historicalperiod
-                                                                    WHERE era = 'AD' AND %s BETWEEN start_year
-                                                                    AND end_year''', [year])
-                historical_period_id = historical_period[0].id
+                if len(list(db_events)) == 0:
+                    # TODO make logic for 'BC' events as well
+                    # find historical period for event
+                    historical_period = HistoricalPeriod.objects.raw('''SELECT id FROM explore_historicalperiod
+                                                                        WHERE era = 'AD' AND %s BETWEEN start_year
+                                                                        AND end_year''', [year])
+                    historical_period_id = historical_period[0].id
 
-                # get location based on coordinates
-                event_location = self.get_location(self, event_lat, event_lng)
+                    # get location based on coordinates
+                    event_location = self.get_location(self, event_lat, event_lng)
 
-                categ = "Moldavia"
+                    # categ = "Moldavia"
 
-                event_category = Category.objects.raw('''SELECT id FROM explore_category
-                                                       WHERE name = %s''', [categ])
-
-                # insert category in db if it doesn't already exist
-                if not event_category:
-                    category_to_insert = Category(name=categ)
-                    category_to_insert.save()
                     event_category = Category.objects.raw('''SELECT id FROM explore_category
-                                                            WHERE name = %s''', [categ])
-                event_category_id = event_category[0].id
+                                                           WHERE name = %s''', [categ])
 
-                if event_location != '':
-                    event = {'name': event_label, 'event_date': event_date,
-                             'era': 'AD', 'location': event_location, 'description': event_desc,
-                             'historical_period': historical_period_id, 'event_type': event_type_id,
-                             'event_category': event_category_id
-                             }
+                    # insert category in db if it doesn't already exist
+                    if not event_category:
+                        category_to_insert = Category(name=categ)
+                        category_to_insert.save()
+                        event_category = Category.objects.raw('''SELECT id FROM explore_category
+                                                                WHERE name = %s''', [categ])
+                    event_category_id = event_category[0].id
 
-                    data.append(event)
+                    if event_location != '':
+                        event = {'name': event_label, 'event_date': event_date,
+                                 'era': 'AD', 'location': event_location, 'description': event_desc,
+                                 'historical_period': historical_period_id, 'event_type': event_type_id,
+                                 'event_category': event_category_id
+                                 }
 
-                    # insert raw into DB
-                    # raw = Event(name=event_label, event_date=event_date, era='AD', location=event_location,
-                    #             description=event_desc, historical_period_id=historical_period_id,
-                    #             event_type_id=event_type_id, category_id=event_category_id)
-                    # raw.save()
+                        data.append(event)
+
+                        # insert raw into DB
+                        # raw = Event(name=event_label, event_date=event_date, era='AD', location=event_location,
+                        #             description=event_desc, historical_period_id=historical_period_id,
+                        #             event_type_id=event_type_id, category_id=event_category_id)
+                        # raw.save()
 
         return JsonResponse({'data': data})

@@ -1,1 +1,33 @@
-<p>admin-page works!</p>
+<h2>Add events from DBPedia to local database</h2>
+
+<form #dbpediaForm="ngForm" [formGroup]="form" (ngSubmit)="populateDB(dbpediaForm)">
+  <div>
+    <label for="dbpediaCategory">Choose DBPedia Category:</label>
+    <input type="text" id="dbpediaCategory" formControlName="dbpediaCategory">
+  </div>
+  <br/>
+  <div>
+    <label for="eventsType">Select Events Type:</label>
+    <input list="eventsTypeOptions" id="eventsType" formControlName="eventsType">
+     <datalist id="eventsTypeOptions">
+      <option value="Battle"></option>
+      <option value="Uprising"></option>
+      <option value="Succession"></option>
+     </datalist>
+  </div>
+  <br/>
+  <div>
+    <label for="eventsCategory">Choose EventsCategory:</label>
+    <input type="text" id="eventsCategory" formControlName="eventsCategory">
+  </div>
+  <br/>
+
+  <button type="submit" class="btn btn-outline-light" style="border: 3px solid white;">Add events</button>
+</form>
+
+<br/><br/>
+<div *ngIf="this.events != []">
+  <div *ngFor="let event of events">
+    <div>{{event.name}} - {{event.event_date}}</div>
+  </div>
+</div>

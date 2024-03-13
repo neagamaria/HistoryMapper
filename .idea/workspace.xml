@@ -6,12 +6,21 @@
   <component name="ChangeListManager">
     <list default="true" id="f896f08b-b189-43d1-bd3c-d7a6251c738a" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/explore/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/explore/urls.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/explore/views/db_info.py" beforeDir="false" afterPath="$PROJECT_DIR$/explore/views/db_info.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/frontend/src/app/app-routing.module.ts" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/app-routing.module.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/app/app.module.ts" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/app.module.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/app/pages/private/admin-page/admin-page.component.css" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/pages/private/admin-page/admin-page.component.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/app/pages/private/admin-page/admin-page.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/pages/private/admin-page/admin-page.component.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/frontend/src/app/pages/private/admin-page/admin-page.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/pages/private/admin-page/admin-page.component.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/app/pages/public/explore-maps/explore-maps.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/pages/public/explore-maps/explore-maps.component.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/app/pages/private/quizzes/quizzes.component.css" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/pages/private/quizzes/quizzes.component.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/frontend/src/app/pages/public/explore-maps/explore-maps.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/pages/public/explore-maps/explore-maps.component.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/app/pages/public/header/header.component.css" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/pages/public/header/header.component.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/app/pages/public/header/header.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/pages/public/header/header.component.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/app/pages/public/header/header.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/pages/public/header/header.component.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/app/pages/public/historical-period-info/historical-period-info.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/pages/public/historical-period-info/historical-period-info.component.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/app/pages/public/historical-periods/historical-periods.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/pages/public/historical-periods/historical-periods.component.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/app/pages/public/login/login.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/pages/public/login/login.component.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/app/services/historical-periods.service.ts" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/services/historical-periods.service.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

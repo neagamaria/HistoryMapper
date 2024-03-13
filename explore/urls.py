@@ -16,5 +16,5 @@ urlpatterns = [
     path('api/login/', views.LoginAPI.as_view(), name="login-api"),
     path('api/quizzes', views.QuizzesAPIView.as_view(), name="quizzes-api"),
     path('api/questions/<str:quiz_id>', views.QuestionsAPIView.as_view(), name="questions-api"),
-    path('api/dbpedia/', views.DBPediaAPIView.as_view(), name="dbpedia-info-api"),
+    path('api/dbpedia/<str:wiki_category>/<str:event_type>/<str:categ>', views.DBPediaAPIView.as_view(), name="dbpedia-info-api"),
 ]

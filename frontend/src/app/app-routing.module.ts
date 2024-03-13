@@ -22,7 +22,7 @@ const routes: Routes = [
   {path: 'login', component: LoginComponent},
   {path: 'quizzes', component: QuizzesComponent},
   {path: 'quiz-questions', component: QuizQuestionsComponent},
-  {path: 'admin', component: AdminPageComponent},
+  {path: 'admin-page', component: AdminPageComponent},
   {path: 'map-options-menu', component: MapOptionsMenuComponent}
 ];
 
