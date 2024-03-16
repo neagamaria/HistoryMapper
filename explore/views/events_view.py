@@ -20,6 +20,8 @@ class EventsBetweenYearsAPIView(APIView):
             coordinates = data['results'][0]['geometry']['location']
             return coordinates['lat'], coordinates['lng']
 
+        return 0, 0
+
     # function that obtains needed locations and adds entries in the db
     @staticmethod
     def populate_map_location(self, events):
@@ -32,11 +34,12 @@ class EventsBetweenYearsAPIView(APIView):
         #  populate the MapLocation table with names and coordinates
         for location in new_locations:
             lat, lng = self.get_coordinates(self, location)
-            MapLocation.objects.create(
-                name=location,
-                latitude=lat,
-                longitude=lng
-            )
+            if lat and lng:
+                MapLocation.objects.create(
+                    name=location,
+                    latitude=lat,
+                    longitude=lng
+                )
 
     # get all events in a time period with their coordinates
     def get(self, request, start_year, start_era, end_year, end_era):
@@ -50,6 +53,8 @@ class EventsBetweenYearsAPIView(APIView):
                                     OR (era = 'AD' AND EXTRACT(YEAR FROM event_date) >= %s AND EXTRACT(YEAR FROM event_date) <= %s)''',
                                    [start_year, end_year, start_year, end_year])
 
+        self.populate_map_location(self, events)
+
         complete_events = [
             {
                 'event': event,
@@ -57,7 +62,8 @@ class EventsBetweenYearsAPIView(APIView):
                 'longitude': map_location.longitude
             }
             for event in events
-            for map_location in MapLocation.objects.filter(name=event.location)
+            for map_location in MapLocation.objects.filter(name=event.location) if map_location.latitude and map_location.longitude
+
         ]
 
         data = [{'name': e['event'].name, 'event_date': e['event'].event_date, 'era': e['event'].era,

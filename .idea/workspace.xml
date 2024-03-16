@@ -6,21 +6,8 @@
   <component name="ChangeListManager">
     <list default="true" id="f896f08b-b189-43d1-bd3c-d7a6251c738a" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/explore/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/explore/urls.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/explore/views/db_info.py" beforeDir="false" afterPath="$PROJECT_DIR$/explore/views/db_info.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/app/app-routing.module.ts" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/app-routing.module.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/app/pages/private/admin-page/admin-page.component.css" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/pages/private/admin-page/admin-page.component.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/app/pages/private/admin-page/admin-page.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/pages/private/admin-page/admin-page.component.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/app/pages/private/admin-page/admin-page.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/pages/private/admin-page/admin-page.component.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/app/pages/private/quizzes/quizzes.component.css" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/pages/private/quizzes/quizzes.component.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/app/pages/public/explore-maps/explore-maps.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/pages/public/explore-maps/explore-maps.component.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/app/pages/public/header/header.component.css" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/pages/public/header/header.component.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/app/pages/public/header/header.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/pages/public/header/header.component.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/app/pages/public/header/header.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/pages/public/header/header.component.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/app/pages/public/historical-period-info/historical-period-info.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/pages/public/historical-period-info/historical-period-info.component.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/app/pages/public/historical-periods/historical-periods.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/pages/public/historical-periods/historical-periods.component.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/app/pages/public/login/login.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/pages/public/login/login.component.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/app/services/historical-periods.service.ts" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/services/historical-periods.service.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/explore/views/events_view.py" beforeDir="false" afterPath="$PROJECT_DIR$/explore/views/events_view.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -70,11 +57,27 @@
     &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
     &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
     &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;promo.django&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;PyConsoleConfigurable.Python Console&quot;,
     &quot;ts.external.directory.path&quot;: &quot;C:\\Users\\maria\\PycharmProjects\\HistoryMapper\\frontend\\node_modules\\typescript\\lib&quot;,
     &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
 }</component>
+  <component name="PyConsoleOptionsProvider">
+    <option name="myPythonConsoleState">
+      <console-settings module-name="HistoryMapper" is-module-sdk="true">
+        <envs>
+          <env key="DJANGO_SETTINGS_MODULE" value="explore.settings" />
+        </envs>
+        <option name="myUseModuleSdk" value="true" />
+        <option name="myModuleName" value="HistoryMapper" />
+        <option name="myEnvs">
+          <map>
+            <entry key="DJANGO_SETTINGS_MODULE" value="explore.settings" />
+          </map>
+        </option>
+      </console-settings>
+    </option>
+  </component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
       <recent name="C:\Users\maria\PycharmProjects\HistoryMapper\frontend\src\app\pages\private" />
