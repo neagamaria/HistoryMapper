@@ -35,12 +35,12 @@
     <div style="color:#B83333;" *ngIf="this.result < 50">
       That's ok!
     </div>
-    <div style="color:lightpink" *ngIf="this.result >= 50 && this.result < 90">
+    <div style="color:#E1ADAD" *ngIf="this.result >= 50 && this.result < 90">
       Nice!
     </div>
     <div *ngIf="this.result >= 90">
       Great!
     </div>
 </div>
-   <p>Go back to <a class="btn btn-link" [style]="'color:lightpink;'" (click)="this.goToQuizzes()">Quizzes</a>
+   <p>Go back to <a class="btn btn-link" [style]="'color:#E1ADAD;'" (click)="this.goToQuizzes()">Quizzes</a>
 </div>

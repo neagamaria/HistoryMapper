@@ -4,15 +4,25 @@
 }
 
 .menu-container {
-    width: 120%;
-    height: 500%;
+    width: 200%;
+    height: 700%;
     background-color: white;
     color: black;
     text-align: left;
     padding: 5px;
-    /* border-right: 4px solid #B83333; */
     opacity: 0.9;
     border-radius: 5px;
+}
+
+.option {
+    padding: 10%;
+    height: 30%;
+    font-size: 130%;
+    font-weight: bold;
+}
+
+.option:hover {
+    background-color: #E1ADAD;
 }
 
 i {

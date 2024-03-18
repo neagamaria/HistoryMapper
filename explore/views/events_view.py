@@ -63,7 +63,6 @@ class EventsBetweenYearsAPIView(APIView):
             }
             for event in events
             for map_location in MapLocation.objects.filter(name=event.location) if map_location.latitude and map_location.longitude
-
         ]
 
         data = [{'name': e['event'].name, 'event_date': e['event'].event_date, 'era': e['event'].era,
@@ -72,5 +71,35 @@ class EventsBetweenYearsAPIView(APIView):
                  "latitude": e['latitude'],
                  "longitude": e['longitude']}
                 for e in complete_events]
+
+        return JsonResponse({'data': data})
+
+
+# get one event from DB based on name
+class EventByNameAPIView(APIView):
+    @staticmethod
+    def get_coordinates(self, location):
+        url = f"https://maps.googleapis.com/maps/api/geocode/json?key={settings.GOOGLE_API_KEY}&address={location}"
+        response = requests.get(url)
+        data = response.json()
+
+        if data['status'] == "OK":
+            coordinates = data['results'][0]['geometry']['location']
+            return coordinates['lat'], coordinates['lng']
+
+        return 0, 0
+    
+
+    def get(self, request, name):
+        name = name.lower()
+        event = Events.objects.raw('''SELECT * FROM explore_event WHERE LOWER(name) = %s''', [name])
+
+        lat, lng = self.get_coordinates(self, event.location)
+
+        data = {'name': event.name, 'event_date': event.event_date, 'era': event.era,
+                 'location': event.location, 'description': event.description,
+                 "historical_period": event.historical_period.name, "event_type": event.event_type.name,
+                 "latitude": lat,
+                 "longitude": lng}
 
         return JsonResponse({'data': data})
