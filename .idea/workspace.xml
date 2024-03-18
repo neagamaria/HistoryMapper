@@ -6,8 +6,10 @@
   <component name="ChangeListManager">
     <list default="true" id="f896f08b-b189-43d1-bd3c-d7a6251c738a" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/explore/views/db_info.py" beforeDir="false" afterPath="$PROJECT_DIR$/explore/views/db_info.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/explore/views/events_view.py" beforeDir="false" afterPath="$PROJECT_DIR$/explore/views/events_view.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/app/pages/public/explore-maps/explore-maps.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/pages/public/explore-maps/explore-maps.component.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/app/pages/public/map-options-menu/map-options-menu.component.css" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/pages/public/map-options-menu/map-options-menu.component.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/app/pages/public/map-options-menu/map-options-menu.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/pages/public/map-options-menu/map-options-menu.component.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/app/pages/public/map-options-menu/map-options-menu.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/pages/public/map-options-menu/map-options-menu.component.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

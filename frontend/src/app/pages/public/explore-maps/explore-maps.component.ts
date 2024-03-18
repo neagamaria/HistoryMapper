@@ -3,6 +3,7 @@ import {HttpClient} from "@angular/common/http";
 import {Options} from '@angular-slider/ngx-slider';
 
 
+
 @Component({
   selector: 'app-explore-maps',
   templateUrl: './explore-maps.component.html',

@@ -1,5 +1,30 @@
-<div class="menu-container">
-    <div class="vertical-menu">
-      <div>Events type</div>
+<div class="hamburger-menu">
+ <div *ngIf="!this.menuOpened">
+    <i class="bi bi-list" (click)="this.openMenu()"></i>
+ </div>
+  <div *ngIf="this.menuOpened">
+    <div class="menu-container">
+      <i class="bi bi-x-square-fill" (click)="this.closeMenu()"></i>
+      <br/>
+      <div class="small-container">
+        <i class="bi bi-search"></i>
+        <input type="text" id="eventName" name="eventName" placeholder="Search event..." style="color: black; margin-left: 10px; width: 80%">
+
+        <br/><br/>
+        <div>Filter events by type:</div>
+        <div>Battle</div>
+        <div>Battle</div>
+        <div>Battle</div>
+        <div>Battle</div>
+        <div>Battle</div>
+        <div>Battle</div>
+        <div>Battle</div>
+        <div>Battle</div>
+        <div>Battle</div>
+      </div>
     </div>
+      
+    
+  </div>
 </div>
+
