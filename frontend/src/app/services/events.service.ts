@@ -1,6 +1,6 @@
-import { Injectable } from '@angular/core';
+import {EventEmitter, Injectable} from '@angular/core';
 import {HttpClient} from "@angular/common/http";
-import {firstValueFrom} from "rxjs";
+import {BehaviorSubject, firstValueFrom} from "rxjs";
 
 
 @Injectable({
@@ -10,8 +10,8 @@ export class EventsService {
 
   // events between time range
   private eventsBetweenYears: any[] = [];
-  // searched name of event
-  private searchedName = "";
+  // searched name of event, make changes visible all the time
+  private searchedName = new BehaviorSubject<string>("");
   // searched event
   private searchedEvent: any = [];
 
@@ -30,7 +30,8 @@ export class EventsService {
     // clear all previous saved events
     this.clearEvents();
 
-    let url = `http://127.0.0.1:8000/api/event-by-name-${this.searchedName}`
+    console.log("SEARCHED NAME IN SERVICE: ", this.searchedName.value)
+    let url = `http://127.0.0.1:8000/api/event-by-name-${this.searchedName.value}`
 
     const response: any = await firstValueFrom(this.http.get<any>(url));
     this.searchedEvent = response.data;
@@ -57,13 +58,12 @@ export class EventsService {
   }
 
   // get searched name value
-  public getSearchedName(): string {
-    return this.searchedName;
+  public getSearchedName() {
+    return this.searchedName.asObservable();
   }
 
   // set searched name value
   public setSearchedName(name: string) {
-    this.searchedName = name;
+    this.searchedName.next(name);
   }
- 
 }

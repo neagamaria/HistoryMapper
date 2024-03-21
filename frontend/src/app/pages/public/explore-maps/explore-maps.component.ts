@@ -3,6 +3,7 @@ import {HttpClient} from "@angular/common/http";
 import {Options} from '@angular-slider/ngx-slider';
 
 import { EventsService } from 'src/app/services/events.service';
+import {Subscription} from "rxjs";
 
 
 @Component({
@@ -51,21 +52,28 @@ export class ExploreMapsComponent implements OnInit{
   endYear = 0;
   endEra = 'AD';
 
+  // mark if error search error message should be displayed
+  searchError: boolean = false;
+
+
 
   constructor(private http: HttpClient, private eventsService: EventsService) {
   }
 
 
-  ngOnInit() {
+  async ngOnInit() {
      // place markers only after map was initialized
     this.initMap().then(() => {
       this.submitYears();
     });
 
-    // get searched event if any
-    if(this.eventsService.getSearchedName() != "") {
-      this.getSearchedEvent();
-    }
+    // subscribe to observable provided in EventsService to see any change
+    let eventSubscription = this.eventsService.getSearchedName().subscribe(async (name) => {
+      console.log("Searched name: ", name);
+      if (name != "") {
+        this.getSearchedEvent().then();
+      }
+    })
   }
 
 
@@ -149,7 +157,7 @@ export class ExploreMapsComponent implements OnInit{
     // clear all info on map
     this.clearMap();
     // get the events to be displayed
-    this.getEventsBetweenYears();
+    this.getEventsBetweenYears().then();
     // create markers after a delay, to make sure the http request in getEventsBetweenYears is completed
     setTimeout(() => {
       this.createMarkers(this.map, this.eventsBetweenYears);
@@ -196,10 +204,22 @@ export class ExploreMapsComponent implements OnInit{
   }
 
   // get searched event if available
+  // @ts-ignore
   async getSearchedEvent() {
-    let event = await this.eventsService.getSearchedEvent();
-    if(event) {
-      this.createMarkers(this.map, event);
+    try {
+      await this.eventsService.callEventByNameApi().then();
+      let event = this.eventsService.getSearchedEvent();
+      console.log("Searched event:", event)
+      if (event) {
+        this.createMarkers(this.map, event);
+      }
+      else {
+        this.searchError = true;
+      }
     }
+    catch (exception) {
+      console.error("Error: ", exception)
+    }
+
   }
 }

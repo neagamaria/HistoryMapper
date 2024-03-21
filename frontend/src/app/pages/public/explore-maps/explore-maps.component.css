@@ -51,15 +51,21 @@ span.ngx-slider-span.ngx-slider-bubble.ngx-slider-model-high {
   width: 100%;
 }
 
+.error {
+  color: #B83333;
+  font-size: 30%;
+}
+
 h2 {
   font-size: 250%;
 }
 
 label {
   width: 90px;
-
 }
 
 input {
   width: 80px;
 }
+
+

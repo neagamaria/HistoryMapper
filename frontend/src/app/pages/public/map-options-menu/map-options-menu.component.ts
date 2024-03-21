@@ -19,7 +19,6 @@ export class MapOptionsMenuComponent implements OnInit{
     // form for search
     searchForm: FormGroup;
 
-
     constructor(private http: HttpClient, private fb: FormBuilder, private eventsService: EventsService) {
       this.searchForm = this.fb.group ({
         eventName: ['', [Validators.required]]
@@ -46,12 +45,14 @@ export class MapOptionsMenuComponent implements OnInit{
     getEventByName() {
       let eventName = this.searchForm.get('eventName')?.value;
 
+      // close search area
+      this.selectOption("")
+
       if(eventName) {
         this.eventsService.setSearchedName(eventName);
       }
       else {
         console.error("Error fetching event by name: name is null");
       }
-
     }
 }

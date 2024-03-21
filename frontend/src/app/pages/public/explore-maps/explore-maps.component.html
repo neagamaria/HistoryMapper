@@ -5,10 +5,11 @@
     <h2>Discover events on map!</h2>
 
     <br><br><br>
-
+    <div class="error" *ngIf="this.searchError">
+      Invalid searched name!
+    </div>
     <h2>Choose time range:</h2>
     <br/>
-    <!--TODO change this to time axis-->
     <div class="slider">
       <ngx-slider [(value)]="this.minVal" [(highValue)]="this.maxVal" [options]="this.options" (userChange)="this.submitYears()"></ngx-slider>
     </div>
