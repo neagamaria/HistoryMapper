@@ -4,7 +4,7 @@ from django.http import JsonResponse
 from rest_framework.views import APIView
 
 from HistoryMapper import settings
-from explore.models import MapLocation, Event
+from explore.models import MapLocation, Event, EventType
 
 
 # API endpoints for getting events from the db and displaying them on map
@@ -49,7 +49,7 @@ class EventsBetweenYearsAPIView(APIView):
             end_year = -end_year
 
         events = Event.objects.raw('''SELECT * FROM explore_event
-                                    WHERE (era = 'BC' AND -1 * EXTRACT(YEAR FROM event_date)  >=  %s AND -1 * EXTRACT(YEAR FROM event_date) <= -1 * %s)
+                                    WHERE (era = 'BC' AND -1 * EXTRACT(YEAR FROM event_date)  >=  %s AND -1 * EXTRACT(YEAR FROM event_date) <= %s)
                                     OR (era = 'AD' AND EXTRACT(YEAR FROM event_date) >= %s AND EXTRACT(YEAR FROM event_date) <= %s)''',
                                    [start_year, end_year, start_year, end_year])
 
@@ -76,7 +76,6 @@ class EventsBetweenYearsAPIView(APIView):
         return JsonResponse({'data': data})
 
 
-# get one event from DB based on name
 class EventByNameAPIView(APIView):
     @staticmethod
     def get_coordinates(self, location):
@@ -92,6 +91,7 @@ class EventByNameAPIView(APIView):
 
         return 0, 0
 
+    # get one event from DB based on name
     def get(self, request, name):
         # data to be returned
         data = []
@@ -112,4 +112,13 @@ class EventByNameAPIView(APIView):
                      "latitude": lat,
                      "longitude": lng}]
 
+        return JsonResponse({'data': data})
+
+
+class AllEventTypesAPIView(APIView):
+    @staticmethod
+    def get(self):
+        types = EventType.objects.all()
+
+        data = [{'id': t.id, 'name': t.name} for t in types]
         return JsonResponse({'data': data})

@@ -55,6 +55,8 @@ export class ExploreMapsComponent implements OnInit{
   // mark if error search error message should be displayed
   searchError: boolean = false;
 
+  // saved filters for events
+  savedFilters: any = []
 
 
   constructor(private http: HttpClient, private eventsService: EventsService) {
@@ -68,10 +70,18 @@ export class ExploreMapsComponent implements OnInit{
     });
 
     // subscribe to observable provided in EventsService to see any change
-    let eventSubscription = this.eventsService.getSearchedName().subscribe(async (name) => {
-      console.log("Searched name: ", name);
+      this.eventsService.getSearchedName().subscribe(async (name) => {
       if (name != "") {
         this.getSearchedEvent().then();
+      }
+    })
+
+    // subscribe to observable to see any change
+    this.eventsService.getSavedFilters().subscribe(async (filters: any[])=> {
+      this.savedFilters = filters;
+      // if there are filters and events to filter call filtering process
+      if(filters && this.eventsBetweenYears) {
+        this.filterEvents();
       }
     })
   }
@@ -118,6 +128,22 @@ export class ExploreMapsComponent implements OnInit{
     });
   }
 
+  // filter events based on type
+  filterEvents() {
+    let filteredEvents = []
+    for(let event of this.eventsBetweenYears) {
+      let found = this.savedFilters.indexOf(event.event_type);
+
+      if(found > -1) {
+        filteredEvents.push(event)
+      }
+    }
+    console.log(filteredEvents)
+    // update events
+    this.eventsBetweenYears = filteredEvents;
+    // replace them on map
+    this.createMarkers(this.map, this.eventsBetweenYears);
+  }
 
   // get all events in a selected period of time
   async getEventsBetweenYears() {
@@ -143,12 +169,14 @@ export class ExploreMapsComponent implements OnInit{
       this.endEra = "AD";
     }
 
+    this.eventsBetweenYears = []
 
     // get events with the service method
     await this.eventsService.callEventsBetweenYearsApi(this.startYear, this.startEra, this.endYear, this.endEra);
     this.eventsBetweenYears = this.eventsService.getEventsBetweenYearsValue();
+    // filter events by type if filters applied
 
-    console.log(this.eventsBetweenYears);
+    console.log("EVENTS: ", this.eventsBetweenYears)
   }
 
 
@@ -209,7 +237,7 @@ export class ExploreMapsComponent implements OnInit{
     try {
       await this.eventsService.callEventByNameApi().then();
       let event = this.eventsService.getSearchedEvent();
-      console.log("Searched event:", event)
+
       if (event) {
         this.createMarkers(this.map, event);
       }
@@ -220,6 +248,5 @@ export class ExploreMapsComponent implements OnInit{
     catch (exception) {
       console.error("Error: ", exception)
     }
-
   }
 }

@@ -7,16 +7,33 @@
       <i class="bi bi-x-square-fill" (click)="this.closeMenu()"></i>
       <br/>
       <div class="small-container">
-        <div class="option" (click)="this.selectOption('search')">Search event</div>
+        <div class="option" [ngClass]="{'selected': selectedOption== 'search'}" (click)="this.selectOption('search')">Search event</div>
           <div *ngIf="this.selectedOption=='search'">
             <i class="bi bi-search"></i>
-            <form [formGroup]="searchForm" (keyup.enter)="getEventByName()">
-              <input input type="text" id="eventName" formControlName="eventName" 
-                placeholder="Search event..." style="color: black; margin-left: 10px; width: 80%">
-            </form>
+            <div class="search-bar">
+              <form [formGroup]="searchForm" (keyup.enter)="getEventByName()">
+                <input type="text" id="eventName" formControlName="eventName"
+                  placeholder="Search event..." style="color: black; width: 30%">
+              </form>
+            </div>
           </div>
         <br/>
-        <div class="option" click="this.selectOption('filer')">Filter events</div>
+        <div class="option" [ngClass]="{'selected': selectedOption== 'filter'}" (click)="this.selectOption('filter')">Filter events</div>
+        <div *ngIf="this.selectedOption=='filter'">
+          <form [formGroup]="filterForm" (ngSubmit)="submitFilters()">
+            <div class="wrapper">
+              <div formGroupName="checkboxes">
+                <div *ngFor="let type of eventTypes">
+                  <label class="checkbox-container">{{type.name}}
+                    <input type="checkbox" [formControlName]="type.name">
+                    <span class="checkmark"></span>
+                  </label>
+                </div>
+              </div>
+            </div>
+            <button type="submit" class="btn btn-outline-dark" style="font-weight: bold">Filter</button>
+          </form>
+        </div>
       </div>
     </div>
   </div>
