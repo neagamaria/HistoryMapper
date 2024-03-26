@@ -205,9 +205,13 @@ export class ExploreMapsComponent implements OnInit{
       content: "<p style='color:black; font-weight: bold; font-family:\'Comfortaa;\''>" + data + "</p>"
     });
       // set the position and title for marker
-      let marker = new google.maps.Marker({
+      const marker = new google.maps.Marker({
         position: latLng,
-        title: e.title
+        title: e.title,
+        icon: {
+          url: 'assets/Marker-' + e.event_type +'.png',
+          scaledSize: new google.maps.Size(43, 43),
+        }
       })
 
       google.maps.event.addListener(marker, 'click', function() {

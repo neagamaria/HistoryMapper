@@ -170,6 +170,134 @@ class DBPediaAPIView(APIView):
         res = {'results': data}
         return res
 
+    # get succession for rulers in Europe
+    @staticmethod
+    def get_dbpedia_successions(self, wiki_category):
+        sparql_endpoint = "http://dbpedia.org/sparql"
+        sparql = SPARQLWrapper(sparql_endpoint)
+
+        sparql_query = """
+        PREFIX dbo: <http://dbpedia.org/ontology/>
+        PREFIX dbr: <http://dbpedia.org/resource/>
+        PREFIX dct: <http://purl.org/dc/terms/>
+
+        SELECT ?event ?eventLabel ?years ?eventShortDesc
+        WHERE {
+            ?event dct:subject dbr:Category:""" + wiki_category + """ ;
+                  a dbo:Person .
+
+            ?event rdfs:label ?eventLabel .
+            ?event dbp:years ?years .
+            ?event dbo:abstract ?eventShortDesc .
+
+            FILTER (LANG(?eventLabel) = 'en')
+            FILTER (LANG(?eventShortDesc) = 'en')
+        }
+        """
+
+        sparql.setQuery(sparql_query)
+        sparql.setReturnFormat(JSON)
+        results = sparql.query().convert()
+
+        # Process the results
+        i = 1
+        j = 1
+        person = ""
+        ress = {}
+        ress["bindings"] = []
+        for result in results["results"]["bindings"]:
+            res = {}
+            event_label = result["eventLabel"]["value"]
+            event_years = result["years"]["value"]
+            event_date = event_years + "-01-01"
+            res["eventDate"] = {}
+            res["latitude"] = {}
+            res["longitude"] = {}
+            res["eventShortDesc"] = {}
+            res["eventDate"]["value"] = event_date
+            if "Moldavia" in wiki_category:  # Suceava
+                res["latitude"]["value"] = "47.651390"
+                res["longitude"]["value"] = "26.255556"
+            if "Transylvania" in wiki_category:  # Cluj
+                res["latitude"]["value"] = "46.766666"
+                res["longitude"]["value"] = "23.583334"
+            if "Wallachia" in wiki_category or "Romania" in wiki_category:
+                if int(event_years) < 330 or 1714 < int(event_years) < 1862:  # Curtea de Arges
+                    res["latitude"]["value"] = "44.059166"
+                    res["longitude"]["value"] = "26.616945"
+                if 330 <= int(event_years) < 1396:  # Campulung
+                    res["latitude"]["value"] = "45.267776"
+                    res["longitude"]["value"] = "25.046389"
+                if 1396 <= int(event_years) <= 1714:  # Targoviste
+                    res["latitude"]["value"] = "44.924446"
+                    res["longitude"]["value"] = "25.457222"
+                if int(event_years) >= 1862:  # Bucuresti
+                    res["latitude"]["value"] = "44.432499"
+                    res["longitude"]["value"] = "26.103889"
+            if "Bohemia" in wiki_category:  # Prague
+                res["latitude"]["value"] = "50.087502"
+                res["longitude"]["value"] = "14.421389"
+            if "France" in wiki_category:  # Reims
+                res["latitude"]["value"] = "49.262798"
+                res["longitude"]["value"] = "4.034700"
+            if "Albania" in wiki_category:  # Tirana
+                res["latitude"]["value"] = "41.328888"
+                res["longitude"]["value"] = "19.817778"
+            if "Hungary" in wiki_category:  # Budapest
+                res["latitude"]["value"] = "47.492500"
+                res["longitude"]["value"] = "19.051390"
+            if "Portugal" in wiki_category:  # Lisbon
+                res["latitude"]["value"] = "38.725266"
+                res["longitude"]["value"] = "-9.150020"
+            if "Britain" in wiki_category:  # Westminster
+                res["latitude"]["value"] = "51.494720"
+                res["longitude"]["value"] = "-0.135278"
+            if "Belgium" in wiki_category:  # Brussels
+                res["latitude"]["value"] = "50.846668"
+                res["longitude"]["value"] = "4.352500"
+            if "Sweden" in wiki_category:  # Stockholm
+                res["latitude"]["value"] = "59.329445"
+                res["longitude"]["value"] = "18.068611"
+
+            event_desc = result["eventShortDesc"]["value"]
+            res["eventShortDesc"]["value"] = event_desc
+
+            if event_years.isnumeric():
+                if event_label == person:
+                    i = i + 1
+                    person = event_label
+
+                    if i == 2:
+                        event_label = event_label + " second reign"
+                    if i == 3:
+                        event_label = event_label + " third reign"
+                    if i == 4:
+                        event_label = event_label + " the forth reign"
+                    if i == 5:
+                        event_label = event_label + " the fifth reign"
+                    if i == 6:
+                        event_label = event_label + " the sixth reign"
+                    if i == 7:
+                        event_label = event_label + " the seventh reign"
+                    if i == 8:
+                        event_label = event_label + " the eight reign"
+                    if i == 9:
+                        event_label = event_label + " the ninth reign"
+                else:
+                    i = 1
+                    person = event_label
+
+                res["eventLabel"] = {}
+                res["eventLabel"]["value"] = event_label
+
+                ress["bindings"].append(res)
+
+                j = j + 1
+
+        final_results = {}
+        final_results["results"] = ress
+        return final_results
+
     # obtain location based on latitude and longitude - reverse geocoding
     @staticmethod
     def get_location(self, lat, lng):
@@ -199,6 +327,8 @@ class DBPediaAPIView(APIView):
             results = self.get_dbpedia_battles(self, wiki_category)
         elif event_type == 'Treaty':
             results = self.get_dbpedia_treaties(self, wiki_category)
+        elif event_type == 'Succession':
+            results = self.get_dbpedia_successions(self, wiki_category)
 
         event_type = EventType.objects.raw('''SELECT id FROM explore_eventtype WHERE
                                                 name = %s''', [event_type])
@@ -283,7 +413,11 @@ class DBPediaAPIView(APIView):
                                                                     WHERE name = %s''', [categ])
                         event_category_id = event_category[0].id
 
-                        event_date = str(year) + '-' + month + '-' + day
+                        # convert year to YYYY format
+                        changed_year = '0000' + str(year)
+                        year = changed_year[-4:]
+
+                        event_date = year + '-' + month + '-' + day
 
                         if event_location != '':
                             event = {'name': event_label, 'event_date': event_date,
