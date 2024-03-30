@@ -10,6 +10,9 @@ export class EventsService {
 
   // events between time range
   private eventsBetweenYears: any[] = [];
+  // event clicked for displaying info
+  private clickedEvent: any = null;
+
   // searched name of event, make changes visible all the time
   private searchedName = new BehaviorSubject<string>("");
   // searched event
@@ -91,5 +94,16 @@ export class EventsService {
   // set saved filters values
   public setSavedFilters(filters: any) {
     this.savedFilters.next(filters);
+  }
+
+  public setClickedEvent(event: any) {
+    this.clickedEvent = event;
+  }
+
+  public getClickedEvent() {
+    if(this.clickedEvent)
+      return this.clickedEvent;
+
+    return null;
   }
 }

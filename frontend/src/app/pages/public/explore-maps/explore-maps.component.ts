@@ -21,7 +21,7 @@ export class ExploreMapsComponent implements OnInit{
   minVal = -100;
   maxVal = 100;
   options: Options = {
-    floor: -2000,
+    floor: -3800,
     ceil: 2024,
     step: 1,
     //showTicks: true,
@@ -56,7 +56,12 @@ export class ExploreMapsComponent implements OnInit{
   searchError: boolean = false;
 
   // saved filters for events
-  savedFilters: any = []
+  savedFilters: any = [];
+
+  // mark if event is clicked
+  eventClicked: boolean = false;
+  // save clicked event for info page
+  selectedEvent: any = [];
 
 
   constructor(private http: HttpClient, private eventsService: EventsService) {
@@ -200,7 +205,7 @@ export class ExploreMapsComponent implements OnInit{
       // establish coordinates for marker
       let latLng = {lat: Number(e.latitude), lng: Number(e.longitude)};
       //establish data to be displayed on map
-      let data = e.name + " (" + e.event_date + " " + e.era + ") - " + e.description;
+      let data = e.name + " (" + e.event_date + " " + e.era + ") ";
       let infoWindow = new google.maps.InfoWindow({
       content: "<p style='color:black; font-weight: bold; font-family:\'Comfortaa;\''>" + data + "</p>"
     });
@@ -214,9 +219,21 @@ export class ExploreMapsComponent implements OnInit{
         }
       })
 
-      google.maps.event.addListener(marker, 'click', function() {
-      infoWindow.open(map,marker);
+      // make name and date appear on mouseover
+      google.maps.event.addListener(marker, 'mouseover', function() {
+        infoWindow.open(map,marker);
     });
+
+      // make name and date disappear on mouseout
+      google.maps.event.addListener(marker, 'mouseout', function() {
+        infoWindow.close();
+    });
+
+      // add onclick event
+      google.maps.event.addListener(marker, "click", () => {
+          this.clickEvent(e);
+      });
+
 
       // add marker to the array of markers
       this.markers.push(marker);
@@ -253,4 +270,15 @@ export class ExploreMapsComponent implements OnInit{
       console.error("Error: ", exception)
     }
   }
+
+  // open page with event info on click
+  clickEvent(e: any) {
+    this.eventsService.setClickedEvent(e);
+  }
+
+  isEventClicked() {
+    const event = this.eventsService.getClickedEvent();
+    return (event != null);
+  }
+
 }

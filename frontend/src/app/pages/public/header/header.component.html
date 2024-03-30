@@ -14,11 +14,13 @@
 
   <div class="grid-username">
     <i (click)="goToLogin()" class="bi bi-person"></i>
-    <div class="dropdown"><span>{{ this.getUserName()}}</span>
+  </div>
+
+  <div class="dropdown"><span>{{ this.getUserName()}}</span>
       <div class="dropdown-content">
-        <br/>
-        <p style="color:black; font-size: 15px"> <a class="btn btn-outline-dark" (click)="this.logoutUser()">Log out</a></p>
+        <p style="color:black; font-size: 15px; padding-top:10px;">
+          <a class="btn btn-outline-dark" (click)="this.logoutUser()">Log out</a>
+        </p>
       </div>
     </div>
-  </div>
 </div>

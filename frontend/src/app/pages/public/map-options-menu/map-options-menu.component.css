@@ -1,6 +1,6 @@
 .hamburger-menu {
     float: left;
-    margin-top: 0px;
+    margin-top: -40px;
 }
 
 .menu-container {
@@ -11,22 +11,34 @@
     padding: 5px;
     border-radius: 5px;
     max-height: 400px;
+    overflow-x: hidden;
     overflow-y: auto;
-    width: 150%;
-    /* Optional: Add these for better appearance */
-    border: 1px solid #ccc;
+    width: 15%;
+    border: 3px solid #ccc;
     box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+    position: absolute;
+    z-index: 1000;
+    left: 0;
+    top: 80px;
 }
 
 .option {
-    padding: 10%;
-    height: 15%;
-    font-size: 100%;
+    padding-left: 5%;
+    padding-right: 20%;
+    font-size: 120%;
     font-weight: bold;
 }
 
-.option:hover {
-    background-color: #E1ADAD;
+.small-option {
+  padding: 10%;
+  border-radius: 10px;
+  height: 2%;
+}
+
+.small-option:hover {
+  background-color: black;
+  color: white;
+
 }
 
 .search-bar {
@@ -43,7 +55,7 @@ i {
 }
 
 .selected {
-  border-bottom: 3px solid #882424;
+  border: 2px solid #ccc;
 }
 
 .checkbox-container {
@@ -61,8 +73,7 @@ i {
 }
 
 
-
-/* hide the browser's default checkbox */
+/* browser's default checkbox hidden*/
 .checkbox-container input {
   position: absolute;
   opacity: 0;
@@ -71,7 +82,7 @@ i {
   width: 0;
 }
 
-/* create a custom checkbox */
+/* custom checkbox */
 .checkmark {
   border: 1px solid black;
   position: absolute;
@@ -88,7 +99,7 @@ i {
 }
 
 .checkbox-container input:checked ~ .checkmark {
-  background-color: #882424;
+  background-color: #B83333;
 }
 
 .checkmark:after {

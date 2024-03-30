@@ -1,0 +1,24 @@
+.event-container {
+  position: absolute;
+  top: 50%;
+  right: 2%;
+  border-radius: 3px;
+  width: 40%;
+  height: 80%;
+  opacity: 0.9;
+  z-index: 99;
+  background-color: black;
+  border: 2px solid white;
+  padding: 5%;
+  /* scroll panel*/
+  max-height: 80%;
+  overflow-x: hidden;
+  overflow-y: auto;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+}
+
+.bi-x-lg {
+  float: right;
+  top: 0;
+  right: 1%;
+}

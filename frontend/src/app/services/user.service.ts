@@ -9,19 +9,21 @@ export class UserService {
 
   // set the user that is logged in
   setCurrentUser(user: any): void {
-    this.currentUser = user;
+    localStorage.setItem("user", user.user.username)
   }
 
   //get the username of the current logged-in user, if exists
   getCurrentUsername(): any {
-    if(this.currentUser == null)
+    const username = localStorage.getItem("user")
+
+    if(username === "undefined")
       return null;
 
-    return this.currentUser.user.username;
+    return username;
   }
 
   // log out user
   logOut(): any {
-    this.currentUser = null;
+    localStorage.removeItem("user");
   }
 }

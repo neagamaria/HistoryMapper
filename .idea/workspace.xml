@@ -6,9 +6,16 @@
   <component name="ChangeListManager">
     <list default="true" id="f896f08b-b189-43d1-bd3c-d7a6251c738a" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/explore/models/events.py" beforeDir="false" afterPath="$PROJECT_DIR$/explore/models/events.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/explore/views/db_info.py" beforeDir="false" afterPath="$PROJECT_DIR$/explore/views/db_info.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/app/app.module.ts" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/app.module.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/app/pages/public/explore-maps/explore-maps.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/pages/public/explore-maps/explore-maps.component.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/frontend/src/app/pages/public/explore-maps/explore-maps.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/pages/public/explore-maps/explore-maps.component.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/app/pages/public/header/header.component.css" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/pages/public/header/header.component.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/app/pages/public/header/header.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/pages/public/header/header.component.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/app/pages/public/map-options-menu/map-options-menu.component.css" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/pages/public/map-options-menu/map-options-menu.component.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/app/pages/public/map-options-menu/map-options-menu.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/pages/public/map-options-menu/map-options-menu.component.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/app/services/events.service.ts" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/services/events.service.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/app/services/user.service.ts" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/services/user.service.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -190,7 +197,13 @@
       <workItem from="1711265350982" duration="4724000" />
       <workItem from="1711275539951" duration="7494000" />
       <workItem from="1711436711004" duration="6594000" />
-      <workItem from="1711449553418" duration="3244000" />
+      <workItem from="1711449553418" duration="3292000" />
+      <workItem from="1711464596334" duration="1409000" />
+      <workItem from="1711477530960" duration="4371000" />
+      <workItem from="1711534484390" duration="640000" />
+      <workItem from="1711624200831" duration="5173000" />
+      <workItem from="1711726416037" duration="3891000" />
+      <workItem from="1711801609062" duration="5556000" />
     </task>
     <servers />
   </component>

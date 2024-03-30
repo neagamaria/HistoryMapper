@@ -16,39 +16,85 @@ class DBPediaAPIView(APIView):
         sparql = SPARQLWrapper(sparql_endpoint)
 
         sparql_query = f"""
-        PREFIX dbo: <http://dbpedia.org/ontology/>
-        PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
-        PREFIX dct: <http://purl.org/dc/terms/>
-        PREFIX dbp: <http://dbpedia.org/property/>
+                PREFIX dbo: <http://dbpedia.org/ontology/>
+                PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+                PREFIX dct: <http://purl.org/dc/terms/>
+                PREFIX dbp: <http://dbpedia.org/property/>
 
-        SELECT DISTINCT ?event ?eventLabel ?eventDate ?eventShortDesc ?latitude ?longitude ?place
-        WHERE {{
-            ?event dct:subject <http://dbpedia.org/resource/Category:{wiki_category}>. 
+                SELECT DISTINCT ?event ?eventLabel ?eventDate ?eventShortDesc ?latitude ?longitude ?place
+                WHERE {{
+                    ?event dct:subject <http://dbpedia.org/resource/Category:{wiki_category}>. 
 
-            ?event rdfs:label ?eventLabel .
-            ?event dbo:date ?eventDate .
-            ?event dbo:abstract ?eventShortDesc .
+                    ?event rdfs:label ?eventLabel .
+                    ?event dbo:date ?eventDate .
+                    ?event dbo:abstract ?eventShortDesc .
 
-            OPTIONAL {{
-                ?event geo:lat ?latitude .
-            }}
+                    OPTIONAL {{
+                        ?event geo:lat ?latitude .
+                    }}
 
-            OPTIONAL {{
-                ?event geo:long ?longitude .
-            }}
+                    OPTIONAL {{
+                        ?event geo:long ?longitude .
+                    }}
 
-            OPTIONAL {{
-                ?event dbo:place ?place .
-            }}
+                    OPTIONAL {{
+                        ?event dbo:place ?place .
+                    }}
 
-            FILTER (LANG(?eventLabel) = 'en')
-            FILTER (LANG(?eventShortDesc) = 'en')
-        }}
-        ORDER BY ?eventDate"""
+                    FILTER (LANG(?eventLabel) = 'en')
+                    FILTER (LANG(?eventShortDesc) = 'en')
+                }}
+                ORDER BY ?eventDate"""
 
         sparql.setQuery(sparql_query)
         sparql.setReturnFormat(JSON)
         results = sparql.query().convert()
+
+        for result in results["results"]["bindings"]:
+            if " BC" in result["eventLabel"] and not result["eventDate"].startswith("-"):
+                continue
+
+            if "latitude" not in result or "longitude" not in result:
+                common_place = set()
+                if "place" in result:
+                    city = result["place"]["value"].split("/")[-1]
+                else:
+                    city = ""
+
+                if city:
+                    lbl = result["eventLabel"]["value"].split()
+                    common_place = set(lbl).intersection({city})
+
+                if common_place:
+                    for loc in common_place:
+                        sparql_location_query = """
+                                   PREFIX geo: <http://www.w3.org/2003/01/geo/wgs84_pos#>
+
+                                   SELECT DISTINCT ?latitude ?longitude
+                                   WHERE {
+                                       <http://dbpedia.org/resource/""" + str(loc) + """> 
+                                           geo:lat ?latitude ;
+                                           geo:long ?longitude .
+                                   }
+
+                                   """
+                        sparql.setQuery(sparql_location_query)
+                        sparql.setReturnFormat(JSON)
+
+                        locations = sparql.query().convert()
+
+                        for location in locations["results"]["bindings"]:
+                            if "latitude" in location:
+                                event_lat = location["latitude"]["value"]
+                                result["latitude"] = {"value": event_lat}
+                            else:
+                                continue
+
+                            if "longitude" in location:
+                                event_lat = location["longitude"]["value"]
+                                result["longitude"] = {"value": event_lat}
+                            else:
+                                continue
 
         return results
 
@@ -294,8 +340,7 @@ class DBPediaAPIView(APIView):
 
                 j = j + 1
 
-        final_results = {}
-        final_results["results"] = ress
+        final_results = {"results": ress}
         return final_results
 
     # obtain location based on latitude and longitude - reverse geocoding
@@ -321,6 +366,7 @@ class DBPediaAPIView(APIView):
     # add data to database
     def get(self, response, wiki_category, event_type, categ):
         data = []
+        results = []
 
         # get events of given type from Dbpedia API
         if event_type == 'Battle':

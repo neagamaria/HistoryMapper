@@ -1,6 +1,5 @@
 <app-map-options-menu></app-map-options-menu>
 
-<br/><br/>
 <div class="container">
     <h2>Discover events on map!</h2>
 
@@ -12,6 +11,9 @@
     <br/>
     <div class="slider">
       <ngx-slider [(value)]="this.minVal" [(highValue)]="this.maxVal" [options]="this.options" (userChange)="this.submitYears()"></ngx-slider>
+    </div>
+    <div *ngIf="this.isEventClicked()">
+      <app-event-info></app-event-info>
     </div>
 
   <br/><br/>
