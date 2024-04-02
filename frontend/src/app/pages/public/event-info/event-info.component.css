@@ -1,6 +1,6 @@
 .event-container {
   position: absolute;
-  top: 50%;
+  top: 60%;
   right: 2%;
   border-radius: 3px;
   width: 40%;
@@ -17,8 +17,11 @@
   box-shadow: 0 2px 5px rgba(0,0,0,0.2);
 }
 
+p {
+    text-align: justify;
+}
 .bi-x-lg {
   float: right;
   top: 0;
-  right: 1%;
+  right: 0.2%;
 }

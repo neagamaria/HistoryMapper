@@ -58,10 +58,8 @@ export class ExploreMapsComponent implements OnInit{
   // saved filters for events
   savedFilters: any = [];
 
-  // mark if event is clicked
-  eventClicked: boolean = false;
-  // save clicked event for info page
-  selectedEvent: any = [];
+  // keep routes mode status (on or off)
+  routesMode: boolean = false;
 
 
   constructor(private http: HttpClient, private eventsService: EventsService) {
@@ -69,10 +67,11 @@ export class ExploreMapsComponent implements OnInit{
 
 
   async ngOnInit() {
-     // place markers only after map was initialized
-    this.initMap().then(() => {
-      this.submitYears();
-    });
+
+    // always get routes mode status; subscribe to observable to see any change
+    this.eventsService.getRoutesMode().subscribe(async (status) => {
+        this.routesMode = status;
+      })
 
     // subscribe to observable provided in EventsService to see any change
       this.eventsService.getSearchedName().subscribe(async (name) => {
@@ -89,6 +88,11 @@ export class ExploreMapsComponent implements OnInit{
         this.filterEvents();
       }
     })
+
+    // place markers only after map was initialized
+    this.initMap().then(() => {
+      this.submitYears();
+    });
   }
 
 
@@ -280,5 +284,4 @@ export class ExploreMapsComponent implements OnInit{
     const event = this.eventsService.getClickedEvent();
     return (event != null);
   }
-
 }

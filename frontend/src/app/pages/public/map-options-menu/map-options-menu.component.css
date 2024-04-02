@@ -46,8 +46,13 @@
   width: 300%;
 }
 
-i {
+.bi-x-square-fill, .bi-list {
     font-size: 180%;
+    cursor: pointer;
+}
+
+.bi-x {
+  cursor: pointer;
 }
 
 .bi-search {

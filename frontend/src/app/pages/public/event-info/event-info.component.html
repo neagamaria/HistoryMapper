@@ -2,6 +2,8 @@
   <i class="bi bi-x-lg" (click)="this.close()"></i>
   <br/><br/>
   <h2 style="width: 70%; margin: auto;">{{this.event.name }}</h2>
+  <img src="assets/{{this.event.event_type}}.png" alt="{{this.event.event_type}}" style="filter: invert(100%); width: 10%;">
+  <br/>
   <br/>
   <div style="color: #EDEAD4">{{this.event.event_date}} - {{this.event.era}}</div>
   <br/>

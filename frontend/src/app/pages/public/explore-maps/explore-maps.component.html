@@ -7,11 +7,14 @@
     <div class="error" *ngIf="this.searchError">
       Invalid searched name!
     </div>
-    <h2>Choose time range:</h2>
-    <br/>
-    <div class="slider">
-      <ngx-slider [(value)]="this.minVal" [(highValue)]="this.maxVal" [options]="this.options" (userChange)="this.submitYears()"></ngx-slider>
+    <div *ngIf="!this.routesMode">
+      <h2>Choose time range:</h2>
+      <br/>
+      <div class="slider">
+        <ngx-slider [(value)]="this.minVal" [(highValue)]="this.maxVal" [options]="this.options" (userChange)="this.submitYears()"></ngx-slider>
+      </div>
     </div>
+
     <div *ngIf="this.isEventClicked()">
       <app-event-info></app-event-info>
     </div>

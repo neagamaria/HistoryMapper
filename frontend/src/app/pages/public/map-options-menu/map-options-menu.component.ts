@@ -23,6 +23,7 @@ export class MapOptionsMenuComponent implements OnInit{
     // form for filter option
     filterForm: FormGroup;
 
+
     constructor(private http: HttpClient, private fb: FormBuilder, private eventsService: EventsService) {
       this.searchForm = this.fb.group ({
         eventName: ['', [Validators.required]]
@@ -32,6 +33,7 @@ export class MapOptionsMenuComponent implements OnInit{
         checkboxes: this.fb.group({})
       });
     }
+
 
     async ngOnInit() {
       this.selectedOption = "";
@@ -48,19 +50,44 @@ export class MapOptionsMenuComponent implements OnInit{
 
     }
 
+
     openMenu() {
       this.menuOpened = true;
     }
+
 
     closeMenu() {
       this.menuOpened = false;
     }
 
+
+    // select one of the menu options
     selectOption(option: string) {
-      this.selectedOption = option;
+      // if option was selected, remove it
+      if(this.selectedOption === option) {
+        this.selectedOption = '';
+
+        if(option === 'routes') {
+          this.eventsService.setRoutesMode(false);
+        }
+      }
+
+      else {
+        this.selectedOption = option;
+      }
+
+      if(option === 'search' || option === 'filter') {
+        this.eventsService.setRoutesMode(false);
+      }
+
+      if(option =='routes')
+        this.eventsService.setRoutesMode(true);
+
       console.log(option)
     }
 
+
+    // get searched event from form
     getEventByName() {
       let eventName = this.searchForm.get('eventName')?.value;
 
@@ -75,6 +102,7 @@ export class MapOptionsMenuComponent implements OnInit{
       }
     }
 
+
     addCheckBoxes() {
       const checkboxesGroup = this.filterForm.controls['checkboxes'] as FormGroup;
 
@@ -83,6 +111,8 @@ export class MapOptionsMenuComponent implements OnInit{
       }
     }
 
+
+    // submit the filters chosen from form
     submitFilters() {
       const checkedTypes = [];
       const checkboxesFormGroup = this.filterForm.get('checkboxes') as FormGroup;

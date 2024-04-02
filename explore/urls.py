@@ -18,5 +18,6 @@ urlpatterns = [
     path('api/quizzes', views.QuizzesAPIView.as_view(), name="quizzes-api"),
     path('api/questions/<str:quiz_id>', views.QuestionsAPIView.as_view(), name="questions-api"),
     path('api/dbpedia/<str:wiki_category>/<str:event_type>/<str:categ>', views.DBPediaAPIView.as_view(), name="dbpedia-info-api"),
-    path('api/all-types/', views.AllEventTypesAPIView.as_view(), name="all-types")
+    path('api/all-types/', views.AllEventTypesAPIView.as_view(), name="all-types"),
+    path('api/routes/<str:category_id>-<event_type_id>', views.RoutesAPIView.as_view(), name="routes")
 ]

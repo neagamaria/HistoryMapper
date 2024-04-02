@@ -21,6 +21,8 @@ export class EventsService {
   private eventTypes: any[] = [];
   // types for filter option
   private savedFilters= new BehaviorSubject<any[]>([]);
+  // mark if routes mode is on or off
+  private routesMode = new BehaviorSubject<boolean>(false);
 
   constructor(private http: HttpClient) { }
 
@@ -96,14 +98,28 @@ export class EventsService {
     this.savedFilters.next(filters);
   }
 
+  // save the event for which info will be displayed
   public setClickedEvent(event: any) {
     this.clickedEvent = event;
   }
 
+  // get the event for which info is displayed
   public getClickedEvent() {
     if(this.clickedEvent)
       return this.clickedEvent;
 
     return null;
   }
+
+
+  // switch on-off routes mode
+  public setRoutesMode(status: boolean) {
+    this.routesMode.next(status);
+  }
+
+  // get the routes mode status
+  public getRoutesMode() {
+    return this.routesMode.asObservable();
+  }
+
 }

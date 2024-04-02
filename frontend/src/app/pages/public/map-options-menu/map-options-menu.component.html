@@ -8,7 +8,8 @@
       <br/>
       <div class="small-container">
         <div class="option" (click)="this.selectOption('search')">
-          <div class="small-option" [ngClass]="{'selected': selectedOption== 'search'}">Search event</div>
+          <div class="small-option" [ngClass]="{'selected': selectedOption== 'search'}">Search event
+          <i class="bi bi-x" *ngIf="this.selectedOption=='search'"></i></div>
         </div>
 
         <div *ngIf="this.selectedOption=='search'">
@@ -23,7 +24,9 @@
         </div>
 
         <div class="option" (click)="this.selectOption('filter')">
-          <div class="small-option" [ngClass]="{'selected': selectedOption== 'filter'}">Filter events</div>
+          <div class="small-option" [ngClass]="{'selected': selectedOption== 'filter'}">Filter events
+              <i class="bi bi-x" *ngIf="this.selectedOption=='filter'"></i>
+          </div>
         </div>
           <div *ngIf="this.selectedOption=='filter'">
             <br/>
@@ -45,7 +48,7 @@
       </div>
 
        <div class="option">
-          <div class="small-option">View routes</div>
+          <div class="small-option" (click)="this.selectOption('routes')">View routes</div>
         </div>
       </div>
   </div>
