@@ -14,3 +14,8 @@ h2 {
 label {
     width: 120px;
 }
+
+.error {
+  font-size: 80%;
+  color: rgb(225, 173, 173);
+}

@@ -4,21 +4,23 @@
     <div>
       <label for="username">Username:</label>
       <input type="text" id="username" formControlName="username" required>
-      <div *ngIf="form.get('username')?.hasError('required')">Username is required.</div>
+      <div class="error" *ngIf="form.get('username')?.hasError('required')">Username is required.</div>
     </div>
 
+    <br/>
     <div>
       <label for="email">Email:</label>
       <input type="text" id="email" formControlName="email" required email>
-      <div *ngIf="form.get('email')?.hasError('required')">Email is required.</div>
-      <div *ngIf="form.get('email')?.hasError('email')">Invalid email format.</div>
+      <div class="error" *ngIf="form.get('email')?.hasError('required')">Email is required.</div>
+      <div class="error" *ngIf="form.get('email')?.hasError('email')">Invalid email format.</div>
     </div>
+    <br/>
 
     <div>
       <label for="email">Password:</label>
       <input type="text" id="password" formControlName="password" required min="6">
-      <div *ngIf="form.get('password')?.hasError('required')">Password is required.</div>
-      <div *ngIf="form.get('password')?.hasError('min')">Password must have at least 6 characters.</div>
+      <div class="error" *ngIf="form.get('password')?.hasError('required')">Password is required.</div>
+      <div class="error" *ngIf="form.get('password')?.hasError('min')">Password must have at least 6 characters.</div>
     </div>
 
     <br/>
@@ -29,6 +31,6 @@
   <div *ngIf="this.registerData"><p>{{this.registerData}}</p></div>
 
   <br/><br/>
-  <p>Already have an account? Go to <a [style]="'color:#E1ADAD;'" (click)="goToLogin()" class="btn btn-link">Log in</a>
+  <p>Already have an account? Go to <a [style]="'color:white;'" (click)="goToLogin()" class="btn btn-link">Log in</a>
   </p>
 </div>

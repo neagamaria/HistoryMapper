@@ -81,7 +81,7 @@ class EventsBetweenYearsAPIView(APIView):
 class EventByNameAPIView(APIView):
     # get one event from DB based on name
     @staticmethod
-    def get(self, request, name):
+    def get(self, name):
         # data to be returned
         data = []
         # transform name to lowercase
@@ -97,7 +97,7 @@ class EventByNameAPIView(APIView):
             data = [{'name': event.name, 'event_date': event.event_date, 'era': event.era,
                      'location': event.location, 'description': event.description,
                      "historical_period": event.historical_period.name,
-                     "event_type": event.event_type.name,
+                     "event_type": event.event_type.name, "category": event.category.name,
                      "latitude": lat,
                      "longitude": lng}]
 
@@ -140,6 +140,7 @@ class RoutesAPIView(APIView):
         data = [{'name': e['event'].name, 'event_date': e['event'].event_date, 'era': e['event'].era,
                  'location': e['event'].location, 'description': e['event'].description,
                  "historical_period": e['event'].historical_period.name, "event_type": e['event'].event_type.name,
+                 "category": e['event'].category.name,
                  "latitude": e['latitude'],
                  "longitude": e['longitude']}
                 for e in complete_events]

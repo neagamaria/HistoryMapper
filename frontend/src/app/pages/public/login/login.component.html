@@ -5,17 +5,19 @@
     <div>
       <label for="username">Username:</label>
       <input type="text" id="username" formControlName="username">
+       <div class="error" *ngIf="form.get('username')?.hasError('required')">Username is required.</div>
     </div>
-    <br/>
+    <br/><br/>
     <div>
       <label for="password">Password:</label>
       <input type="password" id="password" formControlName="password">
+       <div class="error" *ngIf="form.get('password')?.hasError('required')">Password is required.</div>
     </div>
-    <br/>
-    <button type="submit" class="btn btn-outline-light" style="border: 3px solid white;">Log in</button>
+    <br/><br/>
+    <button type="submit" [disabled]="form.invalid" class="btn btn-outline-light" style="border: 3px solid white;">Log in</button>
   </form>
 
   <br/><br/>
-  <p>Do not have an account? Go to <a class="btn btn-link" [style]="'color: #E1ADAD'" (click)="goToRegister()">Registration</a>
+  <p>Do not have an account? Go to <a class="btn btn-link" [style]="'color: white'" (click)="goToRegister()">Registration</a>
   </p>
 </div>

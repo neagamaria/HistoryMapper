@@ -5,18 +5,17 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="f896f08b-b189-43d1-bd3c-d7a6251c738a" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources/7b6d3583-b59d-4489-9cfb-9b973c1fd557.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/7b6d3583-b59d-4489-9cfb-9b973c1fd557.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/explore/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/explore/urls.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/explore/views/events_view.py" beforeDir="false" afterPath="$PROJECT_DIR$/explore/views/events_view.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/app/pages/public/event-info/event-info.component.css" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/pages/public/event-info/event-info.component.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/app/pages/public/event-info/event-info.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/pages/public/event-info/event-info.component.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/app/pages/public/explore-maps/explore-maps.component.css" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/pages/public/explore-maps/explore-maps.component.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/app/pages/public/explore-maps/explore-maps.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/pages/public/explore-maps/explore-maps.component.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/app/pages/public/explore-maps/explore-maps.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/pages/public/explore-maps/explore-maps.component.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/app/pages/public/map-options-menu/map-options-menu.component.css" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/pages/public/map-options-menu/map-options-menu.component.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/app/pages/public/map-options-menu/map-options-menu.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/pages/public/map-options-menu/map-options-menu.component.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/app/pages/public/map-options-menu/map-options-menu.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/pages/public/map-options-menu/map-options-menu.component.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/app/services/events.service.ts" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/services/events.service.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/app/pages/private/admin-page/admin-page.component.css" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/pages/private/admin-page/admin-page.component.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/app/pages/private/admin-page/admin-page.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/pages/private/admin-page/admin-page.component.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/app/pages/private/admin-page/admin-page.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/pages/private/admin-page/admin-page.component.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/app/pages/public/login/login.component.css" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/pages/public/login/login.component.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/app/pages/public/login/login.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/pages/public/login/login.component.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/app/pages/public/login/login.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/pages/public/login/login.component.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/app/pages/public/register/register.component.css" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/pages/public/register/register.component.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/app/pages/public/register/register.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/pages/public/register/register.component.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -53,30 +52,30 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "Python.events_view.executor": "Run",
-    "RunOnceActivity.OpenDjangoStructureViewOnStart": "true",
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "ToolWindowDuplicates.ShowToolbar": "false",
-    "WebServerToolWindowFactoryState": "false",
-    "last_opened_file_path": "C:/Users/maria/PycharmProjects/HistoryMapper",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "settings.editor.selected.configurable": "preferences.lookFeel",
-    "ts.external.directory.path": "C:\\Users\\maria\\PycharmProjects\\HistoryMapper\\frontend\\node_modules\\typescript\\lib",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;Python.events_view.executor&quot;: &quot;Run&quot;,
+    &quot;RunOnceActivity.OpenDjangoStructureViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;ToolWindowDuplicates.ShowToolbar&quot;: &quot;false&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/maria/PycharmProjects/HistoryMapper&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.lookFeel&quot;,
+    &quot;ts.external.directory.path&quot;: &quot;C:\\Users\\maria\\PycharmProjects\\HistoryMapper\\frontend\\node_modules\\typescript\\lib&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   },
-  "keyToStringList": {
-    "DatabaseDriversLRU": [
-      "oracle"
+  &quot;keyToStringList&quot;: {
+    &quot;DatabaseDriversLRU&quot;: [
+      &quot;oracle&quot;
     ]
   }
-}]]></component>
+}</component>
   <component name="PyConsoleOptionsProvider">
     <option name="myPythonConsoleState">
       <console-settings module-name="HistoryMapper" is-module-sdk="true">
@@ -210,7 +209,9 @@
       <workItem from="1711624200831" duration="5173000" />
       <workItem from="1711726416037" duration="3891000" />
       <workItem from="1711801609062" duration="5723000" />
-      <workItem from="1712050453953" duration="5825000" />
+      <workItem from="1712050453953" duration="5914000" />
+      <workItem from="1712166698179" duration="5410000" />
+      <workItem from="1712250622584" duration="7306000" />
     </task>
     <servers />
   </component>
