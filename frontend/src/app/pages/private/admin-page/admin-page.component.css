@@ -1,7 +1,6 @@
 .options {
   width: 100%;
   height: 300px;
-  background-image: linear-gradient(black 2%, white);
   position: relative;
   top: -40px;
   padding-top: 5%;
@@ -24,10 +23,9 @@ table {
   margin-left: 24px;
 }
 
-.btn-outline-dark {
-  color: black;
+.btn-outline-light {
   font-weight: bold !important;
-  border: 3px solid black !important;
+  border: 3px solid white !important;
   font-size: 120% !important;
   margin-right: 100px !important;
   cursor: pointer;

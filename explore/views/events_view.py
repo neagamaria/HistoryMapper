@@ -71,6 +71,8 @@ class EventsBetweenYearsAPIView(APIView):
         data = [{'name': e['event'].name, 'event_date': e['event'].event_date, 'era': e['event'].era,
                  'location': e['event'].location, 'description': e['event'].description,
                  "historical_period": e['event'].historical_period.name, "event_type": e['event'].event_type.name,
+                 "event_type_id": e['event'].event_type_id,
+                 "category_id": e['event'].category_id,
                  "latitude": e['latitude'],
                  "longitude": e['longitude']}
                 for e in complete_events]
@@ -98,6 +100,8 @@ class EventByNameAPIView(APIView):
                      'location': event.location, 'description': event.description,
                      "historical_period": event.historical_period.name,
                      "event_type": event.event_type.name, "category": event.category.name,
+                     "event_type_id": event.event_type_id,
+                     "category_id": event.category_id,
                      "latitude": lat,
                      "longitude": lng}]
 
@@ -141,6 +145,8 @@ class RoutesAPIView(APIView):
                  'location': e['event'].location, 'description': e['event'].description,
                  "historical_period": e['event'].historical_period.name, "event_type": e['event'].event_type.name,
                  "category": e['event'].category.name,
+                 "event_type_id": e['event'].event_type_id,
+                 "category_id": e['event'].category_id,
                  "latitude": e['latitude'],
                  "longitude": e['longitude']}
                 for e in complete_events]

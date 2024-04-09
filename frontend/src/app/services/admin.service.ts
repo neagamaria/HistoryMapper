@@ -41,6 +41,7 @@ export class AdminService {
      }
     }
 
+
     public setWikiCategory(categ: string) {
         this.wikiCategory = categ;
     }

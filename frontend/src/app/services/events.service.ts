@@ -53,6 +53,15 @@ export class EventsService {
     this.eventTypes = response.data;
   }
 
+  // call the API that obtains a route based on a starting event
+  public async callRoutesAPI(categoryId: string, eventTypeId: string) {
+    let url = 'http://127.0.0.1:8000/api/routes/' + categoryId + '/' + eventTypeId + '/';
+    const response = await firstValueFrom(this.http.get<any>(url));
+
+    return response.data;
+  }
+
+
   // remove all events from list
   public clearEvents() {
     this.eventsBetweenYears = [];
@@ -121,5 +130,4 @@ export class EventsService {
   public getRoutesMode() {
     return this.routesMode.asObservable();
   }
-
 }

@@ -20,7 +20,6 @@ export class AdminPageComponent implements OnInit{
   addForm: FormGroup;
   showForm: FormGroup;
   editForm: FormGroup;
-  deleteForm: FormGroup;
 
   // current logged-in user
   currentUser: any = null;
@@ -30,6 +29,8 @@ export class AdminPageComponent implements OnInit{
   events: any[] = [];
   // searched event
   searchedEvent: any = [];
+  // all events to be indexed
+  indexEvents: any[] = [];
 
   constructor (private router: Router, private fb: FormBuilder, private userService: UserService, private adminService: AdminService, private eventsService: EventsService) {
     // initialize form
@@ -50,12 +51,8 @@ export class AdminPageComponent implements OnInit{
       newEventType: [''],
       newDescription: ['']
     })
-
-    this.deleteForm = this.fb.group ( {
-      name: ['', [Validators.required]]
-    })
-
   }
+
 
   async ngOnInit() {
       this.currentUser = this.userService.getCurrentUsername();
@@ -70,6 +67,7 @@ export class AdminPageComponent implements OnInit{
           this.searchedEvent = [];
       }
   }
+
 
   // set the current action selected
   selectAction(action: string) {
@@ -90,6 +88,20 @@ export class AdminPageComponent implements OnInit{
 
       console.log(this.events);
   }
+
+
+  // get all events in the DB
+  async getAllEvents() {
+    this.selectAction('index')
+    await this.eventsService.callEventsBetweenYearsApi(3800, 'BC', 2024, 'AD').then(() => {
+      console.log("Weee")
+        this.indexEvents = this.eventsService.getEventsBetweenYearsValue();
+      }
+    );
+
+    console.log("Index Events: ", this.indexEvents)
+  }
+
 
   // get events by name
   async getEvent(form: any) {

@@ -2,14 +2,14 @@
   <table>
     <br><br><br><br><br>
     <tr>
-      <td class="btn btn-outline-dark" [ngClass]="{ 'selected': selectedAction == 'add' }"
+      <td class="btn btn-outline-light" [ngClass]="{ 'selected': selectedAction == 'add' }"
           (click)="selectAction('add')">add events
       </td>
-      <td class="btn btn-outline-dark" [ngClass]="{ 'selected': selectedAction == 'show' }"
-          (click)="selectAction('show')">show events
+      <td class="btn btn-outline-light" [ngClass]="{ 'selected': selectedAction == 'index' }"
+          (click)="getAllEvents()">index events
       </td>
-      <td class="btn btn-outline-dark" [ngClass]="{ 'selected': selectedAction == 'delete' }"
-          (click)="selectAction('delete')">delete events
+      <td class="btn btn-outline-light" [ngClass]="{ 'selected': selectedAction == 'show' }"
+          (click)="selectAction('show')">show event
       </td>
     </tr>
   </table>
@@ -57,6 +57,26 @@
     </div>
   </div>
 
+  <div *ngIf="selectedAction == 'index'">
+      <div *ngFor="let e of indexEvents" class="event-info">
+              <br/><br/>
+
+              <div style="font-size: 30px">{{ e.name }}
+                <i class="bi bi-pencil-fill" (click)="selectAction('edit')"></i>
+              </div>
+              <br/>
+              <div> Date:
+                <div style="color: #EDEAD4">{{ e.event_date }} {{ e.era }}</div>
+              </div>
+              <br/>
+              <div> Location:
+                <div style="color: #EDEAD4"> {{ e.location }}</div>
+              </div>
+              <br/>
+              <div>Type: {{ e.event_type }}</div>
+              <br/>
+      </div>
+  </div>
 
   <div *ngIf="selectedAction == 'show'">
     <form #dbForm="ngForm" [formGroup]="showForm" (ngSubmit)="getEvent(dbForm)">
