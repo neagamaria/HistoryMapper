@@ -4,7 +4,7 @@
 }
 
 .slider {
-  padding: 30px;
+  padding: 5%;
 }
 span.ngx-slider-span.ngx-slider-pointer.ngx-slider-pointer-min {
   background-color: #B83333;
@@ -41,7 +41,7 @@ span.ngx-slider-span.ngx-slider-bubble.ngx-slider-model-high {
 
 .map-container {
   width: 90%;
-  height: auto;
+  height: 50%;
   border: 10px solid white;
   margin-left: 5%;
 }
@@ -51,15 +51,21 @@ span.ngx-slider-span.ngx-slider-bubble.ngx-slider-model-high {
   width: 100%;
 }
 
+.error {
+  color: #B83333;
+  font-size: 30%;
+}
+
 h2 {
   font-size: 250%;
 }
 
 label {
   width: 90px;
-
 }
 
 input {
   width: 80px;
 }
+
+

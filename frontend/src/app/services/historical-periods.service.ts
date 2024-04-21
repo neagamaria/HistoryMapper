@@ -2,10 +2,13 @@ import { Injectable } from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 import {firstValueFrom} from "rxjs";
 
+import { EventsService } from './events.service';
+
 
 @Injectable({
   providedIn: 'root'
 })
+
 export class HistoricalPeriodsService {
 
    private url: string = 'http://127.0.0.1:8000/api/historical-periods/';
@@ -18,6 +21,7 @@ export class HistoricalPeriodsService {
 
   constructor(private http: HttpClient) {}
 
+  // call API that retrieves all historical periods
   public getHistoricalPeriods() {
     this.http.get(this.url).subscribe((response: any): any => {
         this.historicalPeriods = response.data;
@@ -25,6 +29,7 @@ export class HistoricalPeriodsService {
     );
   }
 
+  // call API that retrieves one historical period based on id
   public async getHistoricalPeriodById(id: string): Promise<void> {
   if (this.periodId != "") {
     let url1 = this.url + id;

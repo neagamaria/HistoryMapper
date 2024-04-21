@@ -21,11 +21,6 @@
 
 }
 
-.quiz-container:hover {
-  width: 480px;
-  height: 380px;
-}
-
 .name {
   font-size: 200%;
   font-weight: 900;

@@ -6,7 +6,15 @@
   <component name="ChangeListManager">
     <list default="true" id="f896f08b-b189-43d1-bd3c-d7a6251c738a" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/explore/views/db_info.py" beforeDir="false" afterPath="$PROJECT_DIR$/explore/views/db_info.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/explore/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/explore/urls.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/explore/views/events_view.py" beforeDir="false" afterPath="$PROJECT_DIR$/explore/views/events_view.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/app/pages/private/admin-page/admin-page.component.css" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/pages/private/admin-page/admin-page.component.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/app/pages/private/admin-page/admin-page.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/pages/private/admin-page/admin-page.component.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/app/pages/private/admin-page/admin-page.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/pages/private/admin-page/admin-page.component.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/app/pages/public/explore-maps/explore-maps.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/pages/public/explore-maps/explore-maps.component.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/app/pages/public/explore-maps/explore-maps.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/pages/public/explore-maps/explore-maps.component.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/app/services/admin.service.ts" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/services/admin.service.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/app/services/events.service.ts" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/services/events.service.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -46,6 +54,7 @@
   <component name="PropertiesComponent">{
   &quot;keyToString&quot;: {
     &quot;Python.events_view.executor&quot;: &quot;Run&quot;,
+    &quot;RunOnceActivity.OpenDjangoStructureViewOnStart&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
     &quot;ToolWindowDuplicates.ShowToolbar&quot;: &quot;false&quot;,
@@ -56,11 +65,32 @@
     &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
     &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
     &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;promo.django&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.lookFeel&quot;,
     &quot;ts.external.directory.path&quot;: &quot;C:\\Users\\maria\\PycharmProjects\\HistoryMapper\\frontend\\node_modules\\typescript\\lib&quot;,
     &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  },
+  &quot;keyToStringList&quot;: {
+    &quot;DatabaseDriversLRU&quot;: [
+      &quot;oracle&quot;
+    ]
   }
 }</component>
+  <component name="PyConsoleOptionsProvider">
+    <option name="myPythonConsoleState">
+      <console-settings module-name="HistoryMapper" is-module-sdk="true">
+        <envs>
+          <env key="DJANGO_SETTINGS_MODULE" value="explore.settings" />
+        </envs>
+        <option name="myUseModuleSdk" value="true" />
+        <option name="myModuleName" value="HistoryMapper" />
+        <option name="myEnvs">
+          <map>
+            <entry key="DJANGO_SETTINGS_MODULE" value="explore.settings" />
+          </map>
+        </option>
+      </console-settings>
+    </option>
+  </component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
       <recent name="C:\Users\maria\PycharmProjects\HistoryMapper\frontend\src\app\pages\private" />
@@ -70,10 +100,36 @@
       <recent name="C:\Users\maria\PycharmProjects\HistoryMapper\explore\views" />
     </key>
   </component>
+  <component name="RunManager">
+    <configuration name="HistoryMapper" type="Python.DjangoServer" factoryName="Django server">
+      <module name="HistoryMapper" />
+      <option name="ENV_FILES" value="" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="" />
+      <option name="IS_MODULE_SDK" value="false" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="launchJavascriptDebuger" value="false" />
+      <option name="port" value="8000" />
+      <option name="host" value="localhost" />
+      <option name="additionalOptions" value="" />
+      <option name="browserUrl" value="" />
+      <option name="runTestServer" value="false" />
+      <option name="runNoReload" value="false" />
+      <option name="useCustomRunCommand" value="false" />
+      <option name="customRunCommand" value="" />
+      <method v="2" />
+    </configuration>
+  </component>
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
-        <option value="bundled-python-sdk-d68999036c7f-d3b881c8e49f-com.jetbrains.pycharm.community.sharedIndexes.bundled-PC-233.14475.56" />
+        <option value="bundled-python-sdk-d68999036c7f-b11f5e8da5ad-com.jetbrains.pycharm.pro.sharedIndexes.bundled-PY-233.14475.56" />
       </set>
     </attachedChunks>
   </component>
@@ -135,6 +191,30 @@
       <workItem from="1709730082916" duration="376000" />
       <workItem from="1709730711857" duration="2000" />
       <workItem from="1709730922082" duration="34000" />
+      <workItem from="1710943389536" duration="108000" />
+      <workItem from="1710943501777" duration="140000" />
+      <workItem from="1710944235135" duration="507000" />
+      <workItem from="1710944764697" duration="3118000" />
+      <workItem from="1711016853384" duration="4278000" />
+      <workItem from="1711196625956" duration="13082000" />
+      <workItem from="1711220048678" duration="8588000" />
+      <workItem from="1711265350982" duration="4724000" />
+      <workItem from="1711275539951" duration="7494000" />
+      <workItem from="1711436711004" duration="6594000" />
+      <workItem from="1711449553418" duration="3292000" />
+      <workItem from="1711464596334" duration="1409000" />
+      <workItem from="1711477530960" duration="4371000" />
+      <workItem from="1711534484390" duration="640000" />
+      <workItem from="1711624200831" duration="5173000" />
+      <workItem from="1711726416037" duration="3891000" />
+      <workItem from="1711801609062" duration="5723000" />
+      <workItem from="1712050453953" duration="5914000" />
+      <workItem from="1712166698179" duration="5410000" />
+      <workItem from="1712250622584" duration="7387000" />
+      <workItem from="1712558817512" duration="8371000" />
+      <workItem from="1712572144974" duration="4900000" />
+      <workItem from="1712577991359" duration="302000" />
+      <workItem from="1712644024835" duration="8492000" />
     </task>
     <servers />
   </component>

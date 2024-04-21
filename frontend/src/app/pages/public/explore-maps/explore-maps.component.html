@@ -1,18 +1,26 @@
+<app-map-options-menu></app-map-options-menu>
+
 <div class="container">
-
-    <h2>Discover events on map!</h2>
-
-    <br><br><br>
-    <h2>Choose time range:</h2>
+  <div *ngIf="!this.routesMode">
+    <br/><br/><br/>
+    <h2>Choose time range for events:</h2>
     <br/>
-    <!--TODO change this to time axis-->
     <div class="slider">
       <ngx-slider [(value)]="this.minVal" [(highValue)]="this.maxVal" [options]="this.options" (userChange)="this.submitYears()"></ngx-slider>
     </div>
+  </div>
+
+  <div *ngIf="this.routesMode">
+    <br/><br/><br/>
+    <h2>Click on event to highlight route</h2>
+  </div>
+
+  <div *ngIf="this.isEventClicked()">
+    <app-event-info></app-event-info>
+  </div>
 
   <br/><br/>
-    <div class="map-container">
-        <div id="map" [style.height]="'900px'"></div>
-    </div>
-
+  <div class="map-container">
+      <div id="map" [style.height]="'900px'"></div>
+  </div>
 </div>

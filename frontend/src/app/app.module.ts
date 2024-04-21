@@ -18,6 +18,8 @@ import { QuizzesComponent } from './pages/private/quizzes/quizzes.component';
 import { QuizQuestionsComponent } from './pages/private/quiz-questions/quiz-questions.component';
 import { NgxSliderModule } from '@angular-slider/ngx-slider';
 import { AdminPageComponent } from './pages/private/admin-page/admin-page.component';
+import { MapOptionsMenuComponent } from './pages/public/map-options-menu/map-options-menu.component';
+import { EventInfoComponent } from './pages/public/event-info/event-info.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -32,6 +34,8 @@ import { AdminPageComponent } from './pages/private/admin-page/admin-page.compon
     QuizzesComponent,
     QuizQuestionsComponent,
     AdminPageComponent,
+    MapOptionsMenuComponent,
+    EventInfoComponent,
   ],
     imports: [
         BrowserModule,

@@ -15,6 +15,7 @@ class HistoricalPeriodsAPIView(APIView):
         return JsonResponse({'data': data})
 
 
+# API endpoint for getting a particular historical period based on id
 class HistoricalPeriodAPIView(APIView):
     @staticmethod
     # get only one historical period, based on the id
@@ -24,6 +25,7 @@ class HistoricalPeriodAPIView(APIView):
         data = [{'name': historical_period.name, 'start_year': historical_period.start_year,
                  'end_year': historical_period.end_year, 'era': historical_period.era,
                  'description': historical_period.description}]
+
         return JsonResponse({'data': data})
 
 

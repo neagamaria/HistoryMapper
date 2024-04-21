@@ -12,16 +12,14 @@ import {UserService} from "../../../services/user.service";
 export class LoginComponent {
 
   url: string = 'http://127.0.0.1:8000/api/login/';
-
   form: FormGroup;
-
   loginData: any = null;
 
    constructor(private userService: UserService, private router: Router, private fb: FormBuilder, private http: HttpClient) {
     // get values from form
     this.form = this.fb.group ({
       username: ['', [Validators.required]],
-      password: ['', [Validators.required, Validators.min(6)]],
+      password: ['', [Validators.required]],
     })
   }
 

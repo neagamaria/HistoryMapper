@@ -19,7 +19,7 @@ class Event(models.Model):
 # type of historical Event
 class EventType(models.Model):
     TYPE_CHOICES = [('War', 'War'), ('Battle', 'Battle'), ('Invasion', 'Invasion'), ('Uprising', 'Uprising'),
-                    ('Revolution', 'Revolution'), ('Human disaster', 'Human_disaster'),
+                    ('Revolution', 'Revolution'), ('Siege', 'Siege'), ('Human disaster', 'Human_disaster'),
                     ('Natural disaster', 'Natural_disaster'), ('Treaty', 'Treaty'), ('Truce', 'Truce'),
                     ('Discovery', 'Discovery'), ('Epidemic', 'Epidemic'), ('Succession', 'Succession'),
                     ('Social', 'Social'), ('Religious', 'Religious'), ('Cultural', 'Cultural')]

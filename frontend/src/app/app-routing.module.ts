@@ -10,6 +10,7 @@ import {HistoricalPeriodInfoComponent} from "./pages/public/historical-period-in
 import {QuizzesComponent} from "./pages/private/quizzes/quizzes.component";
 import {QuizQuestionsComponent} from "./pages/private/quiz-questions/quiz-questions.component";
 import {AdminPageComponent} from "./pages/private/admin-page/admin-page.component";
+import {MapOptionsMenuComponent} from "./pages/public/map-options-menu/map-options-menu.component";
 
 
 const routes: Routes = [
@@ -21,7 +22,8 @@ const routes: Routes = [
   {path: 'login', component: LoginComponent},
   {path: 'quizzes', component: QuizzesComponent},
   {path: 'quiz-questions', component: QuizQuestionsComponent},
-  {path: 'admin', component: AdminPageComponent}
+  {path: 'admin-page', component: AdminPageComponent},
+  {path: 'map-options-menu', component: MapOptionsMenuComponent}
 ];
 
 @NgModule({
