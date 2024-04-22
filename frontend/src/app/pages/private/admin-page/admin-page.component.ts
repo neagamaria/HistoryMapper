@@ -72,8 +72,6 @@ export class AdminPageComponent implements OnInit{
   // set the current action selected
   selectAction(action: string) {
     this.selectedAction = action;
-
-    console.log(this.searchedEvent)
   }
 
 
@@ -94,7 +92,6 @@ export class AdminPageComponent implements OnInit{
   async getAllEvents() {
     this.selectAction('index')
     await this.eventsService.callEventsBetweenYearsApi(3800, 'BC', 2024, 'AD').then(() => {
-      console.log("Weee")
         this.indexEvents = this.eventsService.getEventsBetweenYearsValue();
       }
     );
@@ -120,18 +117,38 @@ export class AdminPageComponent implements OnInit{
   }
 
 
-  // edit a given event
   async editEvent(form: any) {
     // get the name of the event to be edited
-    let name = this.searchedEvent;
+    let name = this.searchedEvent[0].name;
+
     // get new values from form, if they exist or keep the old values
-    let newName = this.editForm.get('newName')?.value ?? this.searchedEvent.name;
-    let newLocation = this.editForm.get('newLocation')?.value ?? this.searchedEvent.location;
-    let newCategory = this.editForm.get('newCategory')?.value ?? this.searchedEvent.category;
-    let newEventType = this.editForm.get('newEventType')?.value ?? this.searchedEvent.event_type;
-    let newDescription = this.editForm.get('newDescription')?.value ?? this.searchedEvent.description;
+    let newName = (this.editForm.get('newName')?.value !== "" ? this.editForm.get('newName')?.value : this.searchedEvent[0].name);
+    let newLocation = (this.editForm.get('newLocation')?.value !== "" ? this.editForm.get('newLocation')?.value : this.searchedEvent[0].location);
+    let newCategory = (this.editForm.get('newCategory')?.value !== "" ? this.editForm.get('newCategory')?.value : this.searchedEvent[0].category);
+    let newEventType = (this.editForm.get('newEventType')?.value !== "" ? this.editForm.get('newEventType')?.value : this.searchedEvent[0].event_type);
+    let newDescription = (this.editForm.get('newDescription')?.value !== "" ? this.editForm.get('newDescription')?.value : this.searchedEvent[0].description);
+
+    // event data that updates the old event
+    let newData = {
+      name: newName,
+      location: newLocation,
+      category: newCategory,
+      eventType: newEventType,
+      description: newDescription
+
+    }
 
     // call the API that edits the event
+    this.adminService.editEvent(name, newData).subscribe({
+      next: (response) => {
+        console.log('API response: ', response);
+      }
+    });
+  }
 
+
+  deleteEvent(name: any) {
+    // call the API that deletes an event by name
+    this.adminService.deleteEvent(name);
   }
 }

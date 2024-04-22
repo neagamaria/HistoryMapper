@@ -4,7 +4,6 @@
   position: relative;
   top: -40px;
   padding-top: 5%;
-
 }
 
 .selected {
@@ -23,7 +22,7 @@ table {
   margin-left: 24px;
 }
 
-.btn-outline-light {
+.btn1 {
   font-weight: bold !important;
   border: 3px solid white !important;
   font-size: 120% !important;
@@ -31,9 +30,16 @@ table {
   cursor: pointer;
 }
 
+
 .big-container {
   align-items: center;
-  padding: 10%;
+  padding: 5%;
+}
+
+.event-info {
+  border: 2px solid white;
+  padding: 10px;
+  margin: 20px;
 }
 
 label {
@@ -44,11 +50,6 @@ input {
   width: 30%;
 }
 
-.bi-pencil-fill {
-  cursor: pointer;
-  font-size: 80% !important;
-}
-
 
 .error {
   font-size: 80%;
@@ -57,4 +58,12 @@ input {
 
 p {
   text-align: justify;
+}
+
+i {
+  margin: 6px;
+  padding: 3px;
+  float: right;
+  font-size: 20px;
+  cursor: pointer;
 }

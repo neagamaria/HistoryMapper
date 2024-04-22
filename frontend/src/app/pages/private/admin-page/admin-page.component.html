@@ -2,13 +2,13 @@
   <table>
     <br><br><br><br><br>
     <tr>
-      <td class="btn btn-outline-light" [ngClass]="{ 'selected': selectedAction == 'add' }"
+      <td class="btn btn-outline-light btn1" [ngClass]="{ 'selected': selectedAction == 'add' }"
           (click)="selectAction('add')">add events
       </td>
-      <td class="btn btn-outline-light" [ngClass]="{ 'selected': selectedAction == 'index' }"
+      <td class="btn btn-outline-light btn1" [ngClass]="{ 'selected': selectedAction == 'index' }"
           (click)="getAllEvents()">index events
       </td>
-      <td class="btn btn-outline-light" [ngClass]="{ 'selected': selectedAction == 'show' }"
+      <td class="btn btn-outline-light btn1" [ngClass]="{ 'selected': selectedAction == 'show' }"
           (click)="selectAction('show')">show event
       </td>
     </tr>
@@ -46,7 +46,7 @@
       </div>
       <br/>
 
-      <button type="submit" [disabled]="addForm.invalid" class="btn btn-outline-light" style="border: 3px solid white;">Add</button>
+      <button type="submit" [disabled]="addForm.invalid" class="btn btn-outline-light">Add</button>
     </form>
 
     <br/><br/>
@@ -57,8 +57,11 @@
     </div>
   </div>
 
+
   <div *ngIf="selectedAction == 'index'">
       <div *ngFor="let e of indexEvents" class="event-info">
+              <i class="bi bi-trash" (click)="selectAction('delete')"></i>
+              <i class="bi bi-pencil-fill" (click)="selectAction('edit')"> </i>
               <br/><br/>
 
               <div style="font-size: 30px">{{ e.name }}
@@ -73,10 +76,13 @@
                 <div style="color: #EDEAD4"> {{ e.location }}</div>
               </div>
               <br/>
-              <div>Type: {{ e.event_type }}</div>
-              <br/>
+              <div>Type:
+                <div style="color: #EDEAD4"> {{ e.event_type }}
+                </div>
+              </div>
       </div>
   </div>
+
 
   <div *ngIf="selectedAction == 'show'">
     <form #dbForm="ngForm" [formGroup]="showForm" (ngSubmit)="getEvent(dbForm)">
@@ -84,15 +90,14 @@
       <input type="text" id="name" formControlName="name" placeholder="Enter event name...">
       <div class="error" *ngIf="showForm.get('name')?.hasError('required')">Name is required.</div>
       <br/><br/>
-      <button type="submit" [disabled]="showForm.invalid" class="btn btn-outline-light" style="border: 3px solid white;">Show</button>
+      <button type="submit" [disabled]="showForm.invalid" class="btn btn-outline-light">Show</button>
     </form>
 
     <div class="event-info" *ngIf="searchedEvent.length > 0">
+      <i class="bi bi-trash" (click)="selectAction('delete')"></i>
+      <i class="bi bi-pencil-fill" (click)="selectAction('edit')"> </i>
       <br/><br/>
-
-      <div style="font-size: 30px">{{ searchedEvent[0].name }}
-        <i class="bi bi-pencil-fill" (click)="selectAction('edit')"></i>
-      </div>
+      <div style="font-size: 30px">{{ searchedEvent[0].name }}</div>
       <br/>
       <div> Date:
         <div style="color: #EDEAD4">{{ searchedEvent[0].event_date }} {{ searchedEvent.era }}</div>
@@ -102,15 +107,18 @@
         <div style="color: #EDEAD4"> {{ searchedEvent[0].location }}</div>
       </div>
       <br/>
-      <div>Type: {{ searchedEvent[0].event_type }}</div>
+      <div>Type:
+        <div style="color: #EDEAD4">{{ searchedEvent[0].event_type }}</div>
+      </div>
       <br/>
-      <p>{{ this.searchedEvent[0].description }}</p>
+      <div>Description:</div>
+      <p style="color: #EDEAD4">{{ this.searchedEvent[0].description }}</p>
     </div>
   </div>
 
 
   <div *ngIf="selectedAction == 'edit'">
-      <h4 style="color: lightpink">Do not enter new values for fields who should not be changed!</h4>
+      <h4 style="color: #E1ADAD">Do not enter new values for fields who should not be changed!</h4>
     <br/><br/>
       <form #dbForm="ngForm" [formGroup]="editForm" (ngSubmit)="editEvent(dbForm)">
         <label for="newName">Event name:</label>
@@ -129,7 +137,15 @@
         <textarea style="width: 70%; height: 120px;" type="text" id="newDescription" formControlName="newDescription"
                   placeholder="{{searchedEvent[0].description}}"></textarea>
         <br/><br/>
-        <button type="submit" class="btn btn-outline-light" style="border: 3px solid white;">Edit</button>
+        <button type="submit" class="btn btn-outline-light">Edit</button>
       </form>
   </div>
+
+  <div *ngIf="selectedAction == 'delete'">
+  <h4 style="color: #E1ADAD">Delete event {{searchedEvent[0].name}}?</h4>
+  <br/><br/><br/>
+  <button class="btn btn-outline-light"(click) ="selectAction('')">Cancel</button>
+  <button class="btn btn-outline-light" (click)="deleteEvent(searchedEvent[0].name)">Delete</button>
 </div>
+</div>
+

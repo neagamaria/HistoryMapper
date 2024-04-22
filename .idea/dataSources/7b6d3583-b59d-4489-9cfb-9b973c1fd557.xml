@@ -1,10 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <dataSource name="@localhost">
   <database-model serializer="dbm" dbms="ORACLE" family-id="ORACLE" format-version="4.51">
-    <root id="1">
-      <ServerVersion>21.0.0.0.0</ServerVersion>
-      <TablespacesHash>23420661385</TablespacesHash>
-    </root>
+    <root id="1"/>
     <schema id="2" parent="1" name="MARIA">
       <AutoIntrospectionLevel>3</AutoIntrospectionLevel>
       <CreatedTimestamp>2023-10-23.17:02:45</CreatedTimestamp>

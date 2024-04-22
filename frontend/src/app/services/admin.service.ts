@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import {HttpClient} from "@angular/common/http";
-import {firstValueFrom} from "rxjs";
+import {firstValueFrom, Observable} from "rxjs";
 
 @Injectable({
   providedIn: 'root'
@@ -30,15 +30,28 @@ export class AdminService {
          const response: any = await firstValueFrom(this.http.get<any>(url));
          this.addedEvents = response.data;
          console.log(this.addedEvents);
-     }
-     catch(error) {
-        console.error("Error adding data to database", error);
-     }
+        }
+        catch(error) {
+          console.error("Error adding data to database", error);
+        }
     }
 
      else {
         console.log("One or more parameters are null", this.wikiCategory, this.eventsType, this.eventsCategory);
      }
+    }
+
+    // call API that edits an event
+    public editEvent(name: string, newData: any) {
+      let url = "http://127.0.0.1:8000/api/event-by-name-" + name;
+      return this.http.put<any>(url, newData);
+    }
+
+
+    // call API that deletes an event
+    public deleteEvent(name: string) {
+        let url = "http://127.0.0.1:8000/api/event-by-name-" + name;
+        this.http.delete<any>(url);
     }
 
 

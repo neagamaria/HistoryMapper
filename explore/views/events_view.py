@@ -2,9 +2,14 @@
 import requests
 from django.http import JsonResponse
 from rest_framework.views import APIView
+from rest_framework.parsers import JSONParser
 
 from HistoryMapper import settings
-from explore.models import MapLocation, Event, EventType
+from explore.models import MapLocation, Event, EventType, Category
+from django.db.models.functions import Lower
+
+from rest_framework.response import Response
+from rest_framework import status
 
 
 # call the Gocoding API
@@ -39,7 +44,7 @@ def populate_map_location(events):
             )
 
 
-# API endpoints for getting events from the db and displaying them on map
+# API endpoint for getting events from the db and displaying them on map
 class EventsBetweenYearsAPIView(APIView):
     # get all events in a time period with their coordinates
     def get(self, request, start_year, start_era, end_year, end_era):
@@ -80,32 +85,66 @@ class EventsBetweenYearsAPIView(APIView):
         return JsonResponse({'data': data})
 
 
-class EventByNameAPIView(APIView):
+# read, update and delete operations for events
+class EventActionsAPIView(APIView):
     # get one event from DB based on name
     @staticmethod
     def get(self, name):
-        # data to be returned
-        data = []
-        # transform name to lowercase
-        name = name.lower()
+        try:
+            # data to be returned
+            data = []
+            # transform name to lowercase
+            name = name.lower()
 
-        event = Event.objects.raw('''SELECT * FROM explore_event WHERE LOWER(name) = %s''', [name])
+            event = Event.objects.raw('''SELECT * FROM explore_event WHERE LOWER(name) = %s''', [name])
 
-        if event:
-            event = event[0]
-            # add coordinates
-            lat, lng = get_coordinates(event.location)
+            if event:
+                event = event[0]
+                # add coordinates
+                lat, lng = get_coordinates(event.location)
 
-            data = [{'name': event.name, 'event_date': event.event_date, 'era': event.era,
-                     'location': event.location, 'description': event.description,
-                     "historical_period": event.historical_period.name,
-                     "event_type": event.event_type.name, "category": event.category.name,
-                     "event_type_id": event.event_type_id,
-                     "category_id": event.category_id,
-                     "latitude": lat,
-                     "longitude": lng}]
+                data = [{'name': event.name, 'event_date': event.event_date, 'era': event.era,
+                         'location': event.location, 'description': event.description,
+                         "historical_period": event.historical_period.name,
+                         "event_type": event.event_type.name, "category": event.category.name,
+                         "event_type_id": event.event_type_id,
+                         "category_id": event.category_id,
+                         "latitude": lat,
+                         "longitude": lng}]
 
-        return JsonResponse({'data': data})
+            return JsonResponse({'data': data})
+        except Event.DoesNotExist:
+            return Response(status=status.HTTP_404_NOT_FOUND)
+
+    # edit event based on name
+    def put(self, request, name):
+        try:
+            # data for update
+            request_data = JSONParser().parse(request)
+            # get the ids of the fields
+            category = Category.objects.raw('''SELECT id from explore_category WHERE LOWER(name) = %s''', [request_data['category'].lower()])
+            event_type = EventType.objects.raw('''SELECT id from explore_eventtype WHERE LOWER(name) = %s''', [request_data['eventType'].lower()])
+            # update event entry
+            Event.objects.annotate(lower_name=Lower('name')).filter(lower_name=name.lower()).update(
+                                                            name=request_data['name'],
+                                                            location=request_data['location'],
+                                                            category_id=category[0].id,
+                                                            event_type_id=event_type[0].id,
+                                                            description=request_data['description'])
+
+            return Response(status=status.HTTP_204_NO_CONTENT)
+
+        except Event.DoesNotExist:
+            return Response(status=status.HTTP_404_NOT_FOUND)
+
+    # delete event based on name
+    def delete(self, request, name):
+        try:
+            event = Event.objects.annotate(lower_name=Lower('name')).filter(lower_name=name.lower())
+            event.delete()
+            return Response(status=status.HTTP_204_NO_CONTENT)
+        except Event.DoesNotExist:
+            return Response(status=status.HTTP_404_NOT_FOUND)
 
 
 class AllEventTypesAPIView(APIView):
@@ -118,10 +157,10 @@ class AllEventTypesAPIView(APIView):
         return JsonResponse({'data': data})
 
 
+# API endpoint for configuring routes
 class RoutesAPIView(APIView):
     # get all events that create a route based on some event info
-    @staticmethod
-    def get(self, category_id, event_type_id):
+    def get(self, request, category_id, event_type_id):
         events = Event.objects.raw('''SELECT * FROM explore_event WHERE event_type_id = %s and category_id = %s 
                                     ORDER BY event_date ''',
                                    [event_type_id, category_id])
