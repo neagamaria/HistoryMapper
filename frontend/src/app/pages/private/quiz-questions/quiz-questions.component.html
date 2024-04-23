@@ -2,24 +2,7 @@
 <form #quizForm="ngForm" (ngSubmit)="this.calculateResult(quizForm)" *ngIf="!this.isFinished">
   <div *ngFor="let question of this.questions; let i = index">
   <div class="question-container">
-    <h2>{{question.description}}</h2>
-    <br/>
-    <div class="answer-container">
-        <input type="radio" [value]="1" [name]="'answer' + i" [(ngModel)]="selectedAnswers[i]" [id]="i + 'answer1'">
-      <label [for]="i + 'answer1'">{{question.answer1}}</label>
-      </div><br/>
-      <div class="answer-container">
-        <input type="radio" [value]="2" [name]="'answer' + i" [(ngModel)]="selectedAnswers[i]" [id]="i + 'answer2'">
-        <label [for]="i + 'answer2'">{{question.answer2}}</label>
-      </div><br/>
-      <div class="answer-container">
-        <input type="radio" [value]="3" [name]="'answer' + i" [(ngModel)]="selectedAnswers[i]" [id]="i + 'answer3'">
-        <label [for]="i + 'answer3'">{{question.answer3}}</label>
-      </div><br/>
-      <div class="answer-container">
-        <input type="radio" [value]="4" [name]="'answer' + i" [(ngModel)]="selectedAnswers[i]" [id]="i + 'answer4'">
-        <label [for]="i + 'answer4'">{{question.answer4}}</label>
-      </div><br/>
+    <h2>{{question.question}}</h2>
   </div>
 </div>
   <br/><br/>

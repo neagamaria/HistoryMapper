@@ -274,10 +274,11 @@ export class ExploreMapsComponent implements OnInit {
       await this.eventsService.callEventByNameApi().then();
       let event = this.eventsService.getSearchedEvent();
 
-      if (event) {
+      if (event.length > 0) {
         this.createMarkers(this.map, event).then();
+        console.log("Event: ", event)
       } else {
-        this.searchError = true;
+        alert("Event does not exist");
       }
     } catch (exception) {
       console.error("Error: ", exception);

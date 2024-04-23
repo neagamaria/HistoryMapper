@@ -22,22 +22,15 @@ export class QuizQuestionsComponent implements OnInit{
 
   async ngOnInit() {
     this.currentUser = this.userService.getCurrentUsername();
-    // page can not be accessed for no logged-in user
+    // page can not be accessed for not logged-in user
     if (this.currentUser == null) {
       this.router.navigate(['/login']).then();
     }
     else {
-      // get current quiz id
-      this.id = this.quizzesService.getId();
-      //get questions for current quiz
-      if (this.id != null) {
-        await this.quizzesService.getQuestions(this.id);
-        this.questions = this.quizzesService.getQuestionsValue();
-
-        console.log("QUESTIONS IN COMPONENT: ", this.questions);
-      } else {
-        this.router.navigate(['/quizzes']).then();
-      }
+      // get questions
+      await this.quizzesService.getQuiz().then((response) => {
+        this.questions = response.data;
+      });
     }
   }
 
@@ -58,6 +51,4 @@ export class QuizQuestionsComponent implements OnInit{
   goToQuizzes() {
     this.router.navigate(['/quizzes']).then();
   }
-
-
 }

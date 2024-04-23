@@ -31,19 +31,24 @@ export class EventsService {
     this.clearEvents();
     let url = `http://127.0.0.1:8000/api/events-between-${startYear}-${startEra}-${endYear}-${endEra}`
     const response: any = await firstValueFrom(this.http.get<any>(url));
-    this.eventsBetweenYears = response.data;
+
+    if(response.status == 200)
+      this.eventsBetweenYears = response.data;
+    else
+      this.eventsBetweenYears = [];
   }
 
   // call the API that gets event by name
   public async callEventByNameApi() {
     // clear all previous saved events
     this.clearEvents();
-
-    console.log("SEARCHED NAME IN SERVICE: ", this.searchedName.value)
     let url = `http://127.0.0.1:8000/api/event-by-name-${this.searchedName.value}`
-
     const response: any = await firstValueFrom(this.http.get<any>(url));
-    this.searchedEvent = response.data;
+
+    if(response.status == 200)
+      this.searchedEvent = response.data;
+    else
+      this.searchedEvent = [];
   }
 
   // call the API that gets all event types

@@ -1,6 +1,7 @@
 from django.contrib.auth.hashers import make_password
 from django.contrib.auth.models import User
 from django.shortcuts import get_object_or_404
+from django.http import JsonResponse
 
 from rest_framework.response import Response
 from rest_framework.views import APIView, status
@@ -23,8 +24,8 @@ class RegistrationAPI(APIView):
             user.set_password(request.data['password'])
             user.save()
             token = Token.objects.create(user=user)
-            return Response({"token": token.key, "user": user_data.data})
-        return Response(user_data.errors, status=status.HTTP_400_BAD_REQUEST)
+            return Response({"token": token.key, "user": user_data.data, 'status': status.HTTP_200_OK})
+        return JsonResponse({'status': status.HTTP_400_BAD_REQUEST})
 
 
 class LoginAPI(APIView):
@@ -37,5 +38,5 @@ class LoginAPI(APIView):
 
         token, created = Token.objects.get_or_create(user=user)
         serializer = UserSerializer(instance=user)
-        return Response({"token": token.key, "user": serializer.data})
+        return Response({"token": token.key, "user": serializer.data, 'status': status.HTTP_200_OK})
 

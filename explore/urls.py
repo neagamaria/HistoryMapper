@@ -1,5 +1,5 @@
 import rest_framework
-from django.urls import path, include
+from django.urls import path
 from . import views
 
 # URLs for the explore app
@@ -15,9 +15,10 @@ urlpatterns = [
     path('api/event-by-name-<str:name>', views.EventActionsAPIView.as_view(), name="event-by-name-api"),
     path('api/registration/', views.RegistrationAPI.as_view(), name="registration-api"),
     path('api/login/', views.LoginAPI.as_view(), name="login-api"),
-    path('api/quizzes', views.QuizzesAPIView.as_view(), name="quizzes-api"),
-    path('api/questions/<str:quiz_id>', views.QuestionsAPIView.as_view(), name="questions-api"),
-    path('api/dbpedia/<str:wiki_category>/<str:event_type>/<str:categ>', views.DBPediaAPIView.as_view(), name="dbpedia-info-api"),
+    path('api/dbpedia/<str:wiki_category>/<str:event_type>/<str:categ>', views.DBPediaAPIView.as_view(),
+         name="dbpedia-info-api"),
     path('api/all-types/', views.AllEventTypesAPIView.as_view(), name="all-types"),
-    path('api/routes/<str:category_id>/<event_type_id>/', views.RoutesAPIView.as_view(), name="routes")
+    path('api/routes/<str:category_id>/<event_type_id>/', views.RoutesAPIView.as_view(), name="routes-api"),
+    path('api/categories', views.CategoriesAPIView.as_view(), name="categories-api"),
+    path('api/quiz/<str:category_id>', views.QuizAPIView.as_view(), name="quiz-api")
 ]

@@ -51,7 +51,7 @@ export class AdminService {
     // call API that deletes an event
     public deleteEvent(name: string) {
         let url = "http://127.0.0.1:8000/api/event-by-name-" + name;
-        this.http.delete<any>(url);
+        return this.http.delete<any>(url);
     }
 
 

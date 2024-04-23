@@ -10,7 +10,9 @@ import {QuizzesService} from "../../../services/quizzes.service";
 })
 export class QuizzesComponent implements OnInit{
   currentUser: any = null;
-  quizzes: any = [];
+  // categories for quizzes
+  categories: any = [];
+
   constructor(private router: Router, private userService: UserService, private quizzesService: QuizzesService) {}
 
   async ngOnInit() {
@@ -19,13 +21,19 @@ export class QuizzesComponent implements OnInit{
       if (this.currentUser == null) {
           this.router.navigate(['/login']).then();
       } else {
-          // obtain all periods with the service function that calls the API
-          this.quizzes = await this.quizzesService.getQuizzes();
+        // get all categories in the db
+          await this.quizzesService.getCategories().then((response) => {
+            this.categories = response;
+          });
+
+          console.log("CATEGORIES: ", this.categories)
       }
   }
 
   goToQuizQuestions(id: string) {
-    this.quizzesService.setId(id);
+    // set id for selected category
+    this.quizzesService.setCategoryId(id);
+    // navigate to questions
     this.router.navigate(['/quiz-questions']).then();
   }
 }

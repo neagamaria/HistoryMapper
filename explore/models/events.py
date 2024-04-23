@@ -33,7 +33,3 @@ class Category(models.Model):
     name = models.CharField(max_length=100, unique=True)
     motto = models.CharField(max_length=200, blank=True)
 
-
-# tags for searching the event
-class Tag(models.Model):
-    name = models.CharField(max_length=30, unique=True)

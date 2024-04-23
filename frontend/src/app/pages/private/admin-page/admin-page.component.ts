@@ -13,7 +13,7 @@ import {EventsService} from "../../../services/events.service";
   templateUrl: './admin-page.component.html',
   styleUrls: ['./admin-page.component.css']
 })
-export class AdminPageComponent implements OnInit{
+export class AdminPageComponent implements OnInit {
 
   url: string = 'http://127.0.0.1:8000/api/dpedia/';
   // forms for each CRUD operation
@@ -32,19 +32,19 @@ export class AdminPageComponent implements OnInit{
   // all events to be indexed
   indexEvents: any[] = [];
 
-  constructor (private router: Router, private fb: FormBuilder, private userService: UserService, private adminService: AdminService, private eventsService: EventsService) {
+  constructor(private router: Router, private fb: FormBuilder, private userService: UserService, private adminService: AdminService, private eventsService: EventsService) {
     // initialize form
-    this.addForm = this.fb.group ({
+    this.addForm = this.fb.group({
       dbpediaCategory: ['', [Validators.required]],
       eventsType: ['', [Validators.required]],
       eventsCategory: ['', [Validators.required]],
     })
 
-    this.showForm = this.fb.group ( {
+    this.showForm = this.fb.group({
       name: ['', [Validators.required]]
     })
 
-    this.editForm = this.fb.group ( {
+    this.editForm = this.fb.group({
       newName: ['', [Validators.required]],
       newLocation: [''],
       newCategory: [''],
@@ -55,17 +55,16 @@ export class AdminPageComponent implements OnInit{
 
 
   async ngOnInit() {
-      this.currentUser = this.userService.getCurrentUsername();
-      // page can be accessed only by admin
-      console.log(this.currentUser);
-      if(this.currentUser != "admin") {
-          this.router.navigate(['/']).then();
-      }
-      else {
-          // there are no new events in the first place
-          this.events = [];
-          this.searchedEvent = [];
-      }
+    this.currentUser = this.userService.getCurrentUsername();
+    // page can be accessed only by admin
+    console.log(this.currentUser);
+    if (this.currentUser != "admin") {
+      this.router.navigate(['/']).then();
+    } else {
+      // there are no new events in the first place
+      this.events = [];
+      this.searchedEvent = [];
+    }
   }
 
 
@@ -76,15 +75,14 @@ export class AdminPageComponent implements OnInit{
 
 
   async populateDB(form: any) {
-      // set parameters for the API call
-      this.adminService.setWikiCategory(this.addForm.get('dbpediaCategory')?.value);
-      this.adminService.setEventsType(this.addForm.get('eventsType')?.value);
-      this.adminService.setEventsCategory(this.addForm.get('eventsCategory')?.value);
+    // set parameters for the API call
+    this.adminService.setWikiCategory(this.addForm.get('dbpediaCategory')?.value);
+    this.adminService.setEventsType(this.addForm.get('eventsType')?.value);
+    this.adminService.setEventsCategory(this.addForm.get('eventsCategory')?.value);
 
-      await this.adminService.addDbpediaData();
-      this.events = this.adminService.getAddedEvents();
+    await this.adminService.addDbpediaData();
+    this.events = this.adminService.getAddedEvents();
 
-      console.log(this.events);
   }
 
 
@@ -95,8 +93,6 @@ export class AdminPageComponent implements OnInit{
         this.indexEvents = this.eventsService.getEventsBetweenYearsValue();
       }
     );
-
-    console.log("Index Events: ", this.indexEvents)
   }
 
 
@@ -104,16 +100,19 @@ export class AdminPageComponent implements OnInit{
   async getEvent(form: any) {
     // search the event with the introduced name
     let name = this.showForm.get('name')?.value
-    console.log(name)
 
-    if(name) {
+    if (name) {
       this.eventsService.setSearchedName(name);
 
       await this.eventsService.callEventByNameApi();
       this.searchedEvent = this.eventsService.getSearchedEvent();
 
-      console.log(this.searchedEvent)
+      if(this.searchedEvent == '')
+        alert("Event not found");
+
     }
+
+    console.log(this.searchedEvent)
   }
 
 
@@ -141,7 +140,14 @@ export class AdminPageComponent implements OnInit{
     // call the API that edits the event
     this.adminService.editEvent(name, newData).subscribe({
       next: (response) => {
-        console.log('API response: ', response);
+        if (response.status == 200) {
+          alert("Event edited");
+        } else if (response.status == 404) {
+          alert("Event not found");
+        }
+
+        this.selectAction('');
+        this.searchedEvent = '';
       }
     });
   }
@@ -149,6 +155,18 @@ export class AdminPageComponent implements OnInit{
 
   deleteEvent(name: any) {
     // call the API that deletes an event by name
-    this.adminService.deleteEvent(name);
+    this.adminService.deleteEvent(name).subscribe({
+      next: (response) => {
+        if (response.status == 200) {
+          alert("Event deleted");
+        } else if (response.status == 404) {
+          alert("Event not found");
+        }
+
+        // remove delete selected action
+        this.selectAction('');
+        this.searchedEvent = '';
+      }
+    });
   }
 }

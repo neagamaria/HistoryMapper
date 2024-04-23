@@ -12,7 +12,7 @@ from rest_framework.response import Response
 from rest_framework import status
 
 
-# call the Gocoding API
+# call the Geocoding API
 def get_coordinates(location):
     url = f"https://maps.googleapis.com/maps/api/geocode/json?key={settings.GOOGLE_API_KEY}&address={location}"
     response = requests.get(url)
@@ -82,7 +82,7 @@ class EventsBetweenYearsAPIView(APIView):
                  "longitude": e['longitude']}
                 for e in complete_events]
 
-        return JsonResponse({'data': data})
+        return JsonResponse({'data': data, 'status': status.HTTP_200_OK})
 
 
 # read, update and delete operations for events
@@ -112,9 +112,9 @@ class EventActionsAPIView(APIView):
                          "latitude": lat,
                          "longitude": lng}]
 
-            return JsonResponse({'data': data})
+            return JsonResponse({'data': data, 'status': status.HTTP_200_OK})
         except Event.DoesNotExist:
-            return Response(status=status.HTTP_404_NOT_FOUND)
+            return JsonResponse({'status': status.HTTP_404_NOT_FOUND})
 
     # edit event based on name
     def put(self, request, name):
@@ -132,19 +132,19 @@ class EventActionsAPIView(APIView):
                                                             event_type_id=event_type[0].id,
                                                             description=request_data['description'])
 
-            return Response(status=status.HTTP_204_NO_CONTENT)
+            return JsonResponse({'status': status.HTTP_200_OK})
 
         except Event.DoesNotExist:
-            return Response(status=status.HTTP_404_NOT_FOUND)
+            return JsonResponse({'status': status.HTTP_404_NOT_FOUND})
 
     # delete event based on name
     def delete(self, request, name):
         try:
             event = Event.objects.annotate(lower_name=Lower('name')).filter(lower_name=name.lower())
             event.delete()
-            return Response(status=status.HTTP_204_NO_CONTENT)
+            return JsonResponse({'status': status.HTTP_200_OK})
         except Event.DoesNotExist:
-            return Response(status=status.HTTP_404_NOT_FOUND)
+            return JsonResponse({'status': status.HTTP_404_NOT_FOUND})
 
 
 class AllEventTypesAPIView(APIView):
@@ -190,4 +190,4 @@ class RoutesAPIView(APIView):
                  "longitude": e['longitude']}
                 for e in complete_events]
 
-        return JsonResponse({'data': data})
+        return JsonResponse({'data': data, 'status': status.HTTP_200_OK})

@@ -60,12 +60,9 @@
 
   <div *ngIf="selectedAction == 'index'">
       <div *ngFor="let e of indexEvents" class="event-info">
-              <i class="bi bi-trash" (click)="selectAction('delete')"></i>
-              <i class="bi bi-pencil-fill" (click)="selectAction('edit')"> </i>
               <br/><br/>
 
               <div style="font-size: 30px">{{ e.name }}
-                <i class="bi bi-pencil-fill" (click)="selectAction('edit')"></i>
               </div>
               <br/>
               <div> Date:
@@ -80,6 +77,8 @@
                 <div style="color: #EDEAD4"> {{ e.event_type }}
                 </div>
               </div>
+        <br/>
+<!--        <button class="btn btn-outline-light" (click)="this.searchedEvent=e; this.selectAction('show')">Show</button>-->
       </div>
   </div>
 
@@ -92,7 +91,7 @@
       <br/><br/>
       <button type="submit" [disabled]="showForm.invalid" class="btn btn-outline-light">Show</button>
     </form>
-
+    <div>{{ this.searchedEvent }}</div>
     <div class="event-info" *ngIf="searchedEvent.length > 0">
       <i class="bi bi-trash" (click)="selectAction('delete')"></i>
       <i class="bi bi-pencil-fill" (click)="selectAction('edit')"> </i>
