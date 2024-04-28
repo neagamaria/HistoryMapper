@@ -1,5 +1,3 @@
-# models related to events
-
 from django.db import models
 
 

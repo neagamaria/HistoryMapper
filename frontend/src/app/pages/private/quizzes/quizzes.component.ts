@@ -12,6 +12,8 @@ export class QuizzesComponent implements OnInit{
   currentUser: any = null;
   // categories for quizzes
   categories: any = [];
+  // last scores for each quiz
+  quizzesHistory: any = [];
 
   constructor(private router: Router, private userService: UserService, private quizzesService: QuizzesService) {}
 
@@ -26,13 +28,20 @@ export class QuizzesComponent implements OnInit{
             this.categories = response;
           });
 
-          console.log("CATEGORIES: ", this.categories)
+
+          // get the last score for each quiz category
+          await this.quizzesService.getQuizHistory({user: this.currentUser}).then((response) => {
+            this.quizzesHistory = response;
+            console.log(this.quizzesHistory);
+          });
       }
   }
+
 
   goToQuizQuestions(id: string) {
     // set id for selected category
     this.quizzesService.setCategoryId(id);
+    console.log("CategoryId in QuizzesComponent: ", this.quizzesService.getCategoryId());
     // navigate to questions
     this.router.navigate(['/quiz-questions']).then();
   }

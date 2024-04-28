@@ -1,7 +1,4 @@
-# data related to physical localization of an event on map
-
 from django.db import models
-
 
 # the locations with their coordinates
 class MapLocation(models.Model):

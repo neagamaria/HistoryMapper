@@ -134,7 +134,6 @@ export class AdminPageComponent implements OnInit {
       category: newCategory,
       eventType: newEventType,
       description: newDescription
-
     }
 
     // call the API that edits the event

@@ -5,8 +5,6 @@ from . import views
 # URLs for the explore app
 urlpatterns = [
     path("", views.index, name="index"),
-    path("display-map", views.display_map, name="display-map"),
-    path("display-tables", views.display_tables, name="display-tables"),
     path('api/historical-periods/', views.HistoricalPeriodsAPIView.as_view(), name='historical-periods-api'),
     path('api/historical-periods/<str:period_id>', views.HistoricalPeriodAPIView.as_view(),
          name='historical-period-info-api'),
@@ -20,5 +18,6 @@ urlpatterns = [
     path('api/all-types/', views.AllEventTypesAPIView.as_view(), name="all-types"),
     path('api/routes/<str:category_id>/<event_type_id>/', views.RoutesAPIView.as_view(), name="routes-api"),
     path('api/categories', views.CategoriesAPIView.as_view(), name="categories-api"),
-    path('api/quiz/<str:category_id>', views.QuizAPIView.as_view(), name="quiz-api")
+    path('api/quiz/<str:category_id>', views.QuizAPIView.as_view(), name="quiz-api"),
+    path('api/quiz-history', views.QuizHistoryAPIView.as_view(), name="quiz-history-api")
 ]

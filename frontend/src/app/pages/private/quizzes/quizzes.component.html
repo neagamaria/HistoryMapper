@@ -4,6 +4,7 @@
   <div class="mid-container" *ngFor="let c of this.categories">
     <div class="quiz-container">
       <div class="name">{{ c.name }}</div>
+<!--      <div>{{this.quizzesHistory[c.id].last_score}}</div>-->
       <button type="button" class="btn btn-outline-light"
               (click)="goToQuizQuestions(c.id)">Start
       </button>
