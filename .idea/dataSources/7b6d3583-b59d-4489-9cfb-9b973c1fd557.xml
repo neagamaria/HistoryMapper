@@ -3,25 +3,26 @@
   <database-model serializer="dbm" dbms="ORACLE" family-id="ORACLE" format-version="4.51">
     <root id="1">
       <ServerVersion>21.0.0.0.0</ServerVersion>
+      <TablespacesHash>23420661385</TablespacesHash>
     </root>
     <schema id="2" parent="1" name="MARIA">
       <AutoIntrospectionLevel>3</AutoIntrospectionLevel>
       <CreatedTimestamp>2023-10-23.17:02:45</CreatedTimestamp>
       <Current>1</Current>
-      <LastIntrospectionL1Timestamp>2024-04-28.15:32:57</LastIntrospectionL1Timestamp>
-      <LastIntrospectionL2Timestamp>2024-04-28.15:32:57</LastIntrospectionL2Timestamp>
-      <LastIntrospectionL3Timestamp>2024-04-28.15:32:57</LastIntrospectionL3Timestamp>
+      <LastIntrospectionL1Timestamp>2024-04-29.14:31:20</LastIntrospectionL1Timestamp>
+      <LastIntrospectionL2Timestamp>2024-04-29.14:31:20</LastIntrospectionL2Timestamp>
+      <LastIntrospectionL3Timestamp>2024-04-29.14:31:20</LastIntrospectionL3Timestamp>
       <LastIntrospectionLevel>3</LastIntrospectionLevel>
-      <LastIntrospectionLocalTimestamp>2024-04-28.09:33:01</LastIntrospectionLocalTimestamp>
+      <LastIntrospectionLocalTimestamp>2024-04-29.08:31:26</LastIntrospectionLocalTimestamp>
       <LastIntrospectionVersion>200820</LastIntrospectionVersion>
-      <ModifiedTimestamp>2024-04-28.15:15:48</ModifiedTimestamp>
+      <ModifiedTimestamp>2024-04-28.17:01:31</ModifiedTimestamp>
       <ObjectId>109</ObjectId>
     </schema>
     <schema id="3" parent="1" name="PUBLIC">
       <AutoIntrospectionLevel>1</AutoIntrospectionLevel>
-      <LastIntrospectionL1Timestamp>2024-04-02.16:36:13</LastIntrospectionL1Timestamp>
+      <LastIntrospectionL1Timestamp>2024-04-29.14:31:20</LastIntrospectionL1Timestamp>
       <LastIntrospectionLevel>1</LastIntrospectionLevel>
-      <LastIntrospectionLocalTimestamp>2024-04-02.10:36:19</LastIntrospectionLocalTimestamp>
+      <LastIntrospectionLocalTimestamp>2024-04-29.08:31:25</LastIntrospectionLocalTimestamp>
       <ObjectId>1</ObjectId>
     </schema>
     <schema id="4" parent="1" name="SYS">
@@ -622,8 +623,8 @@
     </table>
     <table id="122" parent="2" name="EXPLORE_QUIZHISTORY">
       <CreatedTimestamp>2024-04-28.15:15:48</CreatedTimestamp>
-      <DetailsLevel>2</DetailsLevel>
-      <ModifiedTimestamp>2024-04-28.15:33:20</ModifiedTimestamp>
+      <DetailsLevel>3</DetailsLevel>
+      <ModifiedTimestamp>2024-04-28.17:01:31</ModifiedTimestamp>
       <ObjectId>80994</ObjectId>
       <TemporaryPreserve>1</TemporaryPreserve>
     </table>
@@ -60963,35 +60964,15 @@ MODEL</ColNames>
       <NotNull>1</NotNull>
       <Position>2</Position>
     </column>
-    <column id="7695" parent="122" name="CATEGORY_ID">
-      <DasType>NUMBER(19)|0s</DasType>
-      <NotNull>1</NotNull>
+    <column id="7695" parent="122" name="USER_ID">
+      <DasType>NUMBER(*)|0s</DasType>
       <Position>3</Position>
     </column>
-    <column id="7696" parent="122" name="USER_ID">
-      <DasType>NUMBER(11)|0s</DasType>
-      <NotNull>1</NotNull>
+    <column id="7696" parent="122" name="CATEGORY_ID">
+      <DasType>NUMBER(*)|0s</DasType>
       <Position>4</Position>
     </column>
-    <foreign-key id="7697" parent="122" name="EXPLORE_Q_CATEGORY__0C5B33F0_F">
-      <ColNames>CATEGORY_ID</ColNames>
-      <Deferrable>1</Deferrable>
-      <InitiallyDeferred>1</InitiallyDeferred>
-      <ModifiedTimestamp>2024-04-28.15:15:48</ModifiedTimestamp>
-      <OnDelete>restrict</OnDelete>
-      <RefKeyName>SYS_C008412</RefKeyName>
-      <RefTableName>EXPLORE_CATEGORY</RefTableName>
-    </foreign-key>
-    <foreign-key id="7698" parent="122" name="EXPLORE_Q_USER_ID_I_51CF0CDD_F">
-      <ColNames>USER_ID</ColNames>
-      <Deferrable>1</Deferrable>
-      <InitiallyDeferred>1</InitiallyDeferred>
-      <ModifiedTimestamp>2024-04-28.15:15:48</ModifiedTimestamp>
-      <OnDelete>restrict</OnDelete>
-      <RefKeyName>SYS_C008339</RefKeyName>
-      <RefTableName>AUTH_USER</RefTableName>
-    </foreign-key>
-    <index id="7699" parent="122" name="SYS_C008453">
+    <index id="7697" parent="122" name="SYS_C008453">
       <ColNames>ID</ColNames>
       <CreatedTimestamp>2024-04-28.15:15:48</CreatedTimestamp>
       <ModifiedTimestamp>2024-04-28.15:15:48</ModifiedTimestamp>
@@ -61000,21 +60981,7 @@ MODEL</ColNames>
       <Unique>1</Unique>
       <TablespaceName>USERS</TablespaceName>
     </index>
-    <index id="7700" parent="122" name="EXPLORE_QU_CATEGORY_I_0C5B33F0">
-      <ColNames>CATEGORY_ID</ColNames>
-      <CreatedTimestamp>2024-04-28.15:15:48</CreatedTimestamp>
-      <ModifiedTimestamp>2024-04-28.15:15:48</ModifiedTimestamp>
-      <ObjectId>80997</ObjectId>
-      <TablespaceName>USERS</TablespaceName>
-    </index>
-    <index id="7701" parent="122" name="EXPLORE_QU_USER_ID_ID_51CF0CDD">
-      <ColNames>USER_ID</ColNames>
-      <CreatedTimestamp>2024-04-28.15:15:48</CreatedTimestamp>
-      <ModifiedTimestamp>2024-04-28.15:15:48</ModifiedTimestamp>
-      <ObjectId>80998</ObjectId>
-      <TablespaceName>USERS</TablespaceName>
-    </index>
-    <key id="7702" parent="122" name="SYS_C008453">
+    <key id="7698" parent="122" name="SYS_C008453">
       <InitiallyDeferred>1</InitiallyDeferred>
       <ModifiedTimestamp>2024-04-28.15:15:48</ModifiedTimestamp>
       <NameSurrogate>1</NameSurrogate>

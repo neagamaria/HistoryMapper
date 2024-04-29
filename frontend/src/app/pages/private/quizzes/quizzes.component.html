@@ -1,13 +1,25 @@
-<h2>{{ this.currentUser }}, choose your Quiz!</h2>
+<h2>
+  <div style="color: #EDEAD4; font-weight: 1000">{{ this.currentUser }},</div> choose your Quiz!
+</h2>
 <br/><br/>
 <div class="big-container">
   <div class="mid-container" *ngFor="let c of this.categories">
     <div class="quiz-container">
       <div class="name">{{ c.name }}</div>
-<!--      <div>{{this.quizzesHistory[c.id].last_score}}</div>-->
-      <button type="button" class="btn btn-outline-light"
-              (click)="goToQuizQuestions(c.id)">Start
-      </button>
+      <div *ngIf="this.quizzesHistory[c.id] != null">
+        <div class="last-score-1">Last score: {{ this.quizzesHistory[c.id] }}</div>
+        <br/>
+        <button type="button" class="btn btn-outline-light"
+                (click)="goToQuizQuestions(c.id)">Retake
+        </button>
+      </div>
+      <div *ngIf="this.quizzesHistory[c.id] == null">
+        <div class="last-score">Not taken</div>
+        <br/>
+        <button type="button" class="btn btn-outline-light"
+                (click)="goToQuizQuestions(c.id)">Take
+        </button>
+      </div>
     </div>
   </div>
 </div>

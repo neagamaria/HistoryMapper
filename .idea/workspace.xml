@@ -7,18 +7,16 @@
     <list default="true" id="f896f08b-b189-43d1-bd3c-d7a6251c738a" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/dataSources/7b6d3583-b59d-4489-9cfb-9b973c1fd557.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/7b6d3583-b59d-4489-9cfb-9b973c1fd557.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/explore/migrations/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/explore/models/quizzes.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/explore/models/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/explore/models/__init__.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/explore/models/events.py" beforeDir="false" afterPath="$PROJECT_DIR$/explore/models/events.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/explore/models/locations.py" beforeDir="false" afterPath="$PROJECT_DIR$/explore/models/locations.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/explore/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/explore/urls.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/explore/views/quizzes_view.py" beforeDir="false" afterPath="$PROJECT_DIR$/explore/views/quizzes_view.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/app/pages/private/admin-page/admin-page.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/pages/private/admin-page/admin-page.component.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/frontend/src/app/pages/private/quiz-questions/quiz-questions.component.css" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/pages/private/quiz-questions/quiz-questions.component.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/frontend/src/app/pages/private/quiz-questions/quiz-questions.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/pages/private/quiz-questions/quiz-questions.component.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/frontend/src/app/pages/private/quiz-questions/quiz-questions.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/pages/private/quiz-questions/quiz-questions.component.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/app/pages/private/quizzes/quizzes.component.css" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/pages/private/quizzes/quizzes.component.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/frontend/src/app/pages/private/quizzes/quizzes.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/pages/private/quizzes/quizzes.component.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/frontend/src/app/pages/private/quizzes/quizzes.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/pages/private/quizzes/quizzes.component.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/app/pages/public/historical-period-info/historical-period-info.component.css" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/pages/public/historical-period-info/historical-period-info.component.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/app/pages/public/historical-period-info/historical-period-info.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/pages/public/historical-period-info/historical-period-info.component.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/frontend/src/app/services/quizzes.service.ts" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/services/quizzes.service.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -227,7 +225,9 @@
       <workItem from="1713885478491" duration="8011000" />
       <workItem from="1714036844366" duration="4467000" />
       <workItem from="1714287812580" duration="6728000" />
-      <workItem from="1714296666314" duration="5839000" />
+      <workItem from="1714296666314" duration="5884000" />
+      <workItem from="1714376490902" duration="5701000" />
+      <workItem from="1714385847233" duration="3479000" />
     </task>
     <servers />
   </component>

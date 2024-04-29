@@ -25,16 +25,16 @@
   <h2>Your result to the quiz is: </h2>
   <div *ngIf="this.result < 50"></div>
   <div class="result">{{this.result}}%</div>
-  <div style="font-size: 120%;">
+  <div style="font-size: 180%;">
     <div style="color:#B83333;" *ngIf="this.result < 50">
-      That's ok!
+      Try again!
     </div>
     <div style="color:#E1ADAD" *ngIf="this.result >= 50 && this.result < 90">
-      Nice!
+      Not bad!
     </div>
     <div *ngIf="this.result >= 90">
       Great!
     </div>
 </div>
-   <p>Go back to <a class="btn btn-link" [style]="'color:#E1ADAD;'" (click)="this.goToQuizzes()">Quizzes</a>
+   <p style="padding: 80px;">Go back to <a class="btn btn-link" [style]="'color:#E1ADAD;'" (click)="this.goToQuizzes()">Quizzes</a>
 </div>

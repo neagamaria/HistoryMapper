@@ -19,5 +19,5 @@ urlpatterns = [
     path('api/routes/<str:category_id>/<event_type_id>/', views.RoutesAPIView.as_view(), name="routes-api"),
     path('api/categories', views.CategoriesAPIView.as_view(), name="categories-api"),
     path('api/quiz/<str:category_id>', views.QuizAPIView.as_view(), name="quiz-api"),
-    path('api/quiz-history', views.QuizHistoryAPIView.as_view(), name="quiz-history-api")
+    path('api/quiz-history/<str:username>', views.QuizHistoryAPIView.as_view(), name="quiz-history-api")
 ]

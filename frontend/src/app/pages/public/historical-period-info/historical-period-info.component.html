@@ -1,9 +1,15 @@
+<div class="big-container"
+     [ngStyle]="{'background-image': 'linear-gradient(rgba(0,0,0,0.1), rgba(0,0,0,0.7)), url(../../../../assets/' + id + '.jpg)'}">
+  <div class="mid-container">
+    <h2>{{ this.historicalPeriod.name }}</h2>
 
-  <h2>{{this.historicalPeriod.name}}</h2>
-<br/><br/>
-  <div class="faded">Between {{this.historicalPeriod.start_year}} and {{this.historicalPeriod.end_year}} {{this.historicalPeriod.era}}</div>
-  <br/>
-  <div class="descr">
-  <p>{{this.historicalPeriod.description}}</p>
+    <br/><br/>
+    <div class="faded">Between {{ this.historicalPeriod.start_year }}
+      and {{ this.historicalPeriod.end_year }} {{ this.historicalPeriod.era }}
+    </div>
+    <div class="descr">
+      <p>{{ this.historicalPeriod.description }}</p>
+    </div>
   </div>
 
+</div>

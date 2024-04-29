@@ -44,16 +44,16 @@ export class QuizzesService {
 
   }
     // call API function that gets a specific quiz history
-    public async getQuizHistory(username: any) {
-      let url = "http://127.0.0.1:8000/api/quiz-history";
-      const response: any =  await firstValueFrom(this.http.get<any>(url, username));
+    public async getQuizHistory(username: string) {
+      let url = "http://127.0.0.1:8000/api/quiz-history/" + username;
+      const response: any =  await firstValueFrom(this.http.get<any>(url));
       console.log("Quiz history: ",response);
       return response.data;
     }
 
      // call API function that adds or edits quiz history
-    public addQuizHistory(newData: any) {
-      let url = "http://127.0.0.1:8000/api/quiz-history";
+    public addQuizHistory(newData: any, username: string) {
+      let url = "http://127.0.0.1:8000/api/quiz-history/" + username;
       return this.http.put<any>(url, newData);
     }
 

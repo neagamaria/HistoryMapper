@@ -95,32 +95,28 @@ class QuizAPIView(APIView):
 
 class QuizHistoryAPIView(APIView):
     # get quiz histories for specific user
-    def get(self, request):
+    def get(self, request, username):
         try:
-            request_data = JSONParser().parse(request)
-            return JsonResponse({'data': request_data['user']})
-            user = User.objects.get(username=request['user'])
-
-            return JsonResponse({'data': user.id})
+            user = User.objects.get(username=username)
             categories = Category.objects.all().order_by('id')
 
             quiz_history = QuizHistory.objects.raw('''SELECT * FROM explore_quizhistory 
                                                                   WHERE user_id = %s''',
                                                    [user.id])
 
-            data = [{category.id: {'user_id': user.id, 'category_id': category.id,
-                                   'last_score': quiz_history[0].last_score}
-                    for category in categories}]
+            data = [{qh.category_id: {'user_id': user.id, 'category_id': qh.category_id,
+                                      'last_score': qh.last_score}
+                     for qh in quiz_history}]
             return JsonResponse({'data': data}, safe=False)
         except QuizHistory.DoesNotExist:
             return JsonResponse({'status': status.HTTP_404_NOT_FOUND})
 
     # create a new quiz history for current quiz and user
     # or update an existing one
-    def put(self, request):
+    def put(self, request, username):
         try:
             request_data = JSONParser().parse(request)
-            user = User.objects.get(username=request_data['user'])
+            user = User.objects.get(username=username)
             category_id = request_data['category_id']
 
             category = Category.objects.raw('''SELECT * FROM explore_category WHERE id= %s''', [category_id])
@@ -137,11 +133,12 @@ class QuizHistoryAPIView(APIView):
             else:
                 # update existing quiz history
                 quiz_history_id = quiz_history[0].id
-                QuizHistory.objects.get(id=quiz_history_id).update(last_score=request_data['last_score'])
+                quiz_history = QuizHistory.objects.get(id=quiz_history_id)
+                quiz_history.last_score = request_data['last_score']
+                quiz_history.save()
+
+                return JsonResponse({'data': request_data['last_score']})
             return JsonResponse({'status': status.HTTP_200_OK})
 
         except Exception as e:
             return JsonResponse({'error': str(e), 'status': status.HTTP_500_INTERNAL_SERVER_ERROR})
-
-
-

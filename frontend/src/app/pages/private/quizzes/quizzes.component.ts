@@ -30,8 +30,15 @@ export class QuizzesComponent implements OnInit{
 
 
           // get the last score for each quiz category
-          await this.quizzesService.getQuizHistory({user: this.currentUser}).then((response) => {
-            this.quizzesHistory = response;
+          await this.quizzesService.getQuizHistory(this.currentUser).then((response) => {
+           // this.quizzesHistory = response;
+
+            this.categories.forEach((category: any) => {
+              if(response[0][category.id])
+                this.quizzesHistory[category.id] = response[0][category.id].last_score;
+              else
+                this.quizzesHistory[category.id] = null;
+            })
             console.log(this.quizzesHistory);
           });
       }

@@ -43,8 +43,12 @@ export class QuizQuestionsComponent implements OnInit {
         this.result++;
       }
     }
-    // final score percentage
-    this.result = Math.floor(100 * this.result / index);
+
+    if(this.result != 0) {
+      // final score percentage
+      this.result = Math.floor(100 * this.result / index);
+    }
+
     // mark that quiz is finished
     this.isFinished = true;
     // add result to quiz history
@@ -55,7 +59,7 @@ export class QuizQuestionsComponent implements OnInit {
     };
 
     // call the API that adds to quiz history
-    this.quizzesService.addQuizHistory(newData).subscribe({
+    this.quizzesService.addQuizHistory(newData, this.currentUser).subscribe({
       next: (response) => {
         console.log("RESPONSE:", response);
       }
