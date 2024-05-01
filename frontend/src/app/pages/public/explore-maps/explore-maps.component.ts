@@ -51,9 +51,6 @@ export class ExploreMapsComponent implements OnInit {
   endYear = 0;
   endEra = 'AD';
 
-  // mark if error search error message should be displayed
-  searchError: boolean = false;
-
   // saved filters for events
   savedFilters: any = [];
 
@@ -71,16 +68,16 @@ export class ExploreMapsComponent implements OnInit {
 
 
   async ngOnInit() {
+    // get starting range for timeline
+    this.minVal = this.eventsService.getMinVal();
+    this.maxVal = this.eventsService.getMaxVal();
 
     // always get routes mode status; subscribe to observable to see any change
     this.eventsService.getRoutesMode().subscribe(async (status) => {
-
       if(status != this.routesMode) {
         this.routesMode = status;
-
-        // change listeners for
+        // change listeners for markers
         this.addListeners(this.map, this.markers).then();
-
       }
       else {
         this.routesMode = status;
@@ -92,7 +89,7 @@ export class ExploreMapsComponent implements OnInit {
       }
       else {
         await this.initMap("a9142f4c77c25686").then(() => {
-          this.createMarkers(this.map, this.eventsBetweenYears).then()
+          this.createMarkers(this.map, this.eventsBetweenYears).then();
         });
       }
     })
@@ -141,7 +138,6 @@ export class ExploreMapsComponent implements OnInit {
         filteredEvents.push(event)
       }
     }
-    console.log(filteredEvents)
     // update events
     this.eventsBetweenYears = filteredEvents;
     // replace them on map
@@ -172,9 +168,6 @@ export class ExploreMapsComponent implements OnInit {
     // get events with the service method
     await this.eventsService.callEventsBetweenYearsApi(this.startYear, this.startEra, this.endYear, this.endEra);
     this.eventsBetweenYears = this.eventsService.getEventsBetweenYearsValue();
-    // filter events by type if filters applied
-
-    console.log("EVENTS: ", this.eventsBetweenYears)
   }
 
 
@@ -193,7 +186,9 @@ export class ExploreMapsComponent implements OnInit {
 
   // create markers to be displayed on map
   async createMarkers(map: any, events: any) {
-    // this.clearMap();
+    //TODO delete this
+    let response = await this.eventsService.callClusterEventsAPI(events);
+    console.log("CLUSTERS IN COMPONENT: ", response);
     await google.maps.importLibrary("marker");
 
     for (const e of events) {
@@ -229,8 +224,6 @@ export class ExploreMapsComponent implements OnInit {
       });
 
       await this.addListeners(map, events);
-
-
       // add marker to the array of markers
       this.markers.push([marker, e]);
     }
@@ -276,7 +269,6 @@ export class ExploreMapsComponent implements OnInit {
 
       if (event.length > 0) {
         this.createMarkers(this.map, event).then();
-        console.log("Event: ", event)
       } else {
         alert("Event does not exist");
       }

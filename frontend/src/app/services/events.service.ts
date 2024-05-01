@@ -8,11 +8,14 @@ import {BehaviorSubject, firstValueFrom} from "rxjs";
 })
 export class EventsService {
 
+  // minimum value for timeline
+  private minVal = -100;
+  // maximum value for timeline
+  private maxVal = 100;
   // events between time range
   private eventsBetweenYears: any[] = [];
   // event clicked for displaying info
   private clickedEvent: any = null;
-
   // searched name of event, make changes visible all the time
   private searchedName = new BehaviorSubject<string>("");
   // searched event
@@ -36,6 +39,25 @@ export class EventsService {
       this.eventsBetweenYears = response.data;
     else
       this.eventsBetweenYears = [];
+  }
+
+
+  // call the API that clusters events
+  public async callClusterEventsAPI(eventsToCluster: any[]) {
+    const events = eventsToCluster.map(e => ({
+      name: e.name,
+      latitude: e.latitude,
+      longitude: e.longitude
+    }));
+
+    console.log("events in service: ", events);
+
+    let url = 'http://127.0.0.1:8000/api/cluster-events';
+    let response = await firstValueFrom(this.http.put<any>(url, events));
+
+    console.log("CLUSTERS: ", response);
+
+    return response;
   }
 
   // call the API that gets event by name
@@ -64,6 +86,24 @@ export class EventsService {
     const response = await firstValueFrom(this.http.get<any>(url));
 
     return response.data;
+  }
+
+
+  // getters and setters for timeline values
+  public getMinVal() {
+    return this.minVal;
+  }
+
+  public setMinVal(value: number) {
+    this.minVal = value;
+  }
+
+  public getMaxVal() {
+    return this.maxVal;
+  }
+
+  public setMaxVal(value: number) {
+    this.maxVal = value;
   }
 
 

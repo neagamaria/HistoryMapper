@@ -11,6 +11,7 @@ urlpatterns = [
     path('api/events-between-<int:start_year>-<str:start_era>-<int:end_year>-<str:end_era>',
          views.EventsBetweenYearsAPIView.as_view(), name="events-between-years-api"),
     path('api/event-by-name-<str:name>', views.EventActionsAPIView.as_view(), name="event-by-name-api"),
+    path('api/cluster-events', views.ClusterEventsAPIView.as_view(), name="cluster-api"),
     path('api/registration/', views.RegistrationAPI.as_view(), name="registration-api"),
     path('api/login/', views.LoginAPI.as_view(), name="login-api"),
     path('api/dbpedia/<str:wiki_category>/<str:event_type>/<str:categ>', views.DBPediaAPIView.as_view(),

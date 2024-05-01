@@ -8,8 +8,10 @@ from HistoryMapper import settings
 from explore.models import MapLocation, Event, EventType, Category
 from django.db.models.functions import Lower
 
-from rest_framework.response import Response
 from rest_framework import status
+
+from sklearn.cluster import KMeans
+import numpy as np
 
 
 # call the Geocoding API
@@ -122,15 +124,17 @@ class EventActionsAPIView(APIView):
             # data for update
             request_data = JSONParser().parse(request)
             # get the ids of the fields
-            category = Category.objects.raw('''SELECT id from explore_category WHERE LOWER(name) = %s''', [request_data['category'].lower()])
-            event_type = EventType.objects.raw('''SELECT id from explore_eventtype WHERE LOWER(name) = %s''', [request_data['eventType'].lower()])
+            category = Category.objects.raw('''SELECT id from explore_category WHERE LOWER(name) = %s''',
+                                            [request_data['category'].lower()])
+            event_type = EventType.objects.raw('''SELECT id from explore_eventtype WHERE LOWER(name) = %s''',
+                                               [request_data['eventType'].lower()])
             # update event entry
             Event.objects.annotate(lower_name=Lower('name')).filter(lower_name=name.lower()).update(
-                                                            name=request_data['name'],
-                                                            location=request_data['location'],
-                                                            category_id=category[0].id,
-                                                            event_type_id=event_type[0].id,
-                                                            description=request_data['description'])
+                name=request_data['name'],
+                location=request_data['location'],
+                category_id=category[0].id,
+                event_type_id=event_type[0].id,
+                description=request_data['description'])
 
             return JsonResponse({'status': status.HTTP_200_OK})
 
@@ -191,3 +195,36 @@ class RoutesAPIView(APIView):
                 for e in complete_events]
 
         return JsonResponse({'data': data, 'status': status.HTTP_200_OK})
+
+
+# API endpoint for grouping events into clusters
+class ClusterEventsAPIView(APIView):
+    # manhattan distance between two events
+    @staticmethod
+    def manhattan_distance(self, lat1, lon1, lat2, lon2):
+        return abs(lat2 - lat1) + abs(lon2 - lon1)
+
+    # add a cluster to each event
+    def put(self, request):
+        # define number of clusters
+        k = 5
+        # get latitude and longitude from all events in request
+        events_coord = []
+
+        try:
+            for i in range(len(request.data)):
+                events_coord.append([request.data[i]['latitude'], request.data[i]['longitude']])
+
+            # initialize k-Means clustering model
+            kmeans = KMeans(k)
+            # fit clustering model
+            kmeans.fit(events_coord)
+            # get clusters centers
+            centroids = kmeans.cluster_centers_
+            # get labels
+            labels = kmeans.labels_
+
+            return JsonResponse({'centroids': centroids.tolist(), 'labels': labels.tolist()})
+
+        except Exception as e:
+            return JsonResponse({'exception': str(e), 'status': status.HTTP_400_BAD_REQUEST})

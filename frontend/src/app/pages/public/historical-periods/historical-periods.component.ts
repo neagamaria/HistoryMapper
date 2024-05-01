@@ -18,9 +18,13 @@ export class HistoricalPeriodsComponent implements OnInit{
 
   async ngOnInit() {
     // obtain all periods with the service function that calls the API
-      this.periodsService.getHistoricalPeriods();
-      setTimeout(() =>
-         this.historicalPeriods = this.periodsService.getHistoricalPeriodsValue(), 200);
+    this.historicalPeriods = this.periodsService.getHistoricalPeriodsValue();
+
+    if(this.historicalPeriods.length === 0) {
+      await this.periodsService.getHistoricalPeriods();
+      this.historicalPeriods = this.periodsService.getHistoricalPeriodsValue();
+      console.log(this.historicalPeriods.length);
+    }
   }
 
   goToHistoricalPeriodInfo(id: string) {
