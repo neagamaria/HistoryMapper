@@ -29,6 +29,7 @@ export class EventsService {
 
   constructor(private http: HttpClient) { }
 
+
   // call the API that retrieves all events in a time range
   public async callEventsBetweenYearsApi(startYear: number, startEra: string, endYear: number, endEra: string) {
     this.clearEvents();
@@ -50,15 +51,12 @@ export class EventsService {
       longitude: e.longitude
     }));
 
-    console.log("events in service: ", events);
-
     let url = 'http://127.0.0.1:8000/api/cluster-events';
     let response = await firstValueFrom(this.http.put<any>(url, events));
 
-    console.log("CLUSTERS: ", response);
-
     return response;
   }
+
 
   // call the API that gets event by name
   public async callEventByNameApi() {
@@ -73,12 +71,14 @@ export class EventsService {
       this.searchedEvent = [];
   }
 
+
   // call the API that gets all event types
   public async callTypesApi(){
     let url = 'http://127.0.0.1:8000/api/all-types/'
     const response: any = await firstValueFrom(this.http.get<any>(url));
     this.eventTypes = response.data;
   }
+
 
   // call the API that obtains a route based on a starting event
   public async callRoutesAPI(categoryId: string, eventTypeId: string) {
@@ -94,13 +94,16 @@ export class EventsService {
     return this.minVal;
   }
 
+
   public setMinVal(value: number) {
     this.minVal = value;
   }
 
+
   public getMaxVal() {
     return this.maxVal;
   }
+
 
   public setMaxVal(value: number) {
     this.maxVal = value;
@@ -112,50 +115,60 @@ export class EventsService {
     this.eventsBetweenYears = [];
   }
 
+
   // get all events from list
   public getEventsBetweenYearsValue(): any {
     return this.eventsBetweenYears;
   }
+
 
   // remove searched event's value
   public clearSearchedEvent() {
     this.searchedEvent = [];
   }
 
+
  // get current value of searched event
   public getSearchedEvent(): any {
     return this.searchedEvent;
   }
+
 
   // get searched name value
   public getSearchedName() {
     return this.searchedName.asObservable();
   }
 
+
   // set searched name value
   public setSearchedName(name: string) {
     this.searchedName.next(name);
   }
+
 
   // get event types
   public getEventTypes() {
     return this.eventTypes;
   }
 
+
   // get saved filters
   public getSavedFilters() {
     return this.savedFilters.asObservable();
   }
+
 
   // set saved filters values
   public setSavedFilters(filters: any) {
     this.savedFilters.next(filters);
   }
 
+
   // save the event for which info will be displayed
   public setClickedEvent(event: any) {
     this.clickedEvent = event;
   }
+
 
   // get the event for which info is displayed
   public getClickedEvent() {
@@ -170,6 +183,7 @@ export class EventsService {
   public setRoutesMode(status: boolean) {
     this.routesMode.next(status);
   }
+
 
   // get the routes mode status
   public getRoutesMode() {

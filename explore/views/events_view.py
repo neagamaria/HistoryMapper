@@ -11,7 +11,7 @@ from django.db.models.functions import Lower
 from rest_framework import status
 
 from sklearn.cluster import KMeans
-import numpy as np
+from collections import Counter
 
 
 # call the Geocoding API
@@ -224,7 +224,10 @@ class ClusterEventsAPIView(APIView):
             # get labels
             labels = kmeans.labels_
 
-            return JsonResponse({'centroids': centroids.tolist(), 'labels': labels.tolist()})
+            # count number of elements in each cluster
+            numbers = list(Counter(labels).values())
+
+            return JsonResponse({'centroids': centroids.tolist(), 'labels': labels.tolist(), 'numbers': numbers})
 
         except Exception as e:
             return JsonResponse({'exception': str(e), 'status': status.HTTP_400_BAD_REQUEST})
