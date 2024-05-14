@@ -31,3 +31,12 @@ class Category(models.Model):
     name = models.CharField(max_length=100, unique=True)
     motto = models.CharField(max_length=200, blank=True)
 
+
+# YouTube video connected to an event
+class Video(models.Model):
+    name = models.CharField(max_length=200)
+    url = models.URLField(max_length=1000, unique=True)
+    event = models.ForeignKey("Event", on_delete=models.CASCADE)
+
+
+

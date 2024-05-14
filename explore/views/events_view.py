@@ -29,7 +29,7 @@ def get_coordinates(location):
 
 # obtain needed locations and add entries in the db
 def populate_map_location(events):
-    # get all events' locations that do not have entries in the db
+    # get all events locations that do not have entries in the db
     all_event_locations = set(event.location for event in events)
     map_locations = set(MapLocation.objects.raw('''SELECT id, name FROM explore_maplocation'''))
     all_map_locations = set(location.name for location in map_locations)

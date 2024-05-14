@@ -84,7 +84,13 @@ export class EventsService {
   public async callRoutesAPI(categoryId: string, eventTypeId: string) {
     let url = 'http://127.0.0.1:8000/api/routes/' + categoryId + '/' + eventTypeId + '/';
     const response = await firstValueFrom(this.http.get<any>(url));
+    return response.data;
+  }
 
+  // call the API that retrieves YouTube videos for an event
+  public async callVideosAPI(eventName: string) {
+    let url = 'http://127.0.0.1:8000/api/videos/' + eventName;
+    const response = await firstValueFrom(this.http.get<any>(url));
     return response.data;
   }
 

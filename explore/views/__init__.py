@@ -3,4 +3,5 @@ from .events_view import *
 from .periods_view import *
 from .quizzes_view import *
 from .db_info import *
+from .videos_view import *
 from .views import *

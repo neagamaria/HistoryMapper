@@ -1,5 +1,6 @@
 from django.db import models
 
+
 # the locations with their coordinates
 class MapLocation(models.Model):
     name = models.CharField(max_length=100, unique=True)
