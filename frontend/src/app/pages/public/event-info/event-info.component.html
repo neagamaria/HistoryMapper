@@ -16,10 +16,15 @@
   <div *ngIf="this.videos.length !== 0">
     <h4 style="color: #EDEAD4">Related videos:</h4>
     <div *ngFor="let video of this.videos">
+<<<<<<< HEAD
       <a href="{{video.url}}" style="color: white">{{ video.url }}
       <img [src]="video.image" alt="...">
       </a>
       <br/>
+=======
+      <a href="{{video.url}}" style="color: #EDEAD4">{{ video.url }}</a>
+<!--      <youtube-player videoId={{video.id}}></youtube-player>-->
+>>>>>>> 6339e2ba8c592fc19ca156385e46570d0f3bc405
     </div>
   </div>
 </div>

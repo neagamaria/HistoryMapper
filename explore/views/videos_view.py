@@ -24,8 +24,12 @@ class VideosAPIView(APIView):
                     videos.append({
                         'name': video.name,
                         'url': video.url,
+<<<<<<< HEAD
                         'id': video.id,
                         'image': video.image
+=======
+                        'id': video.id
+>>>>>>> 6339e2ba8c592fc19ca156385e46570d0f3bc405
                     })
 
             else:
@@ -49,8 +53,12 @@ class VideosAPIView(APIView):
                     videos.append({
                         'name': name,
                         'url': url,
+<<<<<<< HEAD
                         'id': video['id']['videoId'],
                         'image': str(image)
+=======
+                        'id': video['id']['videoId']
+>>>>>>> 6339e2ba8c592fc19ca156385e46570d0f3bc405
                     })
 
             return JsonResponse({'data': videos, 'status': status.HTTP_200_OK})
