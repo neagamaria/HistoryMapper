@@ -376,8 +376,7 @@ class DBPediaAPIView(APIView):
         elif event_type == 'Succession':
             results = self.get_dbpedia_successions(self, wiki_category)
 
-        event_type = EventType.objects.raw('''SELECT id FROM explore_eventtype WHERE
-                                                name = %s''', [event_type])
+        event_type = EventType.objects.raw('''SELECT id FROM explore_eventtype WHERE name = %s''', [event_type])
 
         event_type_id = event_type[0].id
 
@@ -402,7 +401,6 @@ class DBPediaAPIView(APIView):
             else:
                 event_lng = ""
 
-            # TODO create logic for places not represented as latitude and longitude coordinates
             if event_lng != "" and event_lat != "":
                 # split date
                 date_comp = event_date.split('-')

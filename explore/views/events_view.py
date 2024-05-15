@@ -2,12 +2,19 @@
 import requests
 from django.http import JsonResponse
 from rest_framework.views import APIView
+from rest_framework.parsers import JSONParser
 
 from HistoryMapper import settings
-from explore.models import MapLocation, Event, EventType
+from explore.models import MapLocation, Event, EventType, Category
+from django.db.models.functions import Lower
+
+from rest_framework import status
+
+from sklearn.cluster import KMeans
+from collections import Counter
 
 
-# call the Gocoding API
+# call the Geocoding API
 def get_coordinates(location):
     url = f"https://maps.googleapis.com/maps/api/geocode/json?key={settings.GOOGLE_API_KEY}&address={location}"
     response = requests.get(url)
@@ -22,7 +29,7 @@ def get_coordinates(location):
 
 # obtain needed locations and add entries in the db
 def populate_map_location(events):
-    # get all events' locations that do not have entries in the db
+    # get all events locations that do not have entries in the db
     all_event_locations = set(event.location for event in events)
     map_locations = set(MapLocation.objects.raw('''SELECT id, name FROM explore_maplocation'''))
     all_map_locations = set(location.name for location in map_locations)
@@ -39,7 +46,7 @@ def populate_map_location(events):
             )
 
 
-# API endpoints for getting events from the db and displaying them on map
+# API endpoint for getting events from the db and displaying them on map
 class EventsBetweenYearsAPIView(APIView):
     # get all events in a time period with their coordinates
     def get(self, request, start_year, start_era, end_year, end_era):
@@ -77,35 +84,71 @@ class EventsBetweenYearsAPIView(APIView):
                  "longitude": e['longitude']}
                 for e in complete_events]
 
-        return JsonResponse({'data': data})
+        return JsonResponse({'data': data, 'status': status.HTTP_200_OK})
 
 
-class EventByNameAPIView(APIView):
+# read, update and delete operations for events
+class EventActionsAPIView(APIView):
     # get one event from DB based on name
     @staticmethod
     def get(self, name):
-        # data to be returned
-        data = []
-        # transform name to lowercase
-        name = name.lower()
+        try:
+            # data to be returned
+            data = []
+            # transform name to lowercase
+            name = name.lower()
 
-        event = Event.objects.raw('''SELECT * FROM explore_event WHERE LOWER(name) = %s''', [name])
+            event = Event.objects.raw('''SELECT * FROM explore_event WHERE LOWER(name) = %s''', [name])
 
-        if event:
-            event = event[0]
-            # add coordinates
-            lat, lng = get_coordinates(event.location)
+            if event:
+                event = event[0]
+                # add coordinates
+                lat, lng = get_coordinates(event.location)
 
-            data = [{'name': event.name, 'event_date': event.event_date, 'era': event.era,
-                     'location': event.location, 'description': event.description,
-                     "historical_period": event.historical_period.name,
-                     "event_type": event.event_type.name, "category": event.category.name,
-                     "event_type_id": event.event_type_id,
-                     "category_id": event.category_id,
-                     "latitude": lat,
-                     "longitude": lng}]
+                data = [{'name': event.name, 'event_date': event.event_date, 'era': event.era,
+                         'location': event.location, 'description': event.description,
+                         "historical_period": event.historical_period.name,
+                         "event_type": event.event_type.name, "category": event.category.name,
+                         "event_type_id": event.event_type_id,
+                         "category_id": event.category_id,
+                         "latitude": lat,
+                         "longitude": lng}]
 
-        return JsonResponse({'data': data})
+            return JsonResponse({'data': data, 'status': status.HTTP_200_OK})
+        except Event.DoesNotExist:
+            return JsonResponse({'status': status.HTTP_404_NOT_FOUND})
+
+    # edit event based on name
+    def put(self, request, name):
+        try:
+            # data for update
+            request_data = JSONParser().parse(request)
+            # get the ids of the fields
+            category = Category.objects.raw('''SELECT id from explore_category WHERE LOWER(name) = %s''',
+                                            [request_data['category'].lower()])
+            event_type = EventType.objects.raw('''SELECT id from explore_eventtype WHERE LOWER(name) = %s''',
+                                               [request_data['eventType'].lower()])
+            # update event entry
+            Event.objects.annotate(lower_name=Lower('name')).filter(lower_name=name.lower()).update(
+                name=request_data['name'],
+                location=request_data['location'],
+                category_id=category[0].id,
+                event_type_id=event_type[0].id,
+                description=request_data['description'])
+
+            return JsonResponse({'status': status.HTTP_200_OK})
+
+        except Event.DoesNotExist:
+            return JsonResponse({'status': status.HTTP_404_NOT_FOUND})
+
+    # delete event based on name
+    def delete(self, request, name):
+        try:
+            event = Event.objects.annotate(lower_name=Lower('name')).filter(lower_name=name.lower())
+            event.delete()
+            return JsonResponse({'status': status.HTTP_200_OK})
+        except Event.DoesNotExist:
+            return JsonResponse({'status': status.HTTP_404_NOT_FOUND})
 
 
 class AllEventTypesAPIView(APIView):
@@ -118,10 +161,10 @@ class AllEventTypesAPIView(APIView):
         return JsonResponse({'data': data})
 
 
+# API endpoint for configuring routes
 class RoutesAPIView(APIView):
     # get all events that create a route based on some event info
-    @staticmethod
-    def get(self, category_id, event_type_id):
+    def get(self, request, category_id, event_type_id):
         events = Event.objects.raw('''SELECT * FROM explore_event WHERE event_type_id = %s and category_id = %s 
                                     ORDER BY event_date ''',
                                    [event_type_id, category_id])
@@ -151,4 +194,40 @@ class RoutesAPIView(APIView):
                  "longitude": e['longitude']}
                 for e in complete_events]
 
-        return JsonResponse({'data': data})
+        return JsonResponse({'data': data, 'status': status.HTTP_200_OK})
+
+
+# API endpoint for grouping events into clusters
+class ClusterEventsAPIView(APIView):
+    # manhattan distance between two events
+    @staticmethod
+    def manhattan_distance(self, lat1, lon1, lat2, lon2):
+        return abs(lat2 - lat1) + abs(lon2 - lon1)
+
+    # add a cluster to each event
+    def put(self, request):
+        # define number of clusters
+        k = 5
+        # get latitude and longitude from all events in request
+        events_coord = []
+
+        try:
+            for i in range(len(request.data)):
+                events_coord.append([request.data[i]['latitude'], request.data[i]['longitude']])
+
+            # initialize k-Means clustering model
+            kmeans = KMeans(k)
+            # fit clustering model
+            kmeans.fit(events_coord)
+            # get clusters centers
+            centroids = kmeans.cluster_centers_
+            # get labels
+            labels = kmeans.labels_
+
+            # count number of elements in each cluster
+            numbers = list(Counter(labels).values())
+
+            return JsonResponse({'centroids': centroids.tolist(), 'labels': labels.tolist(), 'numbers': numbers})
+
+        except Exception as e:
+            return JsonResponse({'exception': str(e), 'status': status.HTTP_400_BAD_REQUEST})

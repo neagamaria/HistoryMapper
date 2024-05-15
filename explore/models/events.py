@@ -1,5 +1,3 @@
-# models related to events
-
 from django.db import models
 
 
@@ -34,6 +32,11 @@ class Category(models.Model):
     motto = models.CharField(max_length=200, blank=True)
 
 
-# tags for searching the event
-class Tag(models.Model):
-    name = models.CharField(max_length=30, unique=True)
+# YouTube video connected to an event
+class Video(models.Model):
+    name = models.CharField(max_length=200)
+    url = models.URLField(max_length=1000, unique=True)
+    event = models.ForeignKey("Event", on_delete=models.CASCADE)
+
+
+

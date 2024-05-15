@@ -10,7 +10,11 @@ import {QuizzesService} from "../../../services/quizzes.service";
 })
 export class QuizzesComponent implements OnInit{
   currentUser: any = null;
-  quizzes: any = [];
+  // categories for quizzes
+  categories: any = [];
+  // last scores for each quiz
+  quizzesHistory: any = [];
+
   constructor(private router: Router, private userService: UserService, private quizzesService: QuizzesService) {}
 
   async ngOnInit() {
@@ -19,13 +23,33 @@ export class QuizzesComponent implements OnInit{
       if (this.currentUser == null) {
           this.router.navigate(['/login']).then();
       } else {
-          // obtain all periods with the service function that calls the API
-          this.quizzes = await this.quizzesService.getQuizzes();
+        // get all categories in the db
+          await this.quizzesService.getCategories().then((response) => {
+            this.categories = response;
+          });
+
+
+          // get the last score for each quiz category
+          await this.quizzesService.getQuizHistory(this.currentUser).then((response) => {
+           // this.quizzesHistory = response;
+
+            this.categories.forEach((category: any) => {
+              if(response[0][category.id])
+                this.quizzesHistory[category.id] = response[0][category.id].last_score;
+              else
+                this.quizzesHistory[category.id] = null;
+            })
+            console.log(this.quizzesHistory);
+          });
       }
   }
 
+
   goToQuizQuestions(id: string) {
-    this.quizzesService.setId(id);
+    // set id for selected category
+    this.quizzesService.setCategoryId(id);
+    console.log("CategoryId in QuizzesComponent: ", this.quizzesService.getCategoryId());
+    // navigate to questions
     this.router.navigate(['/quiz-questions']).then();
   }
 }

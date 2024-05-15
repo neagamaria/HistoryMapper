@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {HistoricalPeriodsService} from "../../../services/historical-periods.service";
 import {Router} from "@angular/router";
+import {EventsService} from "../../../services/events.service";
 
 @Component({
   selector: 'app-historical-period-info',
@@ -10,18 +11,36 @@ import {Router} from "@angular/router";
 export class HistoricalPeriodInfoComponent implements OnInit {
   historicalPeriod: any = [];
   id = "";
-  constructor(private periodsService: HistoricalPeriodsService, private router: Router) {}
+
+  constructor(private periodsService: HistoricalPeriodsService, private eventsService: EventsService, private router: Router) {
+  }
 
   async ngOnInit() {
     // get current id
     this.id = this.periodsService.getId();
     // obtain a single period based on id with the service function that calls the API
-    if (this.id != null) {
-      await this.periodsService.getHistoricalPeriodById(this.id);
+    if (this.id != "") {
+      await this.periodsService.getHistoricalPeriodById();
       this.historicalPeriod = this.periodsService.getHistoricalPeriod();
-    }
-    else {
+    } else {
       this.router.navigate(['/historical-periods']).then();
     }
+  }
+
+
+  // go to map to see historical period events
+  async goToMap() {
+    this.router.navigate(['/explore-maps']).then(async () => {
+      let minVal = parseInt(this.historicalPeriod.start_year), maxVal = parseInt(this.historicalPeriod.end_year);
+      // set timeline range for map events
+      if (this.historicalPeriod.start_era === 'BC')
+        minVal = -minVal;
+
+      if (this.historicalPeriod.end_era === 'BC')
+        maxVal = -maxVal;
+
+      this.eventsService.setMinVal(minVal);
+      this.eventsService.setMaxVal(maxVal);
+    });
   }
 }

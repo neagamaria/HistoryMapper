@@ -1,4 +1,4 @@
-import {Component, OnInit, ViewEncapsulation} from '@angular/core';
+import {ChangeDetectionStrategy, Component, OnInit, ViewEncapsulation} from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 import {Options} from '@angular-slider/ngx-slider';
 
@@ -51,9 +51,6 @@ export class ExploreMapsComponent implements OnInit {
   endYear = 0;
   endEra = 'AD';
 
-  // mark if error search error message should be displayed
-  searchError: boolean = false;
-
   // saved filters for events
   savedFilters: any = [];
 
@@ -71,28 +68,36 @@ export class ExploreMapsComponent implements OnInit {
 
 
   async ngOnInit() {
+    // get starting range for timeline
+    this.minVal = this.eventsService.getMinVal();
+    this.maxVal = this.eventsService.getMaxVal();
 
     // always get routes mode status; subscribe to observable to see any change
     this.eventsService.getRoutesMode().subscribe(async (status) => {
-
-      if(status != this.routesMode) {
+      if (status != this.routesMode) {
         this.routesMode = status;
-
-        // change listeners for
+        // change listeners for markers
         this.addListeners(this.map, this.markers).then();
-
-      }
-      else {
+      } else {
         this.routesMode = status;
       }
 
-      if(!status) {
-          this.clearPath();
-          this.initMap("1edbd100b2d6466a").then();
-      }
-      else {
+      if (!status) {
+        this.clearPath();
+
+        await this.initMap("1edbd100b2d6466a").then(() => {
+          // add markers according to zoom level if not in routes mode
+          if (this.map.zoom > 4)
+            this.createMarkers(this.map, this.eventsBetweenYears);
+          else
+            this.createGroupMarkers(this.map, this.eventsBetweenYears);
+        });
+      } else {
         await this.initMap("a9142f4c77c25686").then(() => {
-          this.createMarkers(this.map, this.eventsBetweenYears).then()
+          // change zoom level if in routes mode
+          this.map.zoom = 5;
+          // create individual markers
+          this.createMarkers(this.map, this.eventsBetweenYears);
         });
       }
     })
@@ -123,11 +128,22 @@ export class ExploreMapsComponent implements OnInit {
   // initialize the map object
   async initMap(id: string): Promise<void> {
     this.map = new google.maps.Map(document.getElementById("map") as HTMLElement, {
-      // coordinates of London
+      // coordinates for London
       center: {lat: 49.8038, lng: 15.4749},
-      zoom: 5,
+      zoom: 4,
       mapId: id
     }) as google.maps.MapOptions;
+
+    // add on-zoom-change listener
+    this.map.addListener("zoom_changed", () => {
+      this.clearMap();
+      if(this.map.zoom > 4) {
+        this.createMarkers(this.map, this.eventsBetweenYears);
+      }
+      else {
+        this.createGroupMarkers(this.map, this.eventsBetweenYears);
+      }
+    })
   }
 
 
@@ -141,7 +157,6 @@ export class ExploreMapsComponent implements OnInit {
         filteredEvents.push(event)
       }
     }
-    console.log(filteredEvents)
     // update events
     this.eventsBetweenYears = filteredEvents;
     // replace them on map
@@ -167,33 +182,31 @@ export class ExploreMapsComponent implements OnInit {
       this.endEra = "AD";
     }
 
-    this.eventsBetweenYears = []
+    this.eventsBetweenYears = [];
 
     // get events with the service method
     await this.eventsService.callEventsBetweenYearsApi(this.startYear, this.startEra, this.endYear, this.endEra);
     this.eventsBetweenYears = this.eventsService.getEventsBetweenYearsValue();
-    // filter events by type if filters applied
-
-    console.log("EVENTS: ", this.eventsBetweenYears)
   }
 
 
   // submit period of time
-  submitYears(): void {
+  async submitYears() {
     // clear all info on map
     this.clearMap();
     // get the events to be displayed
-    this.getEventsBetweenYears().then();
-    // create markers after a delay, to make sure the http request in getEventsBetweenYears is completed
-    setTimeout(() => {
-      this.createMarkers(this.map, this.eventsBetweenYears).then();
-    }, 1000);
+    await this.getEventsBetweenYears().then(() => {
+      // create markers to be placed on map
+      if (this.map.zoom > 4)
+        this.createMarkers(this.map, this.eventsBetweenYears);
+      else
+        this.createGroupMarkers(this.map, this.eventsBetweenYears);
+    });
   }
 
 
-  // create markers to be displayed on map
+  // create markers for single events
   async createMarkers(map: any, events: any) {
-    // this.clearMap();
     await google.maps.importLibrary("marker");
 
     for (const e of events) {
@@ -229,10 +242,46 @@ export class ExploreMapsComponent implements OnInit {
       });
 
       await this.addListeners(map, events);
-
-
       // add marker to the array of markers
       this.markers.push([marker, e]);
+    }
+  }
+
+
+  // create markers for groups of events
+  async createGroupMarkers(map: any, events: any) {
+    await google.maps.importLibrary("marker");
+
+    if(this.eventsBetweenYears.length > 0) {
+
+
+      // get clusters
+      let response = await this.eventsService.callClusterEventsAPI(events);
+
+      for (let i = 0; i < response.centroids.length; i++) {
+        let c = response.centroids[i];
+
+        // establish coordinates for marker
+        let latLng = {lat: Number(c[0]), lng: Number(c[1])};
+
+        // create label
+        const pin = new google.maps.marker.PinElement({
+          background: "#B83333",
+          borderColor: "white",
+          scale: 1.6,
+          glyph: "+" + response.numbers[i].toString()
+        });
+
+        // set the position and title for marker
+        const marker = new google.maps.marker.AdvancedMarkerElement({
+          map: map,
+          position: latLng,
+          title: response.numbers[i].toString() + " events",
+          content: pin.element,
+        })
+
+        this.markers.push([marker, c]);
+      }
     }
   }
 
@@ -243,13 +292,12 @@ export class ExploreMapsComponent implements OnInit {
       // remove all previous listeners
       google.maps.event.clearListeners(marker[0], 'click');
 
-      if(!this.routesMode) {
+      if (!this.routesMode) {
         // make info window appear on click
         google.maps.event.addListener(marker[0], "click", () => {
-        this.clickEvent(marker[1]);
+          this.clickEvent(marker[1]);
         });
-      }
-      else {
+      } else {
         // get route based on event on click
         google.maps.event.addListener(marker[0], "click", async () => {
           await this.getRoute(marker[1].category_id, marker[1].event_type_id).then();
@@ -274,10 +322,10 @@ export class ExploreMapsComponent implements OnInit {
       await this.eventsService.callEventByNameApi().then();
       let event = this.eventsService.getSearchedEvent();
 
-      if (event) {
+      if (event.length > 0) {
         this.createMarkers(this.map, event).then();
       } else {
-        this.searchError = true;
+        alert("Event does not exist");
       }
     } catch (exception) {
       console.error("Error: ", exception);
@@ -305,8 +353,7 @@ export class ExploreMapsComponent implements OnInit {
       });
 
       await this.displayPath(this.map, this.route);
-    }
-    catch (exception) {
+    } catch (exception) {
       console.error("Error: ", exception);
     }
   }
@@ -317,26 +364,26 @@ export class ExploreMapsComponent implements OnInit {
     // remove previous paths
     this.clearPath();
 
-    if(routeEvents.length > 1) {
-      for(let i = 0; i<routeEvents.length; i++) {
+    if (routeEvents.length > 1) {
+      for (let i = 0; i < routeEvents.length; i++) {
         // create current marker
         await this.createMarkers(map, [routeEvents[i]]);
         // create path between the last two markers
-        if(i > 0) {
-            const coordinates  = [
-              { lat: Number(routeEvents[i-1].latitude), lng: Number(routeEvents[i-1].longitude) },
-              { lat: Number(routeEvents[i].latitude), lng: Number(routeEvents[i].longitude) },
-            ];
+        if (i > 0) {
+          const coordinates = [
+            {lat: Number(routeEvents[i - 1].latitude), lng: Number(routeEvents[i - 1].longitude)},
+            {lat: Number(routeEvents[i].latitude), lng: Number(routeEvents[i].longitude)},
+          ];
 
-            this.path = new google.maps.Polyline({
-              path: coordinates,
-              geodesic: true,
-              strokeColor: "#FFF34F",
-              strokeOpacity: 1.0,
-              strokeWeight: 3,
-            });
+          this.path = new google.maps.Polyline({
+            path: coordinates,
+            geodesic: true,
+            strokeColor: "#be8f7a",
+            strokeOpacity: 1.0,
+            strokeWeight: 3,
+          });
 
-            this.path.setMap(map);
+          this.path.setMap(map);
         }
       }
     }

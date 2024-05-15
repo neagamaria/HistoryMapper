@@ -1,13 +1,9 @@
 .big-container {
-  background-repeat: no-repeat;
   background-size: cover;
 }
 
 .question-container {
-  width: 90%;
-  height: 80%;
-  border: 10px solid white;
-  margin-left: 5%;
+  margin: 10px;
 }
 
 .answer-container {

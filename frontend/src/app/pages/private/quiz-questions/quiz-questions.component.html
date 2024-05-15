@@ -1,46 +1,40 @@
-<div class="big-container" [ngStyle]="{'background-image': 'linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.7)), url(../../../../assets/quiz' + this.id + '.jpg)'}">
-<form #quizForm="ngForm" (ngSubmit)="this.calculateResult(quizForm)" *ngIf="!this.isFinished">
-  <div *ngFor="let question of this.questions; let i = index">
-  <div class="question-container">
-    <h2>{{question.description}}</h2>
-    <br/>
-    <div class="answer-container">
-        <input type="radio" [value]="1" [name]="'answer' + i" [(ngModel)]="selectedAnswers[i]" [id]="i + 'answer1'">
-      <label [for]="i + 'answer1'">{{question.answer1}}</label>
-      </div><br/>
-      <div class="answer-container">
-        <input type="radio" [value]="2" [name]="'answer' + i" [(ngModel)]="selectedAnswers[i]" [id]="i + 'answer2'">
-        <label [for]="i + 'answer2'">{{question.answer2}}</label>
-      </div><br/>
-      <div class="answer-container">
-        <input type="radio" [value]="3" [name]="'answer' + i" [(ngModel)]="selectedAnswers[i]" [id]="i + 'answer3'">
-        <label [for]="i + 'answer3'">{{question.answer3}}</label>
-      </div><br/>
-      <div class="answer-container">
-        <input type="radio" [value]="4" [name]="'answer' + i" [(ngModel)]="selectedAnswers[i]" [id]="i + 'answer4'">
-        <label [for]="i + 'answer4'">{{question.answer4}}</label>
-      </div><br/>
-  </div>
+<div class="big-container">
+  <form #quizForm="ngForm" (ngSubmit)="this.calculateResult(quizForm)" *ngIf="!this.isFinished">
+    <div *ngFor="let question of this.questions">
+      <br/><br/>
+      <div class="question-container">
+        <h2>{{ question.question }}</h2>
+        <div *ngFor="let i of [0, 1, 2, 3]" class="answer-container">
+        <input type="radio"
+               [(ngModel)]="selectedAnswers[question.id]"
+               [id]="question.id + 'answer' + i"
+               [value]="i"
+               [name]="'answer' + question.id">
+        <label [for]="question.id + 'answer' + i">{{ question.answers[i] }}</label>
+        </div>
+      </div>
+    </div>
+
+    <br/><br/>
+    <button type="submit" class="btn btn-outline-light">Submit</button>
+  </form>
 </div>
-  <br/><br/>
-   <button type="submit" class="btn btn-outline-light">Submit</button>
-</form>
-</div>
+
 
 <div class="result-container" *ngIf="this.isFinished">
   <h2>Your result to the quiz is: </h2>
   <div *ngIf="this.result < 50"></div>
   <div class="result">{{this.result}}%</div>
-  <div style="font-size: 120%;">
+  <div style="font-size: 180%;">
     <div style="color:#B83333;" *ngIf="this.result < 50">
-      That's ok!
+      Try again!
     </div>
     <div style="color:#E1ADAD" *ngIf="this.result >= 50 && this.result < 90">
-      Nice!
+      Not bad!
     </div>
     <div *ngIf="this.result >= 90">
       Great!
     </div>
 </div>
-   <p>Go back to <a class="btn btn-link" [style]="'color:#E1ADAD;'" (click)="this.goToQuizzes()">Quizzes</a>
+   <p style="padding: 80px;">Go back to <a class="btn btn-link" [style]="'color:#E1ADAD;'" (click)="this.goToQuizzes()">Quizzes</a>
 </div>

@@ -5,46 +5,66 @@ import {firstValueFrom} from "rxjs";
   providedIn: 'root'
 })
 export class QuizzesService {
-  private url: string = 'http://127.0.0.1:8000/api/quizzes';
-  private url1 = 'http://127.0.0.1:8000/api/questions/';
-  private quizzes: any = [];
-  private questions: any = [];
-  private quizId = "";
+  // id for selected category
+  private categoryId = '';
   constructor(private http: HttpClient) { }
 
-  // call API that gets all quizzes from the DB
-   public async getQuizzes(): Promise<void> {
-        try {
-            const response: any = await firstValueFrom(this.http.get<any>(this.url));
-            this.quizzes = response.data;
-            return this.quizzes;
+  // function that gets all categories for quizzes
+  public async getCategories() {
+    let url = 'http://127.0.0.1:8000/api/categories';
+    const response: any = await firstValueFrom(this.http.get<any>(url));
 
-        } catch (error) {
-            console.error("Error fetching quizzes:", error);
-        }
+    if(response.status == 200) {
+      return response.data;
+    }
+
+    else
+      return [];
   }
 
-  // call API that gets all questions from a quiz in the DB
-  public async getQuestions(id:string): Promise<void> {
-     try {
-            this.url1 = this.url1 + id;
-            const response: any = await firstValueFrom(this.http.get<any>(this.url1));
-            this.questions = response.data;
+  // function that calls the API for getting a quiz based on category id
+  public async getQuiz() {
+    try {
+      if(this.categoryId != '') {
+        let url = 'http://127.0.0.1:8000/api/quiz/' + this.categoryId;
+        const response: any = await firstValueFrom(this.http.get<any>(url));
+        console.log(response.data);
 
-        } catch (error) {
-            console.error("Error fetching questions for quiz:", error);
-        }
+        if(response.status == 200)
+          return response.data;
+        else
+          return [];
+      }
+      else return [];
+
+    } catch(Exception) {
+      alert("Couldn't load quiz");
+      return [];
+    }
+
+  }
+    // call API function that gets a specific quiz history
+    public async getQuizHistory(username: string) {
+      let url = "http://127.0.0.1:8000/api/quiz-history/" + username;
+      const response: any =  await firstValueFrom(this.http.get<any>(url));
+      console.log("Quiz history: ",response);
+      return response.data;
+    }
+
+     // call API function that adds or edits quiz history
+    public addQuizHistory(newData: any, username: string) {
+      let url = "http://127.0.0.1:8000/api/quiz-history/" + username;
+      return this.http.put<any>(url, newData);
+    }
+
+
+
+  public getCategoryId()  {
+    return this.categoryId;
   }
 
-   public getId() {
-    return this.quizId;
-  }
 
-  public setId(id: string) {
-    this.quizId = id;
-  }
-
-  getQuestionsValue(){
-    return this.questions;
+  public setCategoryId(id: string) {
+    this.categoryId = id;
   }
 }

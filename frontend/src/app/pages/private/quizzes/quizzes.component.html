@@ -1,12 +1,25 @@
+<h2>
+  <div style="color: #EDEAD4; font-weight: 1000">{{ this.currentUser }},</div> choose your Quiz!
+</h2>
+<br/><br/>
 <div class="big-container">
-  <h2>{{this.currentUser}}, choose your Quiz!</h2>
-  <div class="container">
-    <div *ngFor="let q of this.quizzes.quizzes">
-      <div class="quiz-container" [ngStyle]="{'background-image': 'linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.7)), url(../../../../assets/quiz' + q.id + '.jpg)'}">
-        <div class="name">{{q.title}}</div>
-        <button type="button" class="btn btn-outline-light" style="border: 3px solid white;" (click)="goToQuizQuestions(q.id)">Start</button>
+  <div class="mid-container" *ngFor="let c of this.categories">
+    <div class="quiz-container">
+      <div class="name">{{ c.name }}</div>
+      <div *ngIf="this.quizzesHistory[c.id] != null">
+        <div class="last-score-1">Last score: {{ this.quizzesHistory[c.id] }}</div>
+        <br/>
+        <button type="button" class="btn btn-outline-light"
+                (click)="goToQuizQuestions(c.id)">Retake
+        </button>
+      </div>
+      <div *ngIf="this.quizzesHistory[c.id] == null">
+        <div class="last-score">Not taken</div>
+        <br/>
+        <button type="button" class="btn btn-outline-light"
+                (click)="goToQuizQuestions(c.id)">Take
+        </button>
       </div>
     </div>
   </div>
-
 </div>

@@ -1,7 +1,7 @@
 from django.http import JsonResponse
 from rest_framework.generics import get_object_or_404
 from rest_framework.views import APIView
-
+from rest_framework import status
 from explore.models import HistoricalPeriod
 
 
@@ -26,7 +26,7 @@ class HistoricalPeriodAPIView(APIView):
                  'end_year': historical_period.end_year, 'era': historical_period.era,
                  'description': historical_period.description}]
 
-        return JsonResponse({'data': data})
+        return JsonResponse({'data': data, 'status': status.HTTP_200_OK})
 
 
 
