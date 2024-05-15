@@ -1,4 +1,4 @@
-<div class="event-container" (scroll)="obtainVideos()">
+<div class="event-container">
   <i class="bi bi-x-lg" (click)="this.close()"></i>
   <br/><br/>
   <h2 style="width: 70%; margin: auto;">{{this.event.name }}</h2>
@@ -13,10 +13,13 @@
   <h4 *ngIf="this.videos == 0" style="color: #EDEAD4">
     Waiting to fetch YouTube videos...
   </h4>
-  <div *ngIf="this.videos.length != 0">
+  <div *ngIf="this.videos.length !== 0">
     <h4 style="color: #EDEAD4">Related videos:</h4>
     <div *ngFor="let video of this.videos">
-      <a href="{{video.url}}" style="color: #EDEAD4">{{ video.url }}</a>
+      <a href="{{video.url}}" style="color: white">{{ video.url }}
+      <img [src]="video.image" alt="...">
+      </a>
+      <br/>
     </div>
   </div>
 </div>

@@ -36,7 +36,9 @@ class Category(models.Model):
 class Video(models.Model):
     name = models.CharField(max_length=200)
     url = models.URLField(max_length=1000, unique=True)
+    image = models.CharField(max_length=200)
     event = models.ForeignKey("Event", on_delete=models.CASCADE)
+
 
 
 

@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {EventsService} from "../../../services/events.service";
 
+
 @Component({
   selector: 'app-event-info',
   templateUrl: './event-info.component.html',
@@ -16,14 +17,13 @@ export class EventInfoComponent implements OnInit{
   constructor(private eventsService: EventsService) {}
 
   ngOnInit() {
-    this.event = this.eventsService.getClickedEvent();
-  }
+    this.eventsService.getClickedEvent().subscribe(async (clickedEvent: any) => {
+      this.event = clickedEvent;
+    });
 
-  // obtain videos for current event
-  obtainVideos() {
+    // obtain videos for current event
     this.eventsService.callVideosAPI(this.event.name).then((response) => {
         this.videos = response;
-        console.log(this.videos)
       });
   }
 

@@ -23,7 +23,9 @@ class VideosAPIView(APIView):
                 for video in existing_videos:
                     videos.append({
                         'name': video.name,
-                        'url': video.url
+                        'url': video.url,
+                        'id': video.id,
+                        'image': video.image
                     })
 
             else:
@@ -40,19 +42,17 @@ class VideosAPIView(APIView):
                 # create a list of videos
                 for video in response.get('items', []):
                     name, url = video['snippet']['title'], f"https://www.youtube.com/watch?v={video['id']['videoId']}"
-                    raw = Video(name=name, url=url, event_id=event_id)
+                    image = video['snippet']['thumbnails']['medium']['url']
+
+                    raw = Video(name=name, url=url, event_id=event_id, image=image)
                     raw.save()
                     videos.append({
                         'name': name,
-                        'url': url
+                        'url': url,
+                        'id': video['id']['videoId'],
+                        'image': str(image)
                     })
 
             return JsonResponse({'data': videos, 'status': status.HTTP_200_OK})
         except Exception as e:
             return JsonResponse({'exception': str(e), 'status': status.HTTP_500_INTERNAL_SERVER_ERROR})
-
-
-
-
-
-    

@@ -17,6 +17,10 @@
   box-shadow: 0 2px 5px rgba(0,0,0,0.2);
 }
 
+.video-container {
+  border: 2px solid white;
+}
+
 p {
     text-align: justify;
 }

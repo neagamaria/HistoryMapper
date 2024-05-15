@@ -1,4 +1,4 @@
-import {ChangeDetectionStrategy, Component, OnInit, ViewEncapsulation} from '@angular/core';
+import {ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit, ViewEncapsulation} from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 import {Options} from '@angular-slider/ngx-slider';
 
@@ -63,7 +63,9 @@ export class ExploreMapsComponent implements OnInit {
   // google.maps path connecting events
   path: google.maps.Polyline = new google.maps.Polyline;
 
-  constructor(private http: HttpClient, private eventsService: EventsService) {
+  // marker that an event is clicked or not
+  isEventClicked: boolean = false;
+  constructor(private http: HttpClient, private eventsService: EventsService, private cdr: ChangeDetectorRef) {
   }
 
 
@@ -84,7 +86,6 @@ export class ExploreMapsComponent implements OnInit {
 
       if (!status) {
         this.clearPath();
-
         await this.initMap("1edbd100b2d6466a").then(() => {
           // add markers according to zoom level if not in routes mode
           if (this.map.zoom > 4)
@@ -102,7 +103,7 @@ export class ExploreMapsComponent implements OnInit {
       }
     })
 
-    // subscribe to observable provided in EventsService to see any change
+    // subscribe to observable provided in service to see any change
     this.eventsService.getSearchedName().subscribe(async (name) => {
       if (name != "") {
         this.getSearchedEvent().then();
@@ -116,6 +117,14 @@ export class ExploreMapsComponent implements OnInit {
       if (filters && this.eventsBetweenYears) {
         this.filterEvents();
       }
+    })
+
+    // subscribe to observable to see any change
+    this.eventsService.getClickedEvent().subscribe(async (clickedEvent: any) => {
+      this.isEventClicked = (clickedEvent !== null);
+      // change detection triggered manually
+      this.cdr.detectChanges();
+      console.log("Is event clicked: ", this.isEventClicked);
     })
 
     // place markers only after map was initialized
@@ -337,13 +346,6 @@ export class ExploreMapsComponent implements OnInit {
   clickEvent(e: any) {
     this.eventsService.setClickedEvent(e);
   }
-
-
-  isEventClicked() {
-    const event = this.eventsService.getClickedEvent();
-    return (event != null);
-  }
-
 
   // get route based on event
   async getRoute(categoryId: string, eventTypeId: string) {

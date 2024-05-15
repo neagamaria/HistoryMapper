@@ -1,6 +1,6 @@
 import {EventEmitter, Injectable} from '@angular/core';
 import {HttpClient} from "@angular/common/http";
-import {BehaviorSubject, firstValueFrom} from "rxjs";
+import {BehaviorSubject, firstValueFrom, Observable} from "rxjs";
 
 
 @Injectable({
@@ -15,7 +15,7 @@ export class EventsService {
   // events between time range
   private eventsBetweenYears: any[] = [];
   // event clicked for displaying info
-  private clickedEvent: any = null;
+  private clickedEvent: any = new BehaviorSubject<any>(null);
   // searched name of event, make changes visible all the time
   private searchedName = new BehaviorSubject<string>("");
   // searched event
@@ -91,6 +91,7 @@ export class EventsService {
   public async callVideosAPI(eventName: string) {
     let url = 'http://127.0.0.1:8000/api/videos/' + eventName;
     const response = await firstValueFrom(this.http.get<any>(url));
+    console.log("VIDEOS IN SERVICE:", response);
     return response.data;
   }
 
@@ -172,16 +173,13 @@ export class EventsService {
 
   // save the event for which info will be displayed
   public setClickedEvent(event: any) {
-    this.clickedEvent = event;
+    this.clickedEvent.next(event);
   }
 
 
   // get the event for which info is displayed
-  public getClickedEvent() {
-    if(this.clickedEvent)
-      return this.clickedEvent;
-
-    return null;
+  public getClickedEvent(): Observable<any> {
+      return this.clickedEvent.asObservable();
   }
 
 
