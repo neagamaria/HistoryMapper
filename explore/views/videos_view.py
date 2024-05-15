@@ -23,7 +23,8 @@ class VideosAPIView(APIView):
                 for video in existing_videos:
                     videos.append({
                         'name': video.name,
-                        'url': video.url
+                        'url': video.url,
+                        'id': video.id
                     })
 
             else:
@@ -44,7 +45,8 @@ class VideosAPIView(APIView):
                     raw.save()
                     videos.append({
                         'name': name,
-                        'url': url
+                        'url': url,
+                        'id': video['id']['videoId']
                     })
 
             return JsonResponse({'data': videos, 'status': status.HTTP_200_OK})
