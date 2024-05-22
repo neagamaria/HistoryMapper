@@ -20,6 +20,8 @@ export class HeaderComponent implements OnInit{
   goToLogin():void {
     if(this.username == null)
      this.router.navigate(['/login']).then();
+    else
+      this.router.navigate(['/profile']).then();
   }
 
   //go to home page
@@ -34,6 +36,7 @@ export class HeaderComponent implements OnInit{
   goToAdminPage(): void {
       this.router.navigate(['/admin-page']).then();
   }
+
 
   // set name of the logged-in user if existent
   getUserName() {

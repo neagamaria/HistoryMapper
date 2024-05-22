@@ -9,40 +9,35 @@ import {UserService} from "../../../services/user.service";
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css']
 })
+
 export class LoginComponent {
 
-  url: string = 'http://127.0.0.1:8000/api/login/';
   form: FormGroup;
-  loginData: any = null;
 
-   constructor(private userService: UserService, private router: Router, private fb: FormBuilder, private http: HttpClient) {
+  constructor(private userService: UserService, private router: Router, private fb: FormBuilder, private http: HttpClient) {
     // get values from form
-    this.form = this.fb.group ({
+    this.form = this.fb.group({
       username: ['', [Validators.required]],
       password: ['', [Validators.required]],
     })
   }
 
   // navigate to register page
-   goToRegister() {
+  goToRegister() {
     this.router.navigate(['/register']).then();
   }
 
   // call login API
-  login(): void {
-     const user = this.form.value;
+  async login() {
+    const user = this.form.value;
 
-     this.http.post(this.url, user).subscribe ((response: any) => {
-       this.loginData = response;
-
-       console.log("Log in data: ", this.loginData);
-
-       if(this.loginData.token != null) {
-         // save the logged-in user
-         this.userService.setCurrentUser(this.loginData);
-         // go to main page
-         this.router.navigate(['/']).then();
-       }
-     });
+    await this.userService.callLoginAPI(user).then((response) => {
+      if (!response.token) {
+        alert('Invalid user');
+      } else {
+        this.userService.setCurrentUser(response);
+        this.router.navigate(['/']).then();
+      }
+    });
   }
 }

@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import {Router} from "@angular/router";
 import {Form, FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {HttpClient} from "@angular/common/http";
+import {UserService} from "../../../services/user.service";
 
 @Component({
   selector: 'app-register',
@@ -16,7 +17,7 @@ export class RegisterComponent {
 
   registerData: any[] = [];
 
-  constructor(private router: Router, private fb: FormBuilder, private http: HttpClient) {
+  constructor(private router: Router, private fb: FormBuilder, private http: HttpClient, private userService: UserService) {
     // get values from form
     this.form = this.fb.group ({
       username: ['', [Validators.required]],
@@ -36,17 +37,17 @@ export class RegisterComponent {
   }
 
   // call register api
-  register(): void {
+  async register() {
     const userInfo = this.form.value;
-    console.log(userInfo);
 
-     this.http.post(this.url, userInfo).subscribe((response: any): any => {
+    await this.userService.callRegisterAPI(userInfo).then((response) => {
+      if (!response.token) {
+        alert('Invalid user');
+      } else {
         this.registerData = response.data;
-
-        if(response.token != null) {
-           this.router.navigate(['/']).then();
-        }
+        alert('Successful registration');
+        this.router.navigate(['/login']).then();
       }
-    );
+    });
   }
 }
