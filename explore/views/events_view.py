@@ -1,4 +1,3 @@
-# API for retrieving events from a given period from the db
 import requests
 from django.http import JsonResponse
 from rest_framework.views import APIView
