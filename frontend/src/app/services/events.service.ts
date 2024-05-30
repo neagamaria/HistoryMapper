@@ -90,8 +90,8 @@ export class EventsService {
   // call the API that retrieves YouTube videos for an event
   public async callVideosAPI(eventName: string) {
     let url = 'http://127.0.0.1:8000/api/videos/' + eventName;
-    const response = await firstValueFrom(this.http.get<any>(url));
-    console.log("VIDEOS IN SERVICE:", response);
+    const response = await firstValueFrom(this.http.put<any>(url, ''));
+
     return response.data;
   }
 

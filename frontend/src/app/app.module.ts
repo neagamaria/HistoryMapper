@@ -21,6 +21,7 @@ import { AdminPageComponent } from './pages/private/admin-page/admin-page.compon
 import { MapOptionsMenuComponent } from './pages/public/map-options-menu/map-options-menu.component';
 import { EventInfoComponent } from './pages/public/event-info/event-info.component';
 import { ProfileComponent } from './pages/private/profile/profile.component';
+import { SpinnerComponent } from './pages/public/spinner/spinner.component';
 
 @NgModule({
   declarations: [
@@ -39,6 +40,7 @@ import { ProfileComponent } from './pages/private/profile/profile.component';
     MapOptionsMenuComponent,
     EventInfoComponent,
     ProfileComponent,
+    SpinnerComponent,
   ],
     imports: [
         BrowserModule,

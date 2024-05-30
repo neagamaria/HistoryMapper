@@ -21,6 +21,10 @@
 
   <br/><br/>
   <div class="map-container">
-      <div id="map" [style.height]="'900px'"></div>
+    <div *ngIf="this.loading">
+      <app-spinner></app-spinner>
+    </div>
+
+    <div id="map" [style.height]="'900px'"></div>
   </div>
 </div>

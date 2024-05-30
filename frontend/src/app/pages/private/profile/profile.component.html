@@ -1,5 +1,13 @@
 <div *ngIf="this.currentUser">
   <h2>Hello, {{this.currentUser.user.username}}!</h2>
   <br/>
+  <i class="bi bi-person"></i>
+  <br/>
   <div>Current email: {{this.currentUser.user.email}}</div>
+  <br/>
+  <div>First name: {{this.currentUser.user.first_name}}</div>
+  <div>Last name: {{this.currentUser.user.last_name}}</div>
+  <br/>
+  <br/>
+  <button class="btn btn-outline-light" (click)="logOut()">Log out</button>
 </div>

@@ -55,10 +55,12 @@ export class AdminPageComponent implements OnInit {
 
 
   async ngOnInit() {
-    this.currentUser = this.userService.getCurrentUsername();
+    let username = this.userService.getCurrentUsername();
+  // get the current user
+    this.currentUser = await this.userService.callGetUserAPI(username);
+
     // page can be accessed only by admin
-    console.log(this.currentUser);
-    if (this.currentUser != "admin") {
+    if (!this.currentUser.user.is_superuser) {
       this.router.navigate(['/']).then();
     } else {
       // there are no new events in the first place
@@ -81,7 +83,12 @@ export class AdminPageComponent implements OnInit {
     this.adminService.setEventsCategory(this.addForm.get('eventsCategory')?.value);
 
     await this.adminService.addDbpediaData();
+
     this.events = this.adminService.getAddedEvents();
+
+    if(this.events.length == 0) {
+      alert("No new data added");
+    }
 
   }
 

@@ -1,5 +1,6 @@
 from SPARQLWrapper import SPARQLWrapper, JSON
 from django.http import JsonResponse
+from rest_framework.parsers import JSONParser
 from rest_framework.views import APIView
 from explore.models import Event, EventType, HistoricalPeriod, Category, MapLocation
 
@@ -364,7 +365,13 @@ class DBPediaAPIView(APIView):
         return location
 
     # add data to database
-    def get(self, response, wiki_category, event_type, categ):
+    def post(self, request):
+        # parse request to JSON format
+        request_data = JSONParser().parse(request)
+
+        wiki_category = request_data['wiki_category']
+        event_type = request_data['events_type']
+        categ = request_data['events_category']
         data = []
         results = []
 

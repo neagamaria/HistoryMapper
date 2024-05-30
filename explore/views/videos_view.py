@@ -9,7 +9,7 @@ from explore.models import Event, Video
 
 class VideosAPIView(APIView):
     # get all available YouTube videos for an event
-    def get(self, request, event_name):
+    def put(self, request, event_name):
         try:
             # find the id of the event
             event = Event.objects.raw('''SELECT id FROM explore_event WHERE name = %s''', [event_name])

@@ -23,11 +23,16 @@ export class AdminService {
     // call API that adds dbpedia data to local database
     public async addDbpediaData(): Promise<void> {
     if(this.wikiCategory != "" && this.eventsType != null && this.eventsCategory != null) {
-        let url: string = 'http://127.0.0.1:8000/api/dbpedia/' + this.wikiCategory + "/" + this.eventsType + "/" + this.eventsCategory;
+        let request = {
+          "wiki_category": this.wikiCategory,
+          "events_type": this.eventsType,
+          "events_category": this.eventsCategory
+        }
+        let url: string = 'http://127.0.0.1:8000/api/dbpedia/';
         console.log(url);
 
         try {
-         const response: any = await firstValueFrom(this.http.get<any>(url));
+         const response: any = await firstValueFrom(this.http.post<any>(url, request));
          this.addedEvents = response.data;
          console.log(this.addedEvents);
         }

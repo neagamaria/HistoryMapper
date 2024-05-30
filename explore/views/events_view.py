@@ -213,7 +213,7 @@ class ClusterEventsAPIView(APIView):
                 events_coord.append([request.data[i]['latitude'], request.data[i]['longitude']])
 
             # initialize k-Means clustering model
-            kmeans = KMeans(k)
+            kmeans = KMeans(n_clusters=k, n_init=5)
             # fit clustering model
             kmeans.fit(events_coord)
             # get clusters centers

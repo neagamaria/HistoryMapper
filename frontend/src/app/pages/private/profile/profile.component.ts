@@ -20,6 +20,13 @@ export class ProfileComponent implements OnInit{
     }
     else {
       this.currentUser = await this.userService.callGetUserAPI(username);
+
+      console.log(this.currentUser);
     }
+  }
+
+  logOut() {
+    this.userService.logOut();
+    this.router.navigate(['/']).then();
   }
 }

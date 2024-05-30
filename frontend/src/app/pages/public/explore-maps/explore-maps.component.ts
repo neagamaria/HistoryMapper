@@ -36,8 +36,14 @@ export class ExploreMapsComponent implements OnInit {
   // map variable
   map: any;
 
+  // mark if response is loading
+  loading: boolean = false;
+
   // all markers on map
   markers: [google.maps.marker.AdvancedMarkerElement, any][] = [];
+
+  // all paths on map
+  paths: google.maps.Polyline[] = [];
 
   // url for the events API
   url = '';
@@ -84,7 +90,7 @@ export class ExploreMapsComponent implements OnInit {
         this.routesMode = status;
       }
 
-      if (!status) {
+      if (!this.routesMode) {
         this.clearPath();
         await this.initMap("1edbd100b2d6466a").then(() => {
           // add markers according to zoom level if not in routes mode
@@ -136,6 +142,8 @@ export class ExploreMapsComponent implements OnInit {
 
   // initialize the map object
   async initMap(id: string): Promise<void> {
+    // mark that resource is loading
+    this.loading = true;
     this.map = new google.maps.Map(document.getElementById("map") as HTMLElement, {
       // coordinates for London
       center: {lat: 49.8038, lng: 15.4749},
@@ -143,16 +151,21 @@ export class ExploreMapsComponent implements OnInit {
       mapId: id
     }) as google.maps.MapOptions;
 
-    // add on-zoom-change listener
-    this.map.addListener("zoom_changed", () => {
-      this.clearMap();
-      if(this.map.zoom > 4) {
-        this.createMarkers(this.map, this.eventsBetweenYears);
-      }
-      else {
-        this.createGroupMarkers(this.map, this.eventsBetweenYears);
-      }
-    })
+    // add on-zoom-change listener only if not in routes mode
+    if(!this.routesMode) {
+        this.map.addListener("zoom_changed", () => {
+            this.clearMap();
+
+          if(this.map.zoom > 4) {
+            this.createMarkers(this.map, this.eventsBetweenYears);
+          }
+          else {
+            this.createGroupMarkers(this.map, this.eventsBetweenYears);
+          }
+        });
+    }
+
+    this.loading = false;
   }
 
 
@@ -175,6 +188,7 @@ export class ExploreMapsComponent implements OnInit {
 
   // get all events in a selected period of time
   async getEventsBetweenYears() {
+    this.loading = true;
     if (this.minVal < 0) {
       this.startYear = -this.minVal;
       this.startEra = "BC";
@@ -196,6 +210,14 @@ export class ExploreMapsComponent implements OnInit {
     // get events with the service method
     await this.eventsService.callEventsBetweenYearsApi(this.startYear, this.startEra, this.endYear, this.endEra);
     this.eventsBetweenYears = this.eventsService.getEventsBetweenYearsValue();
+
+    if(this.eventsBetweenYears.length > 500) {
+      // prevent app crashing due to too many events
+      this.eventsBetweenYears = this.eventsBetweenYears.slice(0, 500);
+      alert("Data is sliced due to too many events");
+
+    }
+    this.loading = false;
   }
 
 
@@ -262,8 +284,6 @@ export class ExploreMapsComponent implements OnInit {
     await google.maps.importLibrary("marker");
 
     if(this.eventsBetweenYears.length > 0) {
-
-
       // get clusters
       let response = await this.eventsService.callClusterEventsAPI(events);
 
@@ -386,6 +406,8 @@ export class ExploreMapsComponent implements OnInit {
           });
 
           this.path.setMap(map);
+
+          this.paths.push(this.path);
         }
       }
     }
@@ -394,6 +416,11 @@ export class ExploreMapsComponent implements OnInit {
 
   // remove path from map
   clearPath() {
+    for(let p of this.paths) {
+      p.setMap(null);
+    }
+    this.paths = [];
+
     this.path.setMap(null);
   }
 }
