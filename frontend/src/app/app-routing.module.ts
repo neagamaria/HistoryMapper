@@ -11,6 +11,7 @@ import {QuizzesComponent} from "./pages/private/quizzes/quizzes.component";
 import {QuizQuestionsComponent} from "./pages/private/quiz-questions/quiz-questions.component";
 import {AdminPageComponent} from "./pages/private/admin-page/admin-page.component";
 import {MapOptionsMenuComponent} from "./pages/public/map-options-menu/map-options-menu.component";
+import {ProfileComponent} from "./pages/private/profile/profile.component";
 
 
 const routes: Routes = [
@@ -23,7 +24,8 @@ const routes: Routes = [
   {path: 'quizzes', component: QuizzesComponent},
   {path: 'quiz-questions', component: QuizQuestionsComponent},
   {path: 'admin-page', component: AdminPageComponent},
-  {path: 'map-options-menu', component: MapOptionsMenuComponent}
+  {path: 'map-options-menu', component: MapOptionsMenuComponent},
+  {path: 'profile', component: ProfileComponent}
 ];
 
 @NgModule({

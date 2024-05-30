@@ -10,11 +10,10 @@ from rest_framework.authtoken.models import Token
 from explore.models import UserSerializer
 
 
-# API endpoint for registration
-class RegistrationAPI(APIView):
+# API endpoint for authentication system
+class AuthenticationAPIView(APIView):
     # registration process
-    @staticmethod
-    def post(request):
+    def post(self, request):
         user_data = UserSerializer(data=request.data)
         if user_data.is_valid():
             # save user in db
@@ -27,16 +26,29 @@ class RegistrationAPI(APIView):
             return Response({"token": token.key, "user": user_data.data, 'status': status.HTTP_200_OK})
         return JsonResponse({'status': status.HTTP_400_BAD_REQUEST})
 
-
-class LoginAPI(APIView):
     # login process
-    @staticmethod
-    def post(request):
+    def put(self, request):
         user = get_object_or_404(User, username=request.data['username'])
         if not user.check_password(request.data['password']):
-            return Response({"detail": "User not found"}, status=status.HTTP_400_BAD_REQUEST)
+            return Response({"error": "Incorrect password"}, status=status.HTTP_400_BAD_REQUEST)
 
-        token, created = Token.objects.get_or_create(user=user)
-        serializer = UserSerializer(instance=user)
-        return Response({"token": token.key, "user": serializer.data, 'status': status.HTTP_200_OK})
+        try:
+            token, created = Token.objects.get_or_create(user=user)
+            serializer = UserSerializer(instance=user)
+            return JsonResponse({"token": token.key, "user": serializer.data, 'status': status.HTTP_200_OK})
+        except Exception as e:
+            return JsonResponse({'exception': str(e), 'status': status.HTTP_500_INTERNAL_SERVER_ERROR})
+
+
+class UserAPIView(APIView):
+    # get user by username
+    def get(self, request, username):
+        try:
+            user = User.objects.get(username=username)
+            serializer = UserSerializer(instance=user)
+            return JsonResponse({"user": serializer.data, 'status': status.HTTP_200_OK})
+        except Exception as e:
+            return JsonResponse({'exception': str(e), 'status': status.HTTP_500_INTERNAL_SERVER_ERROR})
+
+
 

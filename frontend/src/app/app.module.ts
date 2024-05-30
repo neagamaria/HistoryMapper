@@ -20,6 +20,8 @@ import { NgxSliderModule } from '@angular-slider/ngx-slider';
 import { AdminPageComponent } from './pages/private/admin-page/admin-page.component';
 import { MapOptionsMenuComponent } from './pages/public/map-options-menu/map-options-menu.component';
 import { EventInfoComponent } from './pages/public/event-info/event-info.component';
+import { ProfileComponent } from './pages/private/profile/profile.component';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -36,6 +38,7 @@ import { EventInfoComponent } from './pages/public/event-info/event-info.compone
     AdminPageComponent,
     MapOptionsMenuComponent,
     EventInfoComponent,
+    ProfileComponent,
   ],
     imports: [
         BrowserModule,

@@ -1,4 +1,3 @@
-# API for retrieving events from a given period from the db
 import requests
 from django.http import JsonResponse
 from rest_framework.views import APIView
@@ -184,6 +183,9 @@ class RoutesAPIView(APIView):
             map_location.latitude and map_location.longitude
         ]
 
+        # sort route events by date
+        complete_events.sort(key=lambda entry: entry['event'].event_date)
+
         data = [{'name': e['event'].name, 'event_date': e['event'].event_date, 'era': e['event'].era,
                  'location': e['event'].location, 'description': e['event'].description,
                  "historical_period": e['event'].historical_period.name, "event_type": e['event'].event_type.name,
@@ -199,11 +201,6 @@ class RoutesAPIView(APIView):
 
 # API endpoint for grouping events into clusters
 class ClusterEventsAPIView(APIView):
-    # manhattan distance between two events
-    @staticmethod
-    def manhattan_distance(self, lat1, lon1, lat2, lon2):
-        return abs(lat2 - lat1) + abs(lon2 - lon1)
-
     # add a cluster to each event
     def put(self, request):
         # define number of clusters

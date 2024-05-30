@@ -25,7 +25,7 @@ export class QuizQuestionsComponent implements OnInit {
   async ngOnInit() {
     this.currentUser = this.userService.getCurrentUsername();
     // page can not be accessed for not logged-in user
-    if (this.currentUser == null) {
+    if (this.currentUser === null) {
       this.router.navigate(['/login']).then();
     } else {
       // get questions

@@ -24,6 +24,7 @@ class QuizAPIView(APIView):
     @staticmethod
     def create_question(self, question_type, event, events):
         answers = list(['', '', '', ''])
+        question = ''
 
         # select random position for right answer
         right_answer = random.randint(0, 2)
@@ -65,7 +66,6 @@ class QuizAPIView(APIView):
                     answers[i] = str(other_answers[j]) + event.era
                     j = j + 1
 
-        # return {'question': question, 'right_answer': right_answer, 'answers': answers}
         return question, right_answer, answers
 
     def get(self, request, category_id):
@@ -98,7 +98,6 @@ class QuizHistoryAPIView(APIView):
     def get(self, request, username):
         try:
             user = User.objects.get(username=username)
-            categories = Category.objects.all().order_by('id')
 
             quiz_history = QuizHistory.objects.raw('''SELECT * FROM explore_quizhistory 
                                                                   WHERE user_id = %s''',
