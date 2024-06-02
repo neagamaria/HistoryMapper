@@ -19,3 +19,6 @@ footer {
   flex-direction: row;
 }
 
+.row {
+  cursor: pointer;
+}

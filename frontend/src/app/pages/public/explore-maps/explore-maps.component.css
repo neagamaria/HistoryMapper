@@ -68,4 +68,11 @@ input {
   width: 80px;
 }
 
+.title {
+  color: #EDEAD4;
+  font-size: 60px;
+  font-weight: 800;
+  padding: 3px;
+}
+
 

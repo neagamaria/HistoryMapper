@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {ChangeDetectorRef, Component, OnInit} from '@angular/core';
 import {UserService} from "../../../services/user.service";
 import {Router} from "@angular/router";
 
@@ -9,11 +9,12 @@ import {Router} from "@angular/router";
 })
 export class HeaderComponent implements OnInit{
   username: any = null;
-  constructor(private userService: UserService, private router: Router) {
+  constructor(private userService: UserService, private router: Router, private cdf: ChangeDetectorRef) {
   }
 
   async ngOnInit() {
      this.username = this.userService.getCurrentUsername();
+     this.cdf.detectChanges();
   }
 
   //redirect to login page if user is not logged in

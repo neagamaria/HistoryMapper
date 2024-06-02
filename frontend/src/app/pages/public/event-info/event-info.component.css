@@ -19,6 +19,8 @@
 
 .video-container {
   border: 2px solid white;
+  margin: 6px;
+  padding: 2px;
 }
 
 p {

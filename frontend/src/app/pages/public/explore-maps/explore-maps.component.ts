@@ -64,7 +64,7 @@ export class ExploreMapsComponent implements OnInit {
   routesMode: boolean = false;
 
   // events creating a route
-  route: Promise<any>[] = [];
+  route: any = [];
 
   // google.maps path connecting events
   path: google.maps.Polyline = new google.maps.Polyline;
@@ -215,7 +215,6 @@ export class ExploreMapsComponent implements OnInit {
       // prevent app crashing due to too many events
       this.eventsBetweenYears = this.eventsBetweenYears.slice(0, 500);
       alert("Data is sliced due to too many events");
-
     }
     this.loading = false;
   }
@@ -238,13 +237,26 @@ export class ExploreMapsComponent implements OnInit {
 
   // create markers for single events
   async createMarkers(map: any, events: any) {
+    // create dictionary for marker collisions
+    const dict: { [key: string]: number } = {};
+
     await google.maps.importLibrary("marker");
 
     for (const e of events) {
-      // establish coordinates for marker
-      let latLng = {lat: Number(e.latitude), lng: Number(e.longitude)};
+
+      // check if collisions exist
+      if(e.location in dict) {
+        dict[e.location] += 1;
+      }
+      else {
+        dict[e.location] = 0;
+      }
+
+      // establish coordinates for marker, considering collisions behaviour
+      let latLng = {lat: Number(e.latitude + 1000 * dict[e.location]), lng: Number(e.longitude)};
       //establish data to be displayed on map
       let data = e.name + " (" + e.event_date + " " + e.era + ") ";
+      // if routes mode is on, add number of the event in the list
       const infoWindow = new google.maps.InfoWindow({
         content: "<p style='color:black; font-weight: bold; font-family:\'Comfortaa;\''>" + data + "</p>"
       });
@@ -272,6 +284,7 @@ export class ExploreMapsComponent implements OnInit {
         infoWindow.close();
       });
 
+      // add additional listeners
       await this.addListeners(map, events);
       // add marker to the array of markers
       this.markers.push([marker, e]);
@@ -327,10 +340,10 @@ export class ExploreMapsComponent implements OnInit {
           this.clickEvent(marker[1]);
         });
       } else {
-        // get route based on event on click
-        google.maps.event.addListener(marker[0], "click", async () => {
-          await this.getRoute(marker[1].category_id, marker[1].event_type_id).then();
-        });
+          // get route based on event on click
+          google.maps.event.addListener(marker[0], "click", async () => {
+            await this.getRoute(marker[1].category_id, marker[1].event_type_id).then();
+          });
       }
     }
   }
@@ -365,6 +378,7 @@ export class ExploreMapsComponent implements OnInit {
   // open page with event info on click
   clickEvent(e: any) {
     this.eventsService.setClickedEvent(e);
+    this.cdr.detectChanges();
   }
 
   // get route based on event
@@ -388,39 +402,47 @@ export class ExploreMapsComponent implements OnInit {
 
     if (routeEvents.length > 1) {
       for (let i = 0; i < routeEvents.length; i++) {
-        // create current marker
+        // create current markers
         await this.createMarkers(map, [routeEvents[i]]);
-        // create path between the last two markers
+        // establish coordinates for the last two markers
         if (i > 0) {
           const coordinates = [
             {lat: Number(routeEvents[i - 1].latitude), lng: Number(routeEvents[i - 1].longitude)},
             {lat: Number(routeEvents[i].latitude), lng: Number(routeEvents[i].longitude)},
           ];
-
-          this.path = new google.maps.Polyline({
+          // create path as Polyline instance
+          const path = new google.maps.Polyline({
             path: coordinates,
             geodesic: true,
-            strokeColor: "#be8f7a",
-            strokeOpacity: 1.0,
-            strokeWeight: 3,
+            strokeColor: "#BEB67A",
+            strokeOpacity: 0.4,
+            strokeWeight: 5,
           });
 
-          this.path.setMap(map);
+          // add paths with a short delay
+          setTimeout(() => { path.setMap(map); }, 300 * i);
+          setTimeout(() => {
+            path.setOptions({ strokeOpacity: 0.8, strokeColor: "#E0D36F"});
+          }, 500 * i);
 
-          this.paths.push(this.path);
+          // push path to list of saved paths
+          this.paths.push(path);
         }
       }
     }
   }
 
 
-  // remove path from map
+  // remove paths from map
   clearPath() {
     for(let p of this.paths) {
       p.setMap(null);
     }
     this.paths = [];
+  }
 
-    this.path.setMap(null);
+  // deactivate routes mode
+  exitRoutesMode() {
+    this.eventsService.setRoutesMode(false);
   }
 }

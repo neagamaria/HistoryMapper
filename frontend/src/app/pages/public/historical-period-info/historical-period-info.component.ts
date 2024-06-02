@@ -33,12 +33,15 @@ export class HistoricalPeriodInfoComponent implements OnInit {
     this.router.navigate(['/explore-maps']).then(async () => {
       let minVal = parseInt(this.historicalPeriod.start_year), maxVal = parseInt(this.historicalPeriod.end_year);
       // set timeline range for map events
-      if (this.historicalPeriod.start_era === 'BC')
+      if (this.historicalPeriod.era === 'BC' || this.historicalPeriod.era == 'BC - AD')
         minVal = -minVal;
 
-      if (this.historicalPeriod.end_era === 'BC')
+      if (this.historicalPeriod.era === 'BC')
         maxVal = -maxVal;
 
+      // events will not be seen in routes mode
+      this.eventsService.setRoutesMode(false);
+      // timeline values are changed to current interval
       this.eventsService.setMinVal(minVal);
       this.eventsService.setMaxVal(maxVal);
     });

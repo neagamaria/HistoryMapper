@@ -12,7 +12,13 @@
 
   <div *ngIf="this.routesMode">
     <br/><br/><br/>
-    <h2>Click on event to highlight route</h2>
+    <div *ngIf="this.route.length > 0">
+      <div class="title">{{this.route[0].event_type}}s of {{this.route[0].category}}</div>
+    </div>
+    <br/>
+    <h3 *ngIf="this.route.length == 0">Click on event to highlight route...</h3>
+    <br/>
+    <button class="btn btn-outline-light" (click)="this.exitRoutesMode()">Exit routes mode</button>
   </div>
 
   <div *ngIf="this.isEventClicked">
