@@ -1,5 +1,6 @@
 .big-container {
   background-size: cover;
+  text-align: center;
 }
 
 .question-container {
@@ -7,11 +8,23 @@
 }
 
 .answer-container {
+  height: 50%;
   font-size: 120%;
+  background-color: white;
+  margin-left: 30%;
+  margin-right: 30%;
+  margin-bottom: 2%;
+  border: 4px solid white;
+  border-radius: 6px;
+  color: black;
+  padding: 5px;
+  font-weight: bold;
+  align-content: center;
 }
 
 .answer-container:hover{
   color: #E1ADAD;
+  border: 4px solid #E1ADAD;
   cursor: pointer;
 }
 
@@ -24,6 +37,7 @@
 
 h2 {
   font-size: 180%;
+  font-weight: bold;
 }
 
 p {
@@ -33,4 +47,9 @@ p {
 label {
   cursor: pointer;
   margin-left: 3px;
+}
+
+.bi-question-circle {
+  font-size: 100px;
+  color: #E1ADAD;
 }

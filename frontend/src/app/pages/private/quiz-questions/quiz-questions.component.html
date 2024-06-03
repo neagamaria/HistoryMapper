@@ -1,9 +1,11 @@
 <div class="big-container">
+  <i class="bi bi-question-circle"></i>
   <form #quizForm="ngForm" (ngSubmit)="this.calculateResult(quizForm)" *ngIf="!this.isFinished">
     <div *ngFor="let question of this.questions">
       <br/><br/>
       <div class="question-container">
         <h2>{{ question.question }}</h2>
+        <br/>
         <div *ngFor="let i of [0, 1, 2, 3]" class="answer-container">
         <input type="radio"
                [(ngModel)]="selectedAnswers[question.id]"

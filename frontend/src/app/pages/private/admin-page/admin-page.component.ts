@@ -77,6 +77,8 @@ export class AdminPageComponent implements OnInit {
 
 
   async populateDB(form: any) {
+    this.searchedEvent = '';
+    this.indexEvents = [];
     // set parameters for the API call
     this.adminService.setWikiCategory(this.addForm.get('dbpediaCategory')?.value);
     this.adminService.setEventsType(this.addForm.get('eventsType')?.value);
@@ -95,6 +97,9 @@ export class AdminPageComponent implements OnInit {
 
   // get all events in the DB
   async getAllEvents() {
+    this.searchedEvent = '';
+    this.events = [];
+
     this.selectAction('index')
     await this.eventsService.callEventsBetweenYearsApi(3800, 'BC', 2024, 'AD').then(() => {
         this.indexEvents = this.eventsService.getEventsBetweenYearsValue();
@@ -103,26 +108,38 @@ export class AdminPageComponent implements OnInit {
   }
 
 
-  // get events by name
+  // get event by introduced form name
   async getEvent(form: any) {
+    this.indexEvents = [];
+    this.events = [];
+
     // search the event with the introduced name
-    let name = this.showForm.get('name')?.value
+    let name = this.showForm.get('name')?.value;
 
     if (name) {
-      this.eventsService.setSearchedName(name);
-
-      await this.eventsService.callEventByNameApi();
-      this.searchedEvent = this.eventsService.getSearchedEvent();
+      // this.eventsService.setSearchedName(name);
+      //
+      // await this.eventsService.callEventByNameApi();
+      // this.searchedEvent = this.eventsService.getSearchedEvent();
+      await this.callEventByNameAPI(name);
 
       if(this.searchedEvent == '')
         alert("Event not found");
 
     }
-
-    console.log(this.searchedEvent)
   }
 
 
+  // call event by name API
+  async callEventByNameAPI(name: string) {
+    this.selectAction('show');
+    this.eventsService.setSearchedName(name);
+    await this.eventsService.callEventByNameApi();
+    this.searchedEvent = this.eventsService.getSearchedEvent();
+  }
+
+
+  // edit event with form data
   async editEvent(form: any) {
     // get the name of the event to be edited
     let name = this.searchedEvent[0].name;
