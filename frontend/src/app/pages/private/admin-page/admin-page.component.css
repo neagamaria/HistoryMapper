@@ -46,7 +46,7 @@ label {
     width: 15%;
 }
 
-input {
+input, textarea {
   width: 30%;
 }
 

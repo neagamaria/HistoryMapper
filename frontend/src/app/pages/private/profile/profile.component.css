@@ -5,3 +5,37 @@ h2 {
 .bi {
   font-size: 400%;
 }
+
+.info {
+  background-color: white;
+  color: black;
+  border: 6px solid #BE8f7A;
+  width: 40%;
+  margin-left: 30%;
+  padding: 5%;
+  font-size: 120%;
+}
+
+.section {
+  font-weight: bold;
+  padding: 5%;
+}
+
+.actions {
+  font-size: 5px;
+  cursor: pointer;
+  float: right;
+  width: 10%;
+}
+
+i {
+  padding: 3%;
+}
+
+label {
+    width: 80%;
+}
+
+input {
+  width: 50%;
+}

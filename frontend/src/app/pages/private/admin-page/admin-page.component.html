@@ -118,7 +118,7 @@
 
 
   <div *ngIf="selectedAction == 'edit'">
-      <h4 style="color: #E1ADAD">Do not enter new values for fields who should not be changed!</h4>
+      <h4 style="color: #E1ADAD; font-size: 80%; font-style: italic;">Fields that are not completed will keep their previous value </h4>
     <br/><br/>
       <form #dbForm="ngForm" [formGroup]="editForm" (ngSubmit)="editEvent(dbForm)">
         <label for="newName">Event name:</label>

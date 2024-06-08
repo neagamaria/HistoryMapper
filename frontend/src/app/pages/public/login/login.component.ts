@@ -32,7 +32,8 @@ export class LoginComponent {
     const user = this.form.value;
 
     await this.userService.callLoginAPI(user).then((response) => {
-      if (!response.token) {
+      console.log(response);
+      if (!response.token || response == 404) {
         alert('Invalid user');
       } else {
         this.userService.setCurrentUser(response);

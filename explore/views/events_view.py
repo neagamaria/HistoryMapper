@@ -222,7 +222,9 @@ class ClusterEventsAPIView(APIView):
             labels = kmeans.labels_
 
             # count number of elements in each cluster
-            numbers = list(Counter(labels).values())
+            numbers = [0] * len(centroids)
+            for i in range(len(centroids)):
+                numbers[i] = list(labels).count(i)
 
             return JsonResponse({'centroids': centroids.tolist(), 'labels': labels.tolist(), 'numbers': numbers})
 

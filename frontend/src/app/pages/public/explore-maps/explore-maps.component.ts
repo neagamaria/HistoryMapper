@@ -253,7 +253,7 @@ export class ExploreMapsComponent implements OnInit {
       }
 
       // establish coordinates for marker, considering collisions behaviour
-      let latLng = {lat: Number(e.latitude + 1000 * dict[e.location]), lng: Number(e.longitude)};
+      let latLng = {lat: Number(e.latitude)  + dict[e.location] / 10, lng: Number(e.longitude) + dict[e.location] / 10};
       //establish data to be displayed on map
       let data = e.name + " (" + e.event_date + " " + e.era + ") ";
       // if routes mode is on, add number of the event in the list
@@ -283,12 +283,12 @@ export class ExploreMapsComponent implements OnInit {
       marker.content?.addEventListener('mouseleave', function () {
         infoWindow.close();
       });
+      // add marker to the array of markers
+        this.markers.push([marker, e]);
+      }
 
       // add additional listeners
       await this.addListeners(map, events);
-      // add marker to the array of markers
-      this.markers.push([marker, e]);
-    }
   }
 
 
@@ -299,6 +299,8 @@ export class ExploreMapsComponent implements OnInit {
     if(this.eventsBetweenYears.length > 0) {
       // get clusters
       let response = await this.eventsService.callClusterEventsAPI(events);
+
+      console.log(response);
 
       for (let i = 0; i < response.centroids.length; i++) {
         let c = response.centroids[i];
@@ -331,6 +333,7 @@ export class ExploreMapsComponent implements OnInit {
   // add listeners to map based on option
   async addListeners(map: any, events: any) {
     for (let marker of this.markers) {
+      console.log("length of markers: ", this.markers.length);
       // remove all previous listeners
       google.maps.event.clearListeners(marker[0], 'click');
 
@@ -414,7 +417,7 @@ export class ExploreMapsComponent implements OnInit {
           const path = new google.maps.Polyline({
             path: coordinates,
             geodesic: true,
-            strokeColor: "#BEB67A",
+            strokeColor: "#BE8F7A",
             strokeOpacity: 0.4,
             strokeWeight: 5,
           });
@@ -422,7 +425,7 @@ export class ExploreMapsComponent implements OnInit {
           // add paths with a short delay
           setTimeout(() => { path.setMap(map); }, 300 * i);
           setTimeout(() => {
-            path.setOptions({ strokeOpacity: 0.8, strokeColor: "#E0D36F"});
+            path.setOptions({ strokeOpacity: 0.8, strokeColor: "#A06355"});
           }, 500 * i);
 
           // push path to list of saved paths

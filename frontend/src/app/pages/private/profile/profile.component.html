@@ -1,13 +1,46 @@
 <div *ngIf="this.currentUser">
-  <h2>Hello, {{this.currentUser.user.username}}!</h2>
+    <i class="bi bi-person"></i>
+    <br/>
+    <h2>Hello, {{this.currentUser.user.username}}!</h2>
+    <br/>
+
+    <div *ngIf="this.selectedAction == ''">
+    <div class="info">
+      <div class="actions">
+        <i class="bi bi-trash" (click)="deleteProfile()"></i>
+        <i class="bi bi-pencil-fill" (click)="selectAction('edit')"> </i>
+        <br/><br/><br/><br/>.
+      </div>
+        <div><div class="section"> Current email:</div> {{this.currentUser.user.email}}</div>
+        <br/>
+        <div><div class="section"> First name: </div>{{this.currentUser.user.first_name}}</div>
+        <div><div class="section"> Last name: </div>{{this.currentUser.user.last_name}}</div>
+        <br/>
+        <br/>
+    </div>
+  </div>
   <br/>
-  <i class="bi bi-person"></i>
+
+  <div *ngIf="this.selectedAction=='edit'" class="info">
+    <div style="font-size: 80%; font-style: italic">Fields that are not completed will keep their previous value</div>
+    <br/>
+    <form #dbForm="ngForm" [formGroup]="editForm" (ngSubmit)="editProfile(dbForm)">
+        <label for="newEmail">Email:</label>
+        <input type="text" id="newEmail" formControlName="newEmail" placeholder="{{this.currentUser.user.email}}">
+        <br/><br/>
+        <label for="newFirstName"> First name:</label>
+        <input type="text" id="newFirstName" formControlName="newFirstName" placeholder="{{this.currentUser.user.first_name}}">
+        <br/><br/>
+        <label for="newLastName">Last name:</label>
+        <input type="text" id="newLastName" formControlName="newlastName" placeholder="{{this.currentUser.user.last_name}}">
+        <br/><br/>
+        <label for="newPassword">Change password:</label>
+        <input type="text" id="newPassword" formControlName="newPassword">
+        <br/><br/>
+        <button type="submit" class="btn btn-outline-dark">Edit</button>
+      </form>
+  </div>
   <br/>
-  <div>Current email: {{this.currentUser.user.email}}</div>
-  <br/>
-  <div>First name: {{this.currentUser.user.first_name}}</div>
-  <div>Last name: {{this.currentUser.user.last_name}}</div>
-  <br/>
-  <br/>
+
   <button class="btn btn-outline-light" (click)="logOut()">Log out</button>
 </div>

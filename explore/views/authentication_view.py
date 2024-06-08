@@ -68,13 +68,13 @@ class UserAPIView(APIView):
                 user.set_password(request_data['password'])
 
             if request_data['email']:
-                user.set_email(request_data['email'])
+                user.email = request_data['email']
 
             if request_data['first_name']:
-                user.set_first_name(request_data['first_name'])
+                user.first_name = request_data['first_name']
 
             if request_data['last_name']:
-                user.set_last_name(request_data['last_name'])
+                user.last_name = request_data['last_name']
 
             user.save()
 

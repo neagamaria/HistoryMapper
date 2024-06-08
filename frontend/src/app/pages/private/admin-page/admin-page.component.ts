@@ -42,7 +42,7 @@ export class AdminPageComponent implements OnInit {
 
     this.showForm = this.fb.group({
       name: ['', [Validators.required]]
-    })
+    });
 
     this.editForm = this.fb.group({
       newName: ['', [Validators.required]],
@@ -50,7 +50,7 @@ export class AdminPageComponent implements OnInit {
       newCategory: [''],
       newEventType: [''],
       newDescription: ['']
-    })
+    });
   }
 
 

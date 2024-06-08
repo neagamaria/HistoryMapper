@@ -15,9 +15,14 @@ export class UserService {
 
   // call the login API
   public async callLoginAPI(user: any) {
-    this.currentUser = await firstValueFrom(this.http.put<any>(this.url, user));
+    try {
+      this.currentUser = await firstValueFrom(this.http.put<any>(this.url, user));
 
-    return this.currentUser;
+      return this.currentUser;
+    }
+    catch(e) {
+      return 404;
+    }
   }
 
   // call the register API
@@ -26,7 +31,16 @@ export class UserService {
     return await firstValueFrom(this.http.post<any>(this.url, user));
   }
 
+  // call the API endpoint for editing a user
+  public async callEditAPI(newData: any, username: string) {
+    return await firstValueFrom(this.http.put(this.url1 + username, newData));
+  }
 
+
+  // call the API endpoint for deleting a user
+  public async callDeleteAPI(username: string) {
+    return await firstValueFrom(this.http.delete(this.url1 + username));
+  }
   // call the API that gets a user by username
   public async callGetUserAPI(username: string) {
 
