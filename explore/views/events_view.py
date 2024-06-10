@@ -172,6 +172,9 @@ class RoutesAPIView(APIView):
 
         populate_map_location(events)
 
+        # get the corresponding category to later access motto
+        category = Category.objects.get(id=category_id)
+
         complete_events = [
             {
                 'event': event,
@@ -187,13 +190,10 @@ class RoutesAPIView(APIView):
         complete_events.sort(key=lambda entry: entry['event'].event_date)
 
         data = [{'name': e['event'].name, 'event_date': e['event'].event_date, 'era': e['event'].era,
-                 'location': e['event'].location, 'description': e['event'].description,
-                 "historical_period": e['event'].historical_period.name, "event_type": e['event'].event_type.name,
-                 "category": e['event'].category.name,
-                 "event_type_id": e['event'].event_type_id,
-                 "category_id": e['event'].category_id,
-                 "latitude": e['latitude'],
-                 "longitude": e['longitude']}
+                 'location': e['event'].location, "historical_period": e['event'].historical_period.name,
+                 "event_type": e['event'].event_type.name, "category": e['event'].category.name,
+                 "event_type_id": e['event'].event_type_id, "category_id": e['event'].category_id,
+                 "category_motto": category.motto, "latitude": e['latitude'], "longitude": e['longitude']}
                 for e in complete_events]
 
         return JsonResponse({'data': data, 'status': status.HTTP_200_OK})
@@ -204,7 +204,11 @@ class ClusterEventsAPIView(APIView):
     # add a cluster to each event
     def put(self, request):
         # define number of clusters
-        k = 5
+        if len(request.data) < 100:
+            k = 5
+        else:
+            k = 10
+
         # get latitude and longitude from all events in request
         events_coord = []
 
@@ -213,7 +217,7 @@ class ClusterEventsAPIView(APIView):
                 events_coord.append([request.data[i]['latitude'], request.data[i]['longitude']])
 
             # initialize k-Means clustering model
-            kmeans = KMeans(n_clusters=k, n_init=5)
+            kmeans = KMeans(n_clusters=k, n_init=3)
             # fit clustering model
             kmeans.fit(events_coord)
             # get clusters centers

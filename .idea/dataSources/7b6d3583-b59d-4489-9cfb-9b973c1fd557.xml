@@ -554,8 +554,8 @@
     </table>
     <table id="113" parent="2" name="EXPLORE_CATEGORY">
       <CreatedTimestamp>2023-12-05.15:48:59</CreatedTimestamp>
-      <DetailsLevel>3</DetailsLevel>
-      <ModifiedTimestamp>2023-12-05.15:48:59</ModifiedTimestamp>
+      <DetailsLevel>2</DetailsLevel>
+      <ModifiedTimestamp>2024-06-10.16:29:50</ModifiedTimestamp>
       <ObjectId>78958</ObjectId>
       <TemporaryPreserve>1</TemporaryPreserve>
     </table>
@@ -1327,7 +1327,7 @@ MODEL</ColNames>
       <Position>2</Position>
     </column>
     <column id="231" parent="113" name="MOTTO">
-      <DasType>NVARCHAR2(200)|0s</DasType>
+      <DasType>VARCHAR2(1000 byte)|0s</DasType>
       <Position>3</Position>
     </column>
     <index id="232" parent="113" name="SYS_C008412">

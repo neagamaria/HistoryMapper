@@ -142,10 +142,10 @@
   </div>
 
   <div *ngIf="selectedAction == 'delete'">
-  <h4 style="color: #E1ADAD">Delete event {{searchedEvent[0].name}}?</h4>
-  <br/><br/><br/>
-  <button class="btn btn-outline-light"(click) ="selectAction('')">Cancel</button>
-  <button class="btn btn-outline-light" (click)="deleteEvent(searchedEvent[0].name)">Delete</button>
+    <h4 style="color: #E1ADAD">Delete event {{searchedEvent[0].name}}?</h4>
+    <br/><br/><br/>
+    <button class="btn btn-outline-light"(click) ="selectAction('')">Cancel</button>
+    <button class="btn btn-outline-light" (click)="deleteEvent(searchedEvent[0].name)">Delete</button>
   </div>
 
   <div *ngIf="(this.selectedAction == 'index' && this.indexEvents.length === 0) ||

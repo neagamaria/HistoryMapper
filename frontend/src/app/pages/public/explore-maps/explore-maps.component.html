@@ -2,7 +2,7 @@
 
 <div class="container">
   <div *ngIf="!this.routesMode">
-    <br/><br/><br/>
+    <br/><br/>
     <h2>Choose time range for events:</h2>
     <br/>
     <div class="slider">
@@ -14,6 +14,19 @@
     <br/><br/><br/>
     <div *ngIf="this.route.length > 0">
       <div class="title">{{this.route[0].event_type}}s of {{this.route[0].category}}</div>
+      <i class="bi bi-info-circle" (click)="setRouteInfo(true)"></i>
+    </div>
+    <div *ngIf="this.getRouteInfo()" class="route-info-container">
+      <div style="color: #EDEAD4; font-size: 140%;"> {{this.route[0].event_type}}s of {{this.route[0].category}}</div>
+      <hr/>
+      <br/>
+      <div>{{this.route[0].category_motto}}</div>
+      <br/>
+      <div>Chronological events:</div>
+      <hr/>
+      <div class="route-info" *ngFor="let event of this.route; index as i">
+        <div>{{i+1}}. {{ this.event.name }} - {{ this.event.event_date }}</div>
+      </div>
     </div>
     <br/>
     <h3 *ngIf="this.route.length == 0">Click on event to highlight route...</h3>
@@ -25,12 +38,11 @@
     <app-event-info></app-event-info>
   </div>
 
-  <br/><br/>
+  <br/>
   <div class="map-container">
     <div *ngIf="this.loading">
       <app-spinner></app-spinner>
     </div>
-
     <div id="map" [style.height]="'900px'"></div>
   </div>
 </div>

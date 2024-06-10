@@ -29,7 +29,7 @@ class EventType(models.Model):
 # category of a historical event
 class Category(models.Model):
     name = models.CharField(max_length=100, unique=True)
-    motto = models.CharField(max_length=200, blank=True)
+    motto = models.CharField(max_length=1000, blank=True)
 
 
 # YouTube video connected to an event

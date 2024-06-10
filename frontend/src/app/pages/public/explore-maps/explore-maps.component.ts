@@ -448,4 +448,14 @@ export class ExploreMapsComponent implements OnInit {
   exitRoutesMode() {
     this.eventsService.setRoutesMode(false);
   }
+
+  // get status of the route info
+  getRouteInfo() {
+    return this.eventsService.getRouteInfo();
+  }
+
+  // set the route info status
+  setRouteInfo(value: boolean) {
+    this.eventsService.setRouteInfo(value);
+  }
 }
