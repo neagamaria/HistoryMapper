@@ -17,6 +17,7 @@
       <i class="bi bi-info-circle" (click)="setRouteInfo(true)"></i>
     </div>
     <div *ngIf="this.getRouteInfo()" class="route-info-container">
+      <i class="bi bi-x-lg" (click)="this.setRouteInfo(false)"></i>
       <div style="color: #EDEAD4; font-size: 140%;"> {{this.route[0].event_type}}s of {{this.route[0].category}}</div>
       <hr/>
       <br/>

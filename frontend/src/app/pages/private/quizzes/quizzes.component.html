@@ -2,6 +2,10 @@
   <div style="color: #EDEAD4; font-weight: 1000">{{ this.currentUser }},</div> choose your Quiz!
 </h2>
 <br/><br/>
+<form [formGroup]="searchForm" (keyup.enter)="getCategoryByName()">
+      <input type="text" id="name" formControlName="name"
+        placeholder="Search quiz category..." style="color: black; width: 30%">
+</form>
 <div class="big-container">
   <div class="mid-container" *ngFor="let c of this.categories">
     <div class="quiz-container">

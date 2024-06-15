@@ -18,6 +18,22 @@ class CategoriesAPIView(APIView):
             return JsonResponse({'status': 404})
 
 
+# API endpoints for retrieving a category by name
+class CategoryAPIView(APIView):
+    def get(self, request, category_name):
+        try:
+            category_name = category_name.lower()
+            category = Category.objects.raw('''SELECT * FROM explore_category WHERE LOWER(name) = %s''', [category_name])
+            if category:
+                category = category[0]
+            else:
+                return JsonResponse({'status': status.HTTP_404_NOT_FOUND})
+            data = {'id': category.id, 'name': category.name}
+            return JsonResponse({'data': data, 'status': status.HTTP_200_OK})
+        except Category.DoesNotExist:
+            return JsonResponse({'status': status.HTTP_404_NOT_FOUND})
+
+
 # API endpoint for retrieving quiz questions with answers
 class QuizAPIView(APIView):
     # create question based on question type
@@ -32,7 +48,7 @@ class QuizAPIView(APIView):
         if question_type == 1:
             question = f'Which event took place in {event.location} in {event.year} {event.era}?'
             answers[right_answer] = event.name
-            other_answers = list(Event.objects.raw('''select * from 
+            other_answers = list(Event.objects.raw('''SELECT * FROM 
                                                     (SELECT id, name FROM explore_event
                                                     ORDER BY dbms_random.value)
                                                     WHERE rownum <= 3'''))
@@ -44,7 +60,7 @@ class QuizAPIView(APIView):
         elif question_type == 2:
             question = f'Where did {event.name} take place in {event.year} {event.era}?'
             answers[right_answer] = event.location
-            other_answers = list(Event.objects.raw('''select * from 
+            other_answers = list(Event.objects.raw('''SELECT * FROM 
                                                        (SELECT id, location FROM explore_event
                                                        ORDER BY dbms_random.value)
                                                        WHERE rownum <= 3'''))

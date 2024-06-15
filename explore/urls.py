@@ -19,6 +19,7 @@ urlpatterns = [
     path('api/all-types/', views.AllEventTypesAPIView.as_view(), name="all-types"),
     path('api/routes/<str:category_id>/<event_type_id>/', views.RoutesAPIView.as_view(), name="routes-api"),
     path('api/categories', views.CategoriesAPIView.as_view(), name="categories-api"),
+    path('api/category/<str:category_name>', views.CategoryAPIView.as_view(), name="category-api"),
     path('api/quiz/<str:category_id>', views.QuizAPIView.as_view(), name="quiz-api"),
     path('api/quiz-history/<str:username>', views.QuizHistoryAPIView.as_view(), name="quiz-history-api"),
     path('api/videos/<str:event_name>', views.VideosAPIView.as_view(), name="videos-api")

@@ -22,7 +22,6 @@ import { MapOptionsMenuComponent } from './pages/public/map-options-menu/map-opt
 import { EventInfoComponent } from './pages/public/event-info/event-info.component';
 import { ProfileComponent } from './pages/private/profile/profile.component';
 import { SpinnerComponent } from './pages/public/spinner/spinner.component';
-import { RouteInfoComponent } from './pages/public/route-info/route-info.component';
 
 @NgModule({
   declarations: [
@@ -41,8 +40,7 @@ import { RouteInfoComponent } from './pages/public/route-info/route-info.compone
     MapOptionsMenuComponent,
     EventInfoComponent,
     ProfileComponent,
-    SpinnerComponent,
-    RouteInfoComponent,
+    SpinnerComponent
   ],
     imports: [
         BrowserModule,

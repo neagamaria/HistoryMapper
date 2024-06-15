@@ -3,7 +3,7 @@ from django.http import JsonResponse
 from rest_framework.views import APIView
 from rest_framework.parsers import JSONParser
 
-from HistoryMapper import settings
+from HistoryMapper import utils
 from explore.models import MapLocation, Event, EventType, Category
 from django.db.models.functions import Lower
 
@@ -15,7 +15,7 @@ from collections import Counter
 
 # call the Geocoding API
 def get_coordinates(location):
-    url = f"https://maps.googleapis.com/maps/api/geocode/json?key={settings.GOOGLE_API_KEY}&address={location}"
+    url = f"https://maps.googleapis.com/maps/api/geocode/json?key={utils.GOOGLE_API_KEY}&address={location}"
     response = requests.get(url)
     data = response.json()
 

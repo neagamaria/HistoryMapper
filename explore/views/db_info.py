@@ -347,7 +347,7 @@ class DBPediaAPIView(APIView):
     # obtain location based on latitude and longitude - reverse geocoding
     @staticmethod
     def get_location(self, lat, lng):
-        url = f"https://maps.googleapis.com/maps/api/geocode/json?latlng={lat},{lng}&key={settings.GOOGLE_API_KEY}"
+        url = f"https://maps.googleapis.com/maps/api/geocode/json?latlng={lat},{lng}&key={utils.GOOGLE_API_KEY}"
         response = requests.get(url)
         data = response.json()
         locality = ''

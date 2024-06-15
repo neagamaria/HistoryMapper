@@ -22,6 +22,11 @@ export class QuizzesService {
       return [];
   }
 
+  // get a category by name
+  public async getCategoryByName(name: string) {
+    let url = 'http://127.0.0.1:8000/api/category/';
+  }
+
   // function that calls the API for getting a quiz based on category id
   public async getQuiz() {
     try {
@@ -41,8 +46,8 @@ export class QuizzesService {
       alert("Couldn't load quiz");
       return [];
     }
-
   }
+
     // call API function that gets a specific quiz history
     public async getQuizHistory(username: string) {
       let url = "http://127.0.0.1:8000/api/quiz-history/" + username;

@@ -3,7 +3,7 @@ from rest_framework import status
 from rest_framework.views import APIView
 from django.http import JsonResponse
 
-from HistoryMapper import settings
+from HistoryMapper import utils
 from explore.models import Event, Video
 
 
@@ -30,7 +30,7 @@ class VideosAPIView(APIView):
 
             else:
                 # call the YouTube API
-                youtube = build('youtube', 'v3', developerKey=settings.GOOGLE_API_KEY)
+                youtube = build('youtube', 'v3', developerKey=utils.GOOGLE_API_KEY)
                 request = youtube.search().list(
                     q=event_name,
                     part='snippet',

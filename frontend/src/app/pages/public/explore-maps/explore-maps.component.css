@@ -77,8 +77,8 @@ input {
 
 .route-info-container {
   margin-left: 53%;
-  width: 30%;
-  top: 74%;
+  width: 35%;
+  top: 65%;
   border: 2px solid white;
   border-radius: 2px;
   position: absolute;
@@ -98,6 +98,11 @@ input {
 i {
   cursor: pointer;
   font-size: 120%;
+}
+
+.bi-x-lg {
+  float: right;
+  margin-left: 80%;
 }
 
 

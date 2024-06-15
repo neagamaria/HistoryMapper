@@ -211,10 +211,10 @@ export class ExploreMapsComponent implements OnInit {
     await this.eventsService.callEventsBetweenYearsApi(this.startYear, this.startEra, this.endYear, this.endEra);
     this.eventsBetweenYears = this.eventsService.getEventsBetweenYearsValue();
 
-    if(this.eventsBetweenYears.length > 500) {
+    if(this.eventsBetweenYears.length > 300) {
       // prevent app crashing due to too many events
-      this.eventsBetweenYears = this.eventsBetweenYears.slice(0, 500);
-      alert("Data is sliced due to too many events");
+      this.eventsBetweenYears = this.eventsBetweenYears.slice(0, 300);
+      alert("Data sliced to 300 events. Narrow down the interval for more precision.");
     }
     this.loading = false;
   }

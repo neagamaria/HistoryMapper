@@ -18,15 +18,15 @@ export class EventInfoComponent implements OnInit{
   constructor(private eventsService: EventsService, private cdr: ChangeDetectorRef) {}
 
   async ngOnInit() {
+    // subscribe to observable to detect any change of the clicked event
     this.eventsService.getClickedEvent().subscribe(async (clickedEvent: any) => {
       this.event = clickedEvent;
+      // obtain videos for current event
+      await this.eventsService.callVideosAPI(this.event.name).then((response) => {
+          this.videos = response;
+          this.cdr.detectChanges();
+        });
     });
-
-    // obtain videos for current event
-    await this.eventsService.callVideosAPI(this.event.name).then((response) => {
-        this.videos = response;
-        this.cdr.detectChanges();
-      });
   }
 
   close() {

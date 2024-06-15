@@ -13,7 +13,6 @@ import {AdminPageComponent} from "./pages/private/admin-page/admin-page.componen
 import {MapOptionsMenuComponent} from "./pages/public/map-options-menu/map-options-menu.component";
 import {ProfileComponent} from "./pages/private/profile/profile.component";
 import {SpinnerComponent} from "./pages/public/spinner/spinner.component";
-import {RouteInfoComponent} from "./pages/public/route-info/route-info.component";
 
 
 const routes: Routes = [
@@ -28,8 +27,7 @@ const routes: Routes = [
   {path: 'admin-page', component: AdminPageComponent},
   {path: 'map-options-menu', component: MapOptionsMenuComponent},
   {path: 'profile', component: ProfileComponent},
-  {path: 'spinner', component: SpinnerComponent},
-  {path: 'route-info', component: RouteInfoComponent}
+  {path: 'spinner', component: SpinnerComponent}
 ];
 
 @NgModule({

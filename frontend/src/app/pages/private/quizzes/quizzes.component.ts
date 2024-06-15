@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {Router} from "@angular/router";
 import {UserService} from "../../../services/user.service";
 import {QuizzesService} from "../../../services/quizzes.service";
+import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 
 @Component({
   selector: 'app-quizzes',
@@ -14,8 +15,14 @@ export class QuizzesComponent implements OnInit{
   categories: any = [];
   // last scores for each quiz
   quizzesHistory: any = [];
+  // form for search option
+  searchForm: FormGroup;
 
-  constructor(private router: Router, private userService: UserService, private quizzesService: QuizzesService) {}
+  constructor(private router: Router, private fb: FormBuilder, private userService: UserService, private quizzesService: QuizzesService) {
+    this.searchForm = this.fb.group ({
+        quizName: ['', [Validators.required]]
+      });
+  }
 
   async ngOnInit() {
       this.currentUser = this.userService.getCurrentUsername();
@@ -44,6 +51,15 @@ export class QuizzesComponent implements OnInit{
       }
   }
 
+
+  // search quiz category
+  getCategoryByName() {
+    let categName = this.searchForm.get('name')?.value;
+
+
+
+
+  }
 
   goToQuizQuestions(id: string) {
     // set id for selected category
