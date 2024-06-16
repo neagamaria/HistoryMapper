@@ -17,6 +17,7 @@ label {
 
 input {
   color: black !important;
+  width: 250px;
 }
 
 .error {

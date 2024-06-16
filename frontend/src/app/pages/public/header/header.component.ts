@@ -34,6 +34,10 @@ export class HeaderComponent implements OnInit{
     this.router.navigate(['/explore-maps']).then();
   }
 
+   goToHistoricalPeriods(): void {
+    this.router.navigate(['/historical-periods']).then();
+  }
+
   goToAdminPage(): void {
       this.router.navigate(['/admin-page']).then();
   }

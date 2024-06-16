@@ -7,18 +7,20 @@ h2 {
 }
 
 .info {
-  background-color: white;
   color: black;
-  border: 6px solid #BE8f7A;
-  width: 54%;
-  margin-left: 23%;
+  border: 8px solid silver;
+  border-radius: 3px;
+  width: 48%;
+  margin-left: 25%;
   padding: 5%;
   font-size: 120%;
+  background-image: url("../../../../assets/background_small.png");
+  background-size: cover;
 }
 
 .section {
   font-weight: bold;
-  padding: 5%;
+  padding-top: 8%;
 }
 
 .actions {
@@ -38,4 +40,8 @@ label {
 
 input {
   width: 80%;
+}
+
+button {
+  margin: 2%;
 }

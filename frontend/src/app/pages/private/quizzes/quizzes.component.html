@@ -7,23 +7,25 @@
         placeholder="Search quiz category..." style="color: black; width: 30%">
 </form>
 <div class="big-container">
-  <div class="mid-container" *ngFor="let c of this.categories">
+  <div class="mid-container" *ngFor="let c of this.categories" [ngClass]="{'one': categories.length === 1}">
     <div class="quiz-container">
       <div class="name">{{ c.name }}</div>
       <div *ngIf="this.quizzesHistory[c.id] != null">
         <div class="last-score-1">Last score: {{ this.quizzesHistory[c.id] }}</div>
         <br/>
-        <button type="button" class="btn btn-outline-light"
+        <button type="button" class="btn btn-outline-light special-button"
                 (click)="goToQuizQuestions(c.id)">Retake
         </button>
       </div>
       <div *ngIf="this.quizzesHistory[c.id] == null">
         <div class="last-score">Not taken</div>
         <br/>
-        <button type="button" class="btn btn-outline-light"
+        <button type="button" class="btn btn-outline-light special-button"
                 (click)="goToQuizQuestions(c.id)">Take
         </button>
       </div>
     </div>
   </div>
 </div>
+
+<button class="btn btn-outline-light" *ngIf="this.categories.length === 1" (click)="resetCategories()">Back to full list</button>

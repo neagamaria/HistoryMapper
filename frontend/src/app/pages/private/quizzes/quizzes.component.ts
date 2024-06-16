@@ -20,7 +20,7 @@ export class QuizzesComponent implements OnInit{
 
   constructor(private router: Router, private fb: FormBuilder, private userService: UserService, private quizzesService: QuizzesService) {
     this.searchForm = this.fb.group ({
-        quizName: ['', [Validators.required]]
+        name: ['', [Validators.required]]
       });
   }
 
@@ -30,41 +30,50 @@ export class QuizzesComponent implements OnInit{
       if (this.currentUser == null) {
           this.router.navigate(['/login']).then();
       } else {
-        // get all categories in the db
-          await this.quizzesService.getCategories().then((response) => {
-            this.categories = response;
-          });
+        await this.resetCategories();
 
+        // get the last score for each quiz category
+        await this.quizzesService.getQuizHistory(this.currentUser).then((response) => {
+         // this.quizzesHistory = response;
 
-          // get the last score for each quiz category
-          await this.quizzesService.getQuizHistory(this.currentUser).then((response) => {
-           // this.quizzesHistory = response;
-
-            this.categories.forEach((category: any) => {
-              if(response[0][category.id])
-                this.quizzesHistory[category.id] = response[0][category.id].last_score;
-              else
-                this.quizzesHistory[category.id] = null;
-            })
-            console.log(this.quizzesHistory);
-          });
+          this.categories.forEach((category: any) => {
+            if(response[0][category.id])
+              this.quizzesHistory[category.id] = response[0][category.id].last_score;
+            else
+              this.quizzesHistory[category.id] = null;
+          })
+          console.log(this.quizzesHistory);
+        });
       }
   }
 
 
   // search quiz category
-  getCategoryByName() {
+  async getCategoryByName() {
     let categName = this.searchForm.get('name')?.value;
+    await this.quizzesService.getCategoryByName(categName).then((response) => {
+      if(response.status != 200) {
+        alert("No category found");
+        this.resetCategories();
+      }
+      else {
+        // mark that only one category will be displayed
+        this.categories = [];
+        this.categories[0] = response.data;
+      }
+    });
+  }
 
-
-
-
+  // reset list of categories
+  async resetCategories() {
+    await this.quizzesService.getCategories().then((response) => {
+          this.categories = response;
+    });
   }
 
   goToQuizQuestions(id: string) {
     // set id for selected category
     this.quizzesService.setCategoryId(id);
-    console.log("CategoryId in QuizzesComponent: ", this.quizzesService.getCategoryId());
     // navigate to questions
     this.router.navigate(['/quiz-questions']).then();
   }

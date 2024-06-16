@@ -8,6 +8,9 @@
   <div class="grid-map">
     <i (click)="goToMap()" class="bi bi-geo-alt-fill"></i>
   </div>
+  <div class="grid-time">
+    <i (click)="goToHistoricalPeriods()" class="bi bi-hourglass-split"></i>
+  </div>
   <div *ngIf="this.username == 'admin'" class="grid-admin">
     <i (click)="goToAdminPage()" class="bi bi-database-fill-lock"></i>
   </div>

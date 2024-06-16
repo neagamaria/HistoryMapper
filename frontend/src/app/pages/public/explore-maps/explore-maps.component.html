@@ -13,9 +13,11 @@
   <div *ngIf="this.routesMode">
     <br/><br/><br/>
     <div *ngIf="this.route.length > 0">
-      <div class="title">{{this.route[0].event_type}}s of {{this.route[0].category}}</div>
-      <i class="bi bi-info-circle" (click)="setRouteInfo(true)"></i>
+      <div class="title">{{this.route[0].event_type}}s of {{this.route[0].category}}
+        <i class="bi bi-info-circle" style="font-size: 50% !important" (click)="setRouteInfo(true)"></i>
+      </div>
     </div>
+
     <div *ngIf="this.getRouteInfo()" class="route-info-container">
       <i class="bi bi-x-lg" (click)="this.setRouteInfo(false)"></i>
       <div style="color: #EDEAD4; font-size: 140%;"> {{this.route[0].event_type}}s of {{this.route[0].category}}</div>
@@ -26,7 +28,7 @@
       <div>Chronological events:</div>
       <hr/>
       <div class="route-info" *ngFor="let event of this.route; index as i">
-        <div>{{i+1}}. {{ this.event.name }} - {{ this.event.event_date }}</div>
+        <div>{{i+1}}. {{ this.event.name }} - {{ this.event.event_date}} {{ this.event.era}}</div>
       </div>
     </div>
     <br/>

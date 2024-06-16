@@ -1,5 +1,6 @@
 <div class="container">
-  <h2>Register</h2>
+  <h1>Create an account</h1>
+  <br/>
   <form [formGroup]="form" (ngSubmit)="register()">
     <div>
       <label for="username">Username:</label>
@@ -16,7 +17,7 @@
     <br/>
 
     <div>
-      <label for="last_name">First name:</label>
+      <label for="last_name">Last name:</label>
       <input type="text" id="last_name" formControlName="last_name" required>
       <div class="error" *ngIf="form.get('last_name')?.hasError('required')">Last name is required.</div>
     </div>

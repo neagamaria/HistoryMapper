@@ -5,18 +5,23 @@
   max-width: 100%;
   overflow-x: auto;
   overflow-y: hidden;
-  /*background-color: grey;*/
 }
 
 .mid-container {
   padding: 2% 4% 4%;
   margin: 70px 15px;
-  width: 100%;
+  text-align: center;
   height: 350px;
-  background: white;
   color: black;
   border-radius: 8px;
   border: 5px solid #BEB67A;
+  background-color: white;
+}
+
+.one {
+  margin-left: 40%;
+  margin-right: 40%;
+  width: 400px;
 }
 
 .last-score {
@@ -33,12 +38,12 @@
   font-weight: 700;
 }
 
-button {
+.special-button {
   background-color: #B83333;
   margin-right: 10px;
 }
 
-button:hover {
+.special-button:hover {
   background-color: #E1ADAD;
 }
 

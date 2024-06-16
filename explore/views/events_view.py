@@ -104,7 +104,7 @@ class EventActionsAPIView(APIView):
                 # add coordinates
                 lat, lng = get_coordinates(event.location)
 
-                data = [{'name': event.name, 'event_date': event.event_date, 'era': event.era,
+                data = [{'id': event.id, 'name': event.name, 'event_date': event.event_date, 'era': event.era,
                          'location': event.location, 'description': event.description,
                          "historical_period": event.historical_period.name,
                          "event_type": event.event_type.name, "category": event.category.name,

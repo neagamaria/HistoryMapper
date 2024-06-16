@@ -9,15 +9,15 @@
       <div class="actions">
         <i class="bi bi-trash" (click)="deleteProfile()"></i>
         <i class="bi bi-pencil-fill" (click)="selectAction('edit')"> </i>
-        <br/><br/><br/><br/>.
       </div>
-        <div><div class="section"> Current email:</div> {{this.currentUser.user.email}}</div>
-        <br/>
-        <div><div class="section"> First name: </div>{{this.currentUser.user.first_name}}</div>
-        <div><div class="section"> Last name: </div>{{this.currentUser.user.last_name}}</div>
-        <br/>
-        <br/>
-    </div>
+        <div>
+          <div class="section"> Current email:</div> {{this.currentUser.user.email}}</div>
+          <br/>
+          <div><div class="section"> First name: </div>{{this.currentUser.user.first_name}}</div>
+          <div><div class="section"> Last name: </div>{{this.currentUser.user.last_name}}</div>
+          <br/>
+          <br/>
+        </div>
   </div>
   <br/>
 
@@ -38,6 +38,7 @@
         <input type="text" id="newPassword" formControlName="newPassword">
         <br/><br/>
         <button type="submit" class="btn btn-outline-dark">Edit</button>
+        <button class="btn btn-outline-danger" (click)="this.selectedAction = ''">Cancel</button>
       </form>
   </div>
   <br/>

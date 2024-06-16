@@ -1,157 +1,165 @@
-<div class="options">
-  <table>
-    <br><br><br><br><br>
-    <tr>
-      <td class="btn btn-outline-light btn1" [ngClass]="{ 'selected': selectedAction == 'add' }"
-          (click)="selectAction('add')">add events
-      </td>
-      <td class="btn btn-outline-light btn1" [ngClass]="{ 'selected': selectedAction == 'index' }"
-          (click)="getAllEvents()">index events
-      </td>
-      <td class="btn btn-outline-light btn1" [ngClass]="{ 'selected': selectedAction == 'show' }"
-          (click)="selectAction('show')">show event
-      </td>
-    </tr>
-  </table>
+<div class="background-img">
+  <img src="../../../../assets/Logo - faded.png" alt="HistoryMapperLogo">
+  <br/><br/>
 </div>
 
 <div class="big-container">
-  <div *ngIf="selectedAction == 'add'">
-    <h2>Add events from DBPedia to local database</h2>
-    <br/>
-    <form #dbpediaForm="ngForm" [formGroup]="addForm" (ngSubmit)="populateDB(dbpediaForm)">
-      <div>
-        <label for="dbpediaCategory">DBPedia category:</label>
-        <input type="text" id="dbpediaCategory" formControlName="dbpediaCategory"
-               placeholder="Enter category from DBPedia...">
-        <div class="error" *ngIf="addForm.get('dbpediaCategory')?.hasError('required')">DBPedia category is required.</div>
-      </div>
-      <br/>
-      <div>
-        <label for="eventsType">Events type:</label>
-        <input list="eventsTypeOptions" id="eventsType" formControlName="eventsType" placeholder="Enter type...">
-        <div class="error" *ngIf="addForm.get('eventsType')?.hasError('required')">Events type is required.</div>
-        <datalist id="eventsTypeOptions">
-          <option value="Battle"></option>
-          <option value="Uprising"></option>
-          <option value="Succession"></option>
-        </datalist>
-      </div>
-      <br/>
-      <div>
-        <label for="eventsCategory">Events category:</label>
-        <input type="text" id="eventsCategory" formControlName="eventsCategory"
-               placeholder="Enter local DB category...">
-        <div class="error" *ngIf="addForm.get('eventsCategory')?.hasError('required')">Events category is required.</div>
-      </div>
-      <br/>
-
-      <button type="submit" [disabled]="addForm.invalid" class="btn btn-outline-light">Add</button>
-    </form>
-
-    <br/><br/>
-    <div *ngIf="this.events != []">
-      <div *ngFor="let event of events">
-        <div>{{ event.name }} - {{ event.event_date }}</div>
-      </div>
-    </div>
+  <div class="options">
+    <h1>Actions for events</h1>
+    <table>
+      <br><br>
+      <hr/>
+      <tr>
+        <td class="btn btn-outline-light btn1" [ngClass]="{ 'selected': selectedAction == 'add' }"
+            (click)="selectAction('add')">add events
+        </td>
+        <td class="btn btn-outline-light btn1" [ngClass]="{ 'selected': selectedAction == 'index' }"
+            (click)="getAllEvents()">index
+        </td>
+        <td class="btn btn-outline-light btn1" [ngClass]="{ 'selected': selectedAction == 'show' }"
+            (click)="selectAction('show')">show event
+        </td>
+      </tr>
+    </table>
   </div>
 
-
-  <div *ngIf="selectedAction == 'index'">
-      <div *ngFor="let e of indexEvents" class="event-info">
-              <br/><br/>
-
-              <div style="font-size: 30px;">{{ e.name }}</div>
-              <br/>
-              <div> Date:
-                <div style="color: #EDEAD4">{{ e.event_date }} {{ e.era }}</div>
-              </div>
-              <br/>
-              <div> Location:
-                <div style="color: #EDEAD4"> {{ e.location }}</div>
-              </div>
-              <br/>
-              <div>Type:
-                <div style="color: #EDEAD4"> {{ e.event_type }}
-                </div>
-              </div>
+  <div class="big-container">
+    <div *ngIf="selectedAction == 'add'">
+      <h2>Add events from DBPedia to local database</h2>
+      <br/>
+      <form #dbpediaForm="ngForm" [formGroup]="addForm" (ngSubmit)="populateDB(dbpediaForm)">
+        <div>
+          <label for="dbpediaCategory">DBPedia category:</label>
+          <input type="text" id="dbpediaCategory" formControlName="dbpediaCategory"
+                 placeholder="Enter category from DBPedia...">
+          <div class="error" *ngIf="addForm.get('dbpediaCategory')?.hasError('required')">DBPedia category is required.</div>
+        </div>
         <br/>
-        <button class="btn btn-outline-light" (click)="callEventByNameAPI((e.name))">Show</button>
-      </div>
-  </div>
+        <div>
+          <label for="eventsType">Events type:</label>
+          <input list="eventsTypeOptions" id="eventsType" formControlName="eventsType" placeholder="Enter type...">
+          <div class="error" *ngIf="addForm.get('eventsType')?.hasError('required')">Events type is required.</div>
+          <datalist id="eventsTypeOptions">
+            <option value="Battle"></option>
+            <option value="Uprising"></option>
+            <option value="Succession"></option>
+          </datalist>
+        </div>
+        <br/>
+        <div>
+          <label for="eventsCategory">Events category:</label>
+          <input type="text" id="eventsCategory" formControlName="eventsCategory"
+                 placeholder="Enter local DB category...">
+          <div class="error" *ngIf="addForm.get('eventsCategory')?.hasError('required')">Events category is required.</div>
+        </div>
+        <br/>
 
-
-  <div *ngIf="selectedAction == 'show'">
-    <div *ngIf="this.searchedEvent == ''">
-      <form #dbForm="ngForm" [formGroup]="showForm" (ngSubmit)="getEvent(dbForm)">
-        <label for="name">Event name:</label>
-        <input type="text" id="name" formControlName="name" placeholder="Enter event name...">
-        <div class="error" *ngIf="showForm.get('name')?.hasError('required')">Name is required.</div>
-        <br/><br/>
-        <button type="submit" [disabled]="showForm.invalid" class="btn btn-outline-light">Show</button>
+        <button type="submit" [disabled]="addForm.invalid" class="btn btn-outline-light">Add</button>
       </form>
-    </div>
 
-    <div class="event-info" *ngIf="searchedEvent.length > 0">
-      <i class="bi bi-trash" (click)="selectAction('delete')"></i>
-      <i class="bi bi-pencil-fill" (click)="selectAction('edit')"> </i>
       <br/><br/>
-      <div style="font-size: 30px">{{ searchedEvent[0].name }}</div>
-      <br/>
-      <div> Date:
-        <div style="color: #EDEAD4">{{ searchedEvent[0].event_date }} {{ searchedEvent.era }}</div>
+      <div *ngIf="this.events != []">
+        <div *ngFor="let event of events">
+          <div>{{ event.name }} - {{ event.event_date }}</div>
+        </div>
       </div>
-      <br/>
-      <div> Location:
-        <div style="color: #EDEAD4"> {{ searchedEvent[0].location }}</div>
+    </div>
+
+    <div *ngIf="selectedAction == 'index'">
+        <div *ngFor="let e of indexEvents" class="event-info">
+                <br/><br/>
+
+                <div style="font-size: 30px;">{{ e.name }}</div>
+                <br/>
+                <div> Date:
+                  <div style="color: #EDEAD4">{{ e.event_date }} {{ e.era }}</div>
+                </div>
+                <br/>
+                <div> Location:
+                  <div style="color: #EDEAD4"> {{ e.location }}</div>
+                </div>
+                <br/>
+                <div>Type:
+                  <div style="color: #EDEAD4"> {{ e.event_type }}
+                  </div>
+                </div>
+          <br/>
+          <button class="btn btn-outline-light" (click)="callEventByNameAPI((e.name))">Show</button>
+        </div>
+    </div>
+
+    <div *ngIf="selectedAction == 'show'">
+      <br/><br/>
+      <div *ngIf="this.searchedEvent == ''">
+        <form #dbForm="ngForm" [formGroup]="showForm" (ngSubmit)="getEvent(dbForm)">
+          <label for="name">Event name:</label>
+          <input type="text" id="name" formControlName="name" placeholder="Enter event name...">
+          <div class="error" *ngIf="showForm.get('name')?.hasError('required')">Name is required.</div>
+          <br/><br/>
+          <button type="submit" [disabled]="showForm.invalid" class="btn btn-outline-light">Show</button>
+        </form>
       </div>
-      <br/>
-      <div>Type:
-        <div style="color: #EDEAD4">{{ searchedEvent[0].event_type }}</div>
+
+      <div class="event-info" *ngIf="searchedEvent.length > 0">
+        <i class="bi bi-trash" (click)="selectAction('delete')"></i>
+        <i class="bi bi-pencil-fill" (click)="selectAction('edit')"> </i>
+        <br/><br/>
+        <div style="font-size: 30px">{{ searchedEvent[0].name }}</div>
+        <br/>
+        <div> Date:
+          <div style="color: #EDEAD4">{{ searchedEvent[0].event_date }} {{ searchedEvent.era }}</div>
+        </div>
+        <br/>
+        <div> Location:
+          <div style="color: #EDEAD4"> {{ searchedEvent[0].location }}</div>
+        </div>
+        <br/>
+        <div>Type:
+          <div style="color: #EDEAD4">{{ searchedEvent[0].event_type }}</div>
+        </div>
+        <br/>
+        <div>Description:</div>
+        <p style="color: #EDEAD4">{{ this.searchedEvent[0].description }}</p>
       </div>
-      <br/>
-      <div>Description:</div>
-      <p style="color: #EDEAD4">{{ this.searchedEvent[0].description }}</p>
+    </div>
+
+
+    <div *ngIf="selectedAction == 'edit'">
+        <h4 style="color: #E1ADAD; font-size: 80%; font-style: italic;">Fields that are not completed will keep their previous value </h4>
+      <br/><br/>
+        <form #dbForm="ngForm" [formGroup]="editForm" (ngSubmit)="editEvent(dbForm)">
+          <label for="newName">Event name:</label>
+          <input type="text" id="newName" formControlName="newName" placeholder="{{searchedEvent[0].name}}">
+          <br/><br/>
+          <label for="newLocation">Event location:</label>
+          <input type="text" id="newLocation" formControlName="newLocation" placeholder="{{searchedEvent[0].location}}">
+          <br/><br/>
+          <label for="newEventType">Event type:</label>
+          <input type="text" id="newEventType" formControlName="newEventType" placeholder="{{searchedEvent[0].event_type}}">
+          <br/><br/>
+          <label for="newCategory">Event category:</label>
+          <input type="text" id="newCategory" formControlName="newCategory" placeholder="{{searchedEvent[0].category}}">
+          <br/><br/>
+          <label for="newDescription">Event description:</label>
+          <textarea style="width: 70%; height: 120px;" type="text" id="newDescription" formControlName="newDescription"
+                    placeholder="{{searchedEvent[0].description}}"></textarea>
+          <br/><br/>
+          <button type="submit" class="btn btn-outline-light">Edit</button>
+        </form>
+    </div>
+
+    <div *ngIf="selectedAction == 'delete'">
+      <h4 style="color: #E1ADAD">Delete event {{searchedEvent[0].name}}?</h4>
+      <br/><br/><br/>
+      <button class="btn btn-outline-light"(click) ="selectAction('')">Cancel</button>
+      <button class="btn btn-outline-light" (click)="deleteEvent(searchedEvent[0].name)">Delete</button>
+    </div>
+
+    <div *ngIf="(this.selectedAction == 'index' && this.indexEvents.length === 0) ||
+                (this.selectedAction == 'show' && this.searchedEvent === '') ||
+                (this.selectedAction == 'add' && this.events.length === 0 && this.addForm.get('dbpediaCategory')?.value)">
+        <app-spinner></app-spinner>
     </div>
   </div>
 
-
-  <div *ngIf="selectedAction == 'edit'">
-      <h4 style="color: #E1ADAD; font-size: 80%; font-style: italic;">Fields that are not completed will keep their previous value </h4>
-    <br/><br/>
-      <form #dbForm="ngForm" [formGroup]="editForm" (ngSubmit)="editEvent(dbForm)">
-        <label for="newName">Event name:</label>
-        <input type="text" id="newName" formControlName="newName" placeholder="{{searchedEvent[0].name}}">
-        <br/><br/>
-        <label for="newLocation">Event location:</label>
-        <input type="text" id="newLocation" formControlName="newLocation" placeholder="{{searchedEvent[0].location}}">
-        <br/><br/>
-        <label for="newEventType">Event type:</label>
-        <input type="text" id="newEventType" formControlName="newEventType" placeholder="{{searchedEvent[0].event_type}}">
-        <br/><br/>
-        <label for="newCategory">Event category:</label>
-        <input type="text" id="newCategory" formControlName="newCategory" placeholder="{{searchedEvent[0].category}}">
-        <br/><br/>
-        <label for="newDescription">Event description:</label>
-        <textarea style="width: 70%; height: 120px;" type="text" id="newDescription" formControlName="newDescription"
-                  placeholder="{{searchedEvent[0].description}}"></textarea>
-        <br/><br/>
-        <button type="submit" class="btn btn-outline-light">Edit</button>
-      </form>
-  </div>
-
-  <div *ngIf="selectedAction == 'delete'">
-    <h4 style="color: #E1ADAD">Delete event {{searchedEvent[0].name}}?</h4>
-    <br/><br/><br/>
-    <button class="btn btn-outline-light"(click) ="selectAction('')">Cancel</button>
-    <button class="btn btn-outline-light" (click)="deleteEvent(searchedEvent[0].name)">Delete</button>
-  </div>
-
-  <div *ngIf="(this.selectedAction == 'index' && this.indexEvents.length === 0) ||
-              (this.selectedAction == 'show' && this.searchedEvent === '') ||
-              (this.selectedAction == 'add' && this.events.length === 0)">
-    <app-spinner></app-spinner>
-  </div>
 </div>
-

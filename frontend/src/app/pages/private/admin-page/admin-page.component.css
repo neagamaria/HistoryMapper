@@ -1,9 +1,23 @@
+.background-img {
+  opacity: 0.2;
+  position: absolute;
+  height: 10%;
+  text-align: center;
+  margin-left: 30%;
+  margin-right: 30%;
+  z-index: 0;
+}
+
+.big-container {
+  text-align: center;
+  z-index: 1000;
+}
+
 .options {
   width: 100%;
-  height: 300px;
   position: relative;
   top: -40px;
-  padding-top: 5%;
+  padding-top: 2%;
 }
 
 .selected {
@@ -19,7 +33,7 @@
 table {
   text-align: center;
   width: 100%;
-  margin-left: 24px;
+  margin-left: 30px;
 }
 
 .btn1 {
