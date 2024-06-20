@@ -13,10 +13,14 @@ export class QuizzesComponent implements OnInit{
   currentUser: any = null;
   // categories for quizzes
   categories: any = [];
+  // permanent list of categories
+  categList: any = [];
   // last scores for each quiz
   quizzesHistory: any = [];
   // form for search option
   searchForm: FormGroup;
+  // mark if the list of quizzes is opened
+  listOpened = false;
 
   constructor(private router: Router, private fb: FormBuilder, private userService: UserService, private quizzesService: QuizzesService) {
     this.searchForm = this.fb.group ({
@@ -31,6 +35,7 @@ export class QuizzesComponent implements OnInit{
           this.router.navigate(['/login']).then();
       } else {
         await this.resetCategories();
+        this.categList = this.categories;
 
         // get the last score for each quiz category
         await this.quizzesService.getQuizHistory(this.currentUser).then((response) => {
@@ -77,4 +82,5 @@ export class QuizzesComponent implements OnInit{
     // navigate to questions
     this.router.navigate(['/quiz-questions']).then();
   }
+
 }

@@ -34,7 +34,7 @@ export class LoginComponent {
     await this.userService.callLoginAPI(user).then((response) => {
       console.log(response);
       if (!response.token || response == 404) {
-        alert('Invalid user');
+        alert('Invalid user or password');
       } else {
         this.userService.setCurrentUser(response);
         this.router.navigate(['/']).then();

@@ -5,10 +5,9 @@
 
 <div class="big-container">
   <div class="options">
-    <h1>Actions for events</h1>
+    <h2>Choose an action</h2>
     <table>
       <br><br>
-      <hr/>
       <tr>
         <td class="btn btn-outline-light btn1" [ngClass]="{ 'selected': selectedAction == 'add' }"
             (click)="selectAction('add')">add events
@@ -25,7 +24,7 @@
 
   <div class="big-container">
     <div *ngIf="selectedAction == 'add'">
-      <h2>Add events from DBPedia to local database</h2>
+      <h3>Add events from DBPedia to local database</h3>
       <br/>
       <form #dbpediaForm="ngForm" [formGroup]="addForm" (ngSubmit)="populateDB(dbpediaForm)">
         <div>

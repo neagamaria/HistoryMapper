@@ -7,9 +7,13 @@
   overflow-y: hidden;
 }
 
+.singular {
+  text-align: center;
+}
+
 .mid-container {
   padding: 2% 4% 4%;
-  margin: 70px 15px;
+  margin: 2%;
   text-align: center;
   height: 350px;
   color: black;
@@ -19,9 +23,9 @@
 }
 
 .one {
-  margin-left: 40%;
-  margin-right: 40%;
-  width: 400px;
+  width: 23%;
+  margin-left: 38%;
+  text-align: center;
 }
 
 .last-score {
@@ -52,5 +56,4 @@
   height: 150px;
   font-size: 200%;
   font-weight: 1000;
-  margin: 5px;
 }

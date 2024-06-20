@@ -88,7 +88,7 @@ class EventsBetweenYearsAPIView(APIView):
 
 # read, update and delete operations for events
 class EventActionsAPIView(APIView):
-    # get one event from DB based on name
+    # get events from DB based on name
     @staticmethod
     def get(self, name):
         try:
@@ -97,21 +97,21 @@ class EventActionsAPIView(APIView):
             # transform name to lowercase
             name = name.lower()
 
-            event = Event.objects.raw('''SELECT * FROM explore_event WHERE LOWER(name) = %s''', [name])
+            events = Event.objects.raw('''SELECT * FROM explore_event WHERE LOWER(name) LIKE %s''', ['%' + name.lower() + '%'])
 
-            if event:
-                event = event[0]
-                # add coordinates
-                lat, lng = get_coordinates(event.location)
+            if events:
+                for event in events:
+                    # add coordinates
+                    lat, lng = get_coordinates(event.location)
 
-                data = [{'id': event.id, 'name': event.name, 'event_date': event.event_date, 'era': event.era,
-                         'location': event.location, 'description': event.description,
-                         "historical_period": event.historical_period.name,
-                         "event_type": event.event_type.name, "category": event.category.name,
-                         "event_type_id": event.event_type_id,
-                         "category_id": event.category_id,
-                         "latitude": lat,
-                         "longitude": lng}]
+                    data.append({'id': event.id, 'name': event.name, 'event_date': event.event_date, 'era': event.era,
+                                 'location': event.location, 'description': event.description,
+                                 "historical_period": event.historical_period.name,
+                                 "event_type": event.event_type.name, "category": event.category.name,
+                                 "event_type_id": event.event_type_id,
+                                 "category_id": event.category_id,
+                                 "latitude": lat,
+                                 "longitude": lng})
 
             return JsonResponse({'data': data, 'status': status.HTTP_200_OK})
         except Event.DoesNotExist:

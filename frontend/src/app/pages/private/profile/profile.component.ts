@@ -32,8 +32,6 @@ export class ProfileComponent implements OnInit{
     }
     else {
       this.currentUser = await this.userService.callGetUserAPI(username);
-
-      console.log(this.currentUser);
     }
   }
 
@@ -53,7 +51,9 @@ export class ProfileComponent implements OnInit{
     let newEmail = (this.editForm.get('newEmail')?.value !== "" ? this.editForm.get('newEmail')?.value : this.currentUser.user.email);
     let newFirstName = (this.editForm.get('newFirstName')?.value !== "" ? this.editForm.get('newFirstName')?.value : this.currentUser.user.first_name);
     let newLastName = (this.editForm.get('newLastName')?.value !== "" ? this.editForm.get('newLastName')?.value : this.currentUser.user.last_name);
-    let newPassword = (this.editForm.get('newPassword')?.value !== "" ? this.editForm.get('newPassword')?.value : this.currentUser.user.password);
+    let newPassword = (this.editForm.get('newPassword')?.value !== "" ? this.editForm.get('newPassword')?.value : '');
+
+    console.log(this.currentUser.user.password == newPassword);
 
     // new profile data
     let newData = {
@@ -69,11 +69,13 @@ export class ProfileComponent implements OnInit{
       }
       else {
         alert("Profile edited successfully");
+        this.selectedAction = '';
       }
     });
 
     this.router.navigate(['/profile']).then();
   }
+
 
   // delete the current profile
   async deleteProfile() {

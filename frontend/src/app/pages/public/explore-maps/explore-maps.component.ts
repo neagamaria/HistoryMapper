@@ -171,7 +171,9 @@ export class ExploreMapsComponent implements OnInit {
 
   // filter events based on type
   filterEvents() {
-    let filteredEvents = []
+    let filteredEvents = [];
+    this.loading = true;
+    this.clearMap();
     for (let event of this.eventsBetweenYears) {
       let found = this.savedFilters.indexOf(event.event_type);
 
@@ -182,7 +184,9 @@ export class ExploreMapsComponent implements OnInit {
     // update events
     this.eventsBetweenYears = filteredEvents;
     // replace them on map
-    this.createMarkers(this.map, this.eventsBetweenYears).then();
+    this.createMarkers(this.map, this.eventsBetweenYears).then(() => {
+      this.loading = false;
+    });
   }
 
 
@@ -364,13 +368,18 @@ export class ExploreMapsComponent implements OnInit {
   // get searched event if available
   async getSearchedEvent() {
     try {
-      await this.eventsService.callEventByNameApi().then();
-      let event = this.eventsService.getSearchedEvent();
+      this.clearMap();
+      this.loading = true;
+      await this.eventsService.callEventByNameApi().then(() => {
+        this.eventsBetweenYears = this.eventsService.getSearchedEvent();
+      });
 
-      if (event.length > 0) {
-        this.createMarkers(this.map, event).then();
+      if (this.eventsBetweenYears.length > 0) {
+        await this.createMarkers(this.map, this.eventsBetweenYears).then(() => {
+          this.loading = false;
+        });
       } else {
-        alert("Event does not exist");
+        alert("Events with a similar name do not exist");
       }
     } catch (exception) {
       console.error("Error: ", exception);

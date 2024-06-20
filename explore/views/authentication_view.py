@@ -64,7 +64,7 @@ class UserAPIView(APIView):
                 return JsonResponse({'status': status.HTTP_404_NOT_FOUND})
 
             # update data
-            if request_data['password']:
+            if request_data['password'] != '':
                 user.set_password(request_data['password'])
 
             if request_data['email']:
