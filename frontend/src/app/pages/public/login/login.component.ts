@@ -17,9 +17,9 @@ export class LoginComponent {
   constructor(private userService: UserService, private router: Router, private fb: FormBuilder, private http: HttpClient) {
     // get values from form
     this.form = this.fb.group({
-      username: ['', [Validators.required]],
+      username: ['', [Validators.pattern('[a-zA-Z0-9_]*'), Validators.required]],
       password: ['', [Validators.required]],
-    })
+    });
   }
 
   // navigate to register page

@@ -6,6 +6,7 @@
       <label for="username">Username:</label>
       <input type="text" id="username" formControlName="username" required>
       <div class="error" *ngIf="form.get('username')?.hasError('required')">Username is required.</div>
+      <div class="error" *ngIf="form.get('username')?.hasError('pattern')">Username must not contain special characters.</div>
     </div>
     <br/>
 
@@ -13,6 +14,7 @@
       <label for="first_name">First name:</label>
       <input type="text" id="first_name" formControlName="first_name" required>
       <div class="error" *ngIf="form.get('first_name')?.hasError('required')">First name is required.</div>
+      <div class="error" *ngIf="form.get('first_name')?.hasError('pattern')">First name must not contain special characters.</div>
     </div>
     <br/>
 
@@ -20,6 +22,7 @@
       <label for="last_name">Last name:</label>
       <input type="text" id="last_name" formControlName="last_name" required>
       <div class="error" *ngIf="form.get('last_name')?.hasError('required')">Last name is required.</div>
+      <div class="error" *ngIf="form.get('last_name')?.hasError('pattern')">Last name must not contain special characters.</div>
     </div>
     <br/>
 
@@ -32,10 +35,11 @@
     <br/>
 
     <div>
-      <label for="email">Password:</label>
+      <label for="password">Password:</label>
       <input type="text" id="password" formControlName="password" required min="6">
       <div class="error" *ngIf="form.get('password')?.hasError('required')">Password is required.</div>
-      <div class="error" *ngIf="form.get('password')?.hasError('min')">Password must have at least 6 characters.</div>
+      <div class="error" *ngIf="form.get('password')?.hasError('minlength')">Password must have at least 6 characters.</div>
+      <div class="error" *ngIf="form.hasError('weakPassword')">Password is too weak.</div>
     </div>
 
     <br/>

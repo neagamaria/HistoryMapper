@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {UserService} from "../../../services/user.service";
 import {Router} from "@angular/router";
-import {FormBuilder, FormGroup, Validators} from "@angular/forms";
+import {AbstractControl, FormBuilder, FormGroup, ValidationErrors, ValidatorFn, Validators} from "@angular/forms";
 
 @Component({
   selector: 'app-profile',
@@ -19,11 +19,32 @@ export class ProfileComponent implements OnInit{
   constructor(private userService: UserService, private router: Router, private fb: FormBuilder) {
      this.editForm = this.fb.group({
       newEmail: ['', [Validators.email]],
-      newFirstName: [''],
-      newLastName: [''],
+      newFirstName: ['', [Validators.pattern('[a-zA-Z0-9_]*')]],
+      newLastName: ['', [Validators.pattern('[a-zA-Z0-9_]*')]],
       newPassword: ['', [Validators.min(6)]]
+    },
+      {
+        validators: [this.passwordStrengthValidator()]
     });
   }
+
+
+  // check if password contains the username for security
+  passwordStrengthValidator(): ValidatorFn {
+       return (form: AbstractControl): ValidationErrors | null => {
+            const user: string = this.userService.getCurrentUsername();
+            const pass: string = form.get('newPassword')?.value;
+
+            console.log(user, pass);
+
+            if(user && pass && pass.includes(user)) {
+              return {weakPassword: true}
+            }
+
+            return null;
+       }
+  }
+
 
   async ngOnInit() {
     let username = this.userService.getCurrentUsername();

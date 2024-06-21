@@ -122,6 +122,12 @@ class EventActionsAPIView(APIView):
         try:
             # data for update
             request_data = JSONParser().parse(request)
+            # check if the data is safe
+            forbidden_chars = ['!@#$%^&*:;']
+            for key in ['name', 'location', 'event_type', 'category', 'description']:
+                if any(char in forbidden_chars for char in request_data.get(key, '')):
+                    return JsonResponse({'status': status.HTTP_500_INTERNAL_SERVER_ERROR})
+
             # get the ids of the fields
             category = Category.objects.raw('''SELECT id from explore_category WHERE LOWER(name) = %s''',
                                             [request_data['category'].lower()])
@@ -214,6 +220,12 @@ class ClusterEventsAPIView(APIView):
 
         try:
             for i in range(len(request.data)):
+                # check if the format is correct
+                forbidden_chars = ['!@#$%^&*:;']
+                for char in forbidden_chars:
+                    if char in request.data[i]['latitude'] or char in request.data[i]['longitude']:
+                        return JsonResponse({'status': status.HTTP_500_INTERNAL_SERVER_ERROR})
+
                 events_coord.append([request.data[i]['latitude'], request.data[i]['longitude']])
 
             # initialize k-Means clustering model

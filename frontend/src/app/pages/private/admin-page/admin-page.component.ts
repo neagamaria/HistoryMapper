@@ -32,24 +32,25 @@ export class AdminPageComponent implements OnInit {
   // all events to be indexed
   indexEvents: any[] = [];
 
+
   constructor(private router: Router, private fb: FormBuilder, private userService: UserService, private adminService: AdminService, private eventsService: EventsService) {
     // initialize form
     this.addForm = this.fb.group({
-      dbpediaCategory: ['', [Validators.required]],
-      eventsType: ['', [Validators.required]],
-      eventsCategory: ['', [Validators.required]],
+      dbpediaCategory: ['', [Validators.required, Validators.pattern('[a-zA-Z0-9_ ]*')]],
+      eventsType: ['', [Validators.required, Validators.pattern('[a-zA-Z0-9_ ]*')]],
+      eventsCategory: ['', [Validators.required, Validators.pattern('[a-zA-Z0-9_ ]*')]],
     })
 
     this.showForm = this.fb.group({
-      name: ['', [Validators.required]]
+      name: ['', [Validators.required, Validators.pattern('[a-zA-Z0-9_ ]*')]]
     });
 
     this.editForm = this.fb.group({
-      newName: ['', [Validators.required]],
-      newLocation: [''],
-      newCategory: [''],
-      newEventType: [''],
-      newDescription: ['']
+      newName: ['', [Validators.required, Validators.pattern('[a-zA-Z0-9_ ]*')]],
+      newLocation: ['', [Validators.pattern('[a-zA-Z0-9_ ]*')]],
+      newCategory: ['', [Validators.pattern('[a-zA-Z0-9_ ]*')]],
+      newEventType: ['', [Validators.pattern('[a-zA-Z0-9_ ]*')]],
+      newDescription: ['', [Validators.pattern('[a-zA-Z0-9_!?.:;, ]*')]]
     });
   }
 
@@ -73,11 +74,12 @@ export class AdminPageComponent implements OnInit {
   // set the current action selected
   selectAction(action: string) {
     this.selectedAction = action;
+    this.searchedEvent = [];
   }
 
 
   async populateDB(form: any) {
-    this.searchedEvent = '';
+    this.searchedEvent = [];
     this.indexEvents = [];
     // set parameters for the API call
     this.adminService.setWikiCategory(this.addForm.get('dbpediaCategory')?.value);
@@ -97,7 +99,7 @@ export class AdminPageComponent implements OnInit {
 
   // get all events in the DB
   async getAllEvents() {
-    this.searchedEvent = '';
+    this.searchedEvent = [];
     this.events = [];
 
     this.selectAction('index')
@@ -117,10 +119,6 @@ export class AdminPageComponent implements OnInit {
     let name = this.showForm.get('name')?.value;
 
     if (name) {
-      // this.eventsService.setSearchedName(name);
-      //
-      // await this.eventsService.callEventByNameApi();
-      // this.searchedEvent = this.eventsService.getSearchedEvent();
       await this.callEventByNameAPI(name);
 
       if(this.searchedEvent == '')
@@ -170,7 +168,7 @@ export class AdminPageComponent implements OnInit {
         }
 
         this.selectAction('');
-        this.searchedEvent = '';
+        this.searchedEvent = [];
       }
     });
   }
@@ -188,7 +186,7 @@ export class AdminPageComponent implements OnInit {
 
         // remove delete selected action
         this.selectAction('');
-        this.searchedEvent = '';
+        this.searchedEvent = [];
       }
     });
   }

@@ -32,12 +32,14 @@
           <input type="text" id="dbpediaCategory" formControlName="dbpediaCategory"
                  placeholder="Enter category from DBPedia...">
           <div class="error" *ngIf="addForm.get('dbpediaCategory')?.hasError('required')">DBPedia category is required.</div>
+          <div class="error" *ngIf="addForm.get('dbpediaCategory')?.hasError('pattern')">Invalid category.</div>
         </div>
         <br/>
         <div>
           <label for="eventsType">Events type:</label>
           <input list="eventsTypeOptions" id="eventsType" formControlName="eventsType" placeholder="Enter type...">
           <div class="error" *ngIf="addForm.get('eventsType')?.hasError('required')">Events type is required.</div>
+          <div class="error" *ngIf="addForm.get('eventsType')?.hasError('pattern')">Invalid event type.</div>
           <datalist id="eventsTypeOptions">
             <option value="Battle"></option>
             <option value="Uprising"></option>
@@ -50,6 +52,7 @@
           <input type="text" id="eventsCategory" formControlName="eventsCategory"
                  placeholder="Enter local DB category...">
           <div class="error" *ngIf="addForm.get('eventsCategory')?.hasError('required')">Events category is required.</div>
+          <div class="error" *ngIf="addForm.get('eventsCategory')?.hasError('pattern')">Invalid events category.</div>
         </div>
         <br/>
 
@@ -70,18 +73,7 @@
 
                 <div style="font-size: 30px;">{{ e.name }}</div>
                 <br/>
-                <div> Date:
-                  <div style="color: #EDEAD4">{{ e.event_date }} {{ e.era }}</div>
-                </div>
-                <br/>
-                <div> Location:
-                  <div style="color: #EDEAD4"> {{ e.location }}</div>
-                </div>
-                <br/>
-                <div>Type:
-                  <div style="color: #EDEAD4"> {{ e.event_type }}
-                  </div>
-                </div>
+                  <div style="font-style: italic">{{ e.event_date }} {{ e.era }} in {{ e.location }}</div>
           <br/>
           <button class="btn btn-outline-light" (click)="callEventByNameAPI((e.name))">Show</button>
         </div>
@@ -94,6 +86,7 @@
           <label for="name">Event name:</label>
           <input type="text" id="name" formControlName="name" placeholder="Enter event name...">
           <div class="error" *ngIf="showForm.get('name')?.hasError('required')">Name is required.</div>
+          <div class="error" *ngIf="showForm.get('name')?.hasError('pattern')">Invalid name.</div>
           <br/><br/>
           <button type="submit" [disabled]="showForm.invalid" class="btn btn-outline-light">Show</button>
         </form>
@@ -105,12 +98,8 @@
         <br/><br/>
         <div style="font-size: 30px">{{ searchedEvent[0].name }}</div>
         <br/>
-        <div> Date:
-          <div style="color: #EDEAD4">{{ searchedEvent[0].event_date }} {{ searchedEvent.era }}</div>
-        </div>
-        <br/>
-        <div> Location:
-          <div style="color: #EDEAD4"> {{ searchedEvent[0].location }}</div>
+        <div>
+          <div style="font-style: italic">{{ searchedEvent[0].event_date }} {{ searchedEvent.era }} in {{ searchedEvent[0].location }}</div>
         </div>
         <br/>
         <div>Type:
@@ -129,29 +118,34 @@
         <form #dbForm="ngForm" [formGroup]="editForm" (ngSubmit)="editEvent(dbForm)">
           <label for="newName">Event name:</label>
           <input type="text" id="newName" formControlName="newName" placeholder="{{searchedEvent[0].name}}">
+          <div class="error" *ngIf="editForm.get('newname')?.hasError('pattern')">Invalid name.</div>
           <br/><br/>
           <label for="newLocation">Event location:</label>
           <input type="text" id="newLocation" formControlName="newLocation" placeholder="{{searchedEvent[0].location}}">
+          <div class="error" *ngIf="editForm.get('newLocation')?.hasError('pattern')">Invalid location.</div>
           <br/><br/>
           <label for="newEventType">Event type:</label>
           <input type="text" id="newEventType" formControlName="newEventType" placeholder="{{searchedEvent[0].event_type}}">
+          <div class="error" *ngIf="editForm.get('newEventType')?.hasError('pattern')">Invalid type.</div>
           <br/><br/>
           <label for="newCategory">Event category:</label>
           <input type="text" id="newCategory" formControlName="newCategory" placeholder="{{searchedEvent[0].category}}">
+          <div class="error" *ngIf="editForm.get('newCategory')?.hasError('pattern')">Invalid category.</div>
           <br/><br/>
           <label for="newDescription">Event description:</label>
           <textarea style="width: 70%; height: 120px;" type="text" id="newDescription" formControlName="newDescription"
                     placeholder="{{searchedEvent[0].description}}"></textarea>
+          <div class="error" *ngIf="editForm.get('newDescription')?.hasError('pattern')">Description must not include special characters.</div>
           <br/><br/>
           <button type="submit" class="btn btn-outline-light">Edit</button>
         </form>
     </div>
 
     <div *ngIf="selectedAction == 'delete'">
-      <h4 style="color: #E1ADAD">Delete event {{searchedEvent[0].name}}?</h4>
+      <h4>Delete event {{searchedEvent[0].name}}?</h4>
       <br/><br/><br/>
-      <button class="btn btn-outline-light"(click) ="selectAction('')">Cancel</button>
-      <button class="btn btn-outline-light" (click)="deleteEvent(searchedEvent[0].name)">Delete</button>
+      <button class="btn btn-outline-light" (click) ="selectAction('')">Cancel</button>
+      <button class="btn btn-outline-danger" (click)="deleteEvent(searchedEvent[0].name)">Delete</button>
     </div>
 
     <div *ngIf="(this.selectedAction == 'index' && this.indexEvents.length === 0) ||

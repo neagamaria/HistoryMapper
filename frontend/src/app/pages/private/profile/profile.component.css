@@ -27,6 +27,11 @@
   width: 10%;
 }
 
+.error {
+  font-size: 80%;
+  color: indianred;
+}
+
 i {
   padding: 3%;
 }

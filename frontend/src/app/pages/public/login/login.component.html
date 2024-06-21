@@ -6,6 +6,7 @@
       <label for="username">Username:</label>
       <input type="text" id="username" formControlName="username">
        <div class="error" *ngIf="form.get('username')?.hasError('required')">Username is required.</div>
+      <div class="error" *ngIf="form.get('username')?.hasError('pattern')">Invalid username.</div>
     </div>
     <br/><br/>
     <div>
