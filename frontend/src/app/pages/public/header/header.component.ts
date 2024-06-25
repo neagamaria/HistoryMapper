@@ -10,16 +10,15 @@ import {Router} from "@angular/router";
 export class HeaderComponent implements OnInit{
   // current username
   username: any = null;
-  // mark if current user is admin
-  isAdmin: any = false;
+
+
   constructor(private userService: UserService, private router: Router, private cdf: ChangeDetectorRef) {
   }
 
   async ngOnInit() {
 
      this.username = this.userService.getCurrentUsername();
-     await this.userService.callGetUserAPI(this.username);
-     this.isAdmin = this.userService.checkIfAdmin();
+     this.cdf.detectChanges();
      this.cdf.detectChanges();
   }
 
@@ -52,8 +51,13 @@ export class HeaderComponent implements OnInit{
   // set name of the logged-in user if existent
   getUserName() {
     this.username = this.userService.getCurrentUsername();
-
     return this.username;
+  }
+
+
+  // check if current user is admin
+  checkIfAdmin() {
+    return this.userService.checkIfAdmin();
   }
 
 

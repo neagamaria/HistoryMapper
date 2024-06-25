@@ -9,7 +9,7 @@ from explore.models import HistoricalPeriod
 class HistoricalPeriodsAPIView(APIView):
     @staticmethod
     def get(request):
-        historical_periods = HistoricalPeriod.objects.all()
+        historical_periods = HistoricalPeriod.objects.all().order_by('id')
         data = [{'id': period.id, 'name': period.name, 'start_year': period.start_year, 'end_year': period.end_year, 'era': period.era,
                  'description': period.description} for period in historical_periods]
         return JsonResponse({'data': data})

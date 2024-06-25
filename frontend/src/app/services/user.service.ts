@@ -59,6 +59,7 @@ export class UserService {
   // set the user that is logged in
   setCurrentUser(user: any): void {
     localStorage.setItem("user", user.user.username);
+    localStorage.setItem("admin", user.user.is_superuser);
   }
 
 
