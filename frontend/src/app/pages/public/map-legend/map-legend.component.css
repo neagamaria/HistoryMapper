@@ -1,0 +1,83 @@
+.titles {
+  width: 100%;
+  display: flex;
+  padding: 2%;
+}
+
+.big-container {
+  width: 100%;
+  display: flex;
+}
+
+.types-container {
+  width: 30%;
+  font-size: 75%;
+  background-color: white;
+  border-radius: 6px;
+  margin-left: 10%;
+  margin-bottom: 5%;
+  color: black;
+  padding-left: 2%;
+  padding-top: 1%;
+}
+
+.type {
+  margin-left: 2%;
+  padding: 1%;
+  text-align: left;
+  display: flex;
+}
+
+.geography-container {
+  width: 30%;
+  font-size: 75%;
+  background-color: white;
+  border-radius: 6px;
+  margin-left: 20%;
+  margin-bottom: 5%;
+  color: black;
+  padding-left: 2%;
+  padding-top: 1%;
+}
+
+.circle {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  border: 1px solid black;
+  margin: 4px;
+}
+
+.small-circle {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  border: 2px solid black;
+  text-align: center;
+  margin: 4px;
+}
+
+.very-small-circle{
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background-color: black;
+
+}
+
+.line {
+  width: 40px;
+  height: 6px;
+  border-radius: 10%;
+  border: 1px solid black;
+  margin: 4px;
+}
+
+img {
+  width: 5%;
+  margin-right: 2px;
+}
+
+i {
+
+}

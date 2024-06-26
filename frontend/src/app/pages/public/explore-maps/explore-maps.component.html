@@ -13,14 +13,26 @@
   <div *ngIf="this.routesMode">
     <br/><br/><br/>
     <div *ngIf="this.route.length > 0">
-      <div class="title">{{this.route[0].event_type}}s of {{this.route[0].category}}
+      <div class="title" *ngIf="this.route[0].event_type != 'Cultural' && this.route[0].event_type != 'Religious' &&
+      this.route[0].event_type != 'Social'">{{this.route[0].event_type}}s of {{this.route[0].category}}
+        <i class="bi bi-info-circle" style="font-size: 50% !important" (click)="setRouteInfo(true)"></i>
+      </div>
+      <div class="title" *ngIf="this.route[0].event_type == 'Cultural' || this.route[0].event_type == 'Religious' ||
+      this.route[0].event_type == 'Social'">{{this.route[0].event_type}} events of {{this.route[0].category}}
         <i class="bi bi-info-circle" style="font-size: 50% !important" (click)="setRouteInfo(true)"></i>
       </div>
     </div>
 
     <div *ngIf="this.getRouteInfo()" class="route-info-container">
       <i class="bi bi-x-lg" (click)="this.setRouteInfo(false)"></i>
-      <div style="color: #EDEAD4; font-size: 140%;"> {{this.route[0].event_type}}s of {{this.route[0].category}}</div>
+      <div style="color: #EDEAD4; font-size: 140%;" *ngIf="this.route[0].event_type != 'Cultural' && this.route[0].event_type != 'Religious' &&
+      this.route[0].event_type != 'Social'">
+        {{this.route[0].event_type}}s of {{this.route[0].category}}
+      </div>
+      <div style="color: #EDEAD4; font-size: 140%;" *ngIf="this.route[0].event_type == 'Cultural' || this.route[0].event_type == 'Religious' ||
+      this.route[0].event_type == 'Social'">
+        {{this.route[0].event_type}}s of {{this.route[0].category}}
+      </div>
       <hr/>
       <br/>
       <div>{{this.route[0].category_motto}}</div>
@@ -42,6 +54,7 @@
   </div>
 
   <br/>
+  <div class="legend" (click)="goToMapLegend()">See map legend</div>
   <div class="map-container">
     <div *ngIf="this.loading">
       <app-spinner></app-spinner>

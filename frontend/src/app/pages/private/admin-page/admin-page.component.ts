@@ -74,6 +74,7 @@ export class AdminPageComponent implements OnInit {
   // set the current action selected
   selectAction(action: string) {
     this.selectedAction = action;
+    if(action != 'delete' && action != 'edit')
     this.searchedEvent = [];
   }
 

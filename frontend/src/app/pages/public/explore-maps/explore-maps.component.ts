@@ -3,6 +3,7 @@ import {HttpClient} from "@angular/common/http";
 import {Options} from '@angular-slider/ngx-slider';
 
 import {EventsService} from 'src/app/services/events.service';
+import {Router} from "@angular/router";
 
 
 @Component({
@@ -71,11 +72,15 @@ export class ExploreMapsComponent implements OnInit {
 
   // marker that an event is clicked or not
   isEventClicked: boolean = false;
-  constructor(private http: HttpClient, private eventsService: EventsService, private cdr: ChangeDetectorRef) {
+  constructor(private router: Router, private eventsService: EventsService, private cdr: ChangeDetectorRef) {
   }
 
 
   async ngOnInit() {
+    // when page loads, routes mode is off
+    this.exitRoutesMode();
+    // set searched keyword to none
+    this.eventsService.setSearchedName('');
     // get starting range for timeline
     this.minVal = this.eventsService.getMinVal();
     this.maxVal = this.eventsService.getMaxVal();
@@ -466,5 +471,11 @@ export class ExploreMapsComponent implements OnInit {
   // set the route info status
   setRouteInfo(value: boolean) {
     this.eventsService.setRouteInfo(value);
+  }
+
+
+  // navigate to the page with the map legend
+  goToMapLegend() {
+    this.router.navigate(['/map-legend']).then();
   }
 }

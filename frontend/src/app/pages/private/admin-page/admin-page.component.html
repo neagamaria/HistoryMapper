@@ -118,7 +118,7 @@
         <form #dbForm="ngForm" [formGroup]="editForm" (ngSubmit)="editEvent(dbForm)">
           <label for="newName">Event name:</label>
           <input type="text" id="newName" formControlName="newName" placeholder="{{searchedEvent[0].name}}">
-          <div class="error" *ngIf="editForm.get('newname')?.hasError('pattern')">Invalid name.</div>
+          <div class="error" *ngIf="editForm.get('newName')?.hasError('pattern')">Invalid name.</div>
           <br/><br/>
           <label for="newLocation">Event location:</label>
           <input type="text" id="newLocation" formControlName="newLocation" placeholder="{{searchedEvent[0].location}}">
@@ -137,7 +137,8 @@
                     placeholder="{{searchedEvent[0].description}}"></textarea>
           <div class="error" *ngIf="editForm.get('newDescription')?.hasError('pattern')">Description must not include special characters.</div>
           <br/><br/>
-          <button type="submit" class="btn btn-outline-light">Edit</button>
+          <button type="submit" class="btn btn-outline-light" [disabled]="editForm.invalid">Edit</button>
+          <button class="btn btn-outline-danger" (click)="this.selectedAction = ''">Cancel</button>
         </form>
     </div>
 

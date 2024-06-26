@@ -26,4 +26,12 @@ export class FooterComponent {
     this.router.navigate(['/quizzes']).then();
   }
 
+  goToMapLegend() {
+    this.router.navigate(['/map-legend']).then();
+  }
+
+  goToAccount() {
+    this.router.navigate(['/profile']).then();
+  }
+
 }

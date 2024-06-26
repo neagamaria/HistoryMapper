@@ -95,6 +95,13 @@ input {
   font-size: 80%;
 }
 
+.legend {
+  margin-left: 80%;
+  cursor: pointer;
+  padding-bottom: 12px;
+  font-size: 80%;
+}
+
 i {
   cursor: pointer;
   font-size: 120%;
@@ -104,6 +111,7 @@ i {
   float: right;
   margin-left: 80%;
 }
+
 
 
 
