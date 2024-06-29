@@ -75,7 +75,11 @@ export class UserService {
 
   // check if current user is admin
   checkIfAdmin() {
-    return localStorage.getItem("admin");
+   let check =  localStorage.getItem("admin");
+   if(check === 'true')
+     return true;
+    return false;
+
   }
 
 

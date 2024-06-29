@@ -16,9 +16,7 @@ export class HeaderComponent implements OnInit{
   }
 
   async ngOnInit() {
-
      this.username = this.userService.getCurrentUsername();
-     this.cdf.detectChanges();
      this.cdf.detectChanges();
   }
 
@@ -68,6 +66,7 @@ export class HeaderComponent implements OnInit{
   // log out from account
   logoutUser(): void {
     this.userService.logOut();
+    this.cdf.detectChanges();
      this.router.navigate(['/']).then();
   }
 }
