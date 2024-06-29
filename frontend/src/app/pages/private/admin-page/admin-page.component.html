@@ -28,7 +28,7 @@
       <br/>
       <form #dbpediaForm="ngForm" [formGroup]="addForm" (ngSubmit)="populateDB(dbpediaForm)">
         <div>
-          <label for="dbpediaCategory">DBPedia category:</label>
+          <label for="dbpediaCategory">DBPedia category: </label>
           <input type="text" id="dbpediaCategory" formControlName="dbpediaCategory"
                  placeholder="Enter category from DBPedia...">
           <div class="error" *ngIf="addForm.get('dbpediaCategory')?.hasError('required')">DBPedia category is required.</div>
@@ -36,7 +36,7 @@
         </div>
         <br/>
         <div>
-          <label for="eventsType">Events type:</label>
+          <label for="eventsType">Events type: </label>
           <input list="eventsTypeOptions" id="eventsType" formControlName="eventsType" placeholder="Enter type...">
           <div class="error" *ngIf="addForm.get('eventsType')?.hasError('required')">Events type is required.</div>
           <div class="error" *ngIf="addForm.get('eventsType')?.hasError('pattern')">Invalid event type.</div>
@@ -48,7 +48,7 @@
         </div>
         <br/>
         <div>
-          <label for="eventsCategory">Events category:</label>
+          <label for="eventsCategory">Events category: </label>
           <input type="text" id="eventsCategory" formControlName="eventsCategory"
                  placeholder="Enter local DB category...">
           <div class="error" *ngIf="addForm.get('eventsCategory')?.hasError('required')">Events category is required.</div>
@@ -151,7 +151,7 @@
 
     <div *ngIf="(this.selectedAction == 'index' && this.indexEvents.length === 0) ||
                 (this.selectedAction == 'show' && this.searchedEvent === '') ||
-                (this.selectedAction == 'add' && this.events.length === 0 && this.addForm.get('dbpediaCategory')?.value)">
+                (this.selectedAction == 'add' && this.events.length === 0 && this.loading)">
         <app-spinner></app-spinner>
     </div>
   </div>

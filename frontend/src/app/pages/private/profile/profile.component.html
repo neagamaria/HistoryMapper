@@ -40,6 +40,7 @@
         <input type="text" id="newPassword" formControlName="newPassword">
       <div class="error" *ngIf="editForm.get('newPassword')?.hasError('minlength')">Password must have at least 6 characters.</div>
       <div class="error" *ngIf="editForm.hasError('weakPassword')">Password is too weak.</div>
+      <div class="error" *ngIf="editForm.get('password')?.hasError('pattern')">Wrong format.</div>
         <br/><br/>
         <button type="submit" [disabled]="editForm.invalid" class="btn btn-outline-dark">Edit</button>
         <button class="btn btn-outline-danger" (click)="this.selectedAction = ''">Cancel</button>

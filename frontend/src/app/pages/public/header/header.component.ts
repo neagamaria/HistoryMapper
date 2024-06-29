@@ -43,6 +43,10 @@ export class HeaderComponent implements OnInit{
     this.router.navigate(['/historical-periods']).then();
   }
 
+  goToQuizzes() {
+    this.router.navigate(['/quizzes']).then();
+  }
+
   goToAdminPage(): void {
       this.router.navigate(['/admin-page']).then();
   }

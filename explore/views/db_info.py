@@ -2,9 +2,10 @@ from SPARQLWrapper import SPARQLWrapper, JSON
 from django.http import JsonResponse
 from rest_framework.parsers import JSONParser
 from rest_framework.views import APIView
+
+from HistoryMapper import utils
 from explore.models import Event, EventType, HistoricalPeriod, Category, MapLocation
 
-from HistoryMapper import settings
 import requests
 
 

@@ -31,6 +31,8 @@ export class AdminPageComponent implements OnInit {
   searchedEvent: any = [];
   // all events to be indexed
   indexEvents: any[] = [];
+  // mark if spinner should appear
+  loading: boolean = false;
 
 
   constructor(private router: Router, private fb: FormBuilder, private userService: UserService, private adminService: AdminService, private eventsService: EventsService) {
@@ -76,10 +78,12 @@ export class AdminPageComponent implements OnInit {
     this.selectedAction = action;
     if(action != 'delete' && action != 'edit')
     this.searchedEvent = [];
+    this.loading = false;
   }
 
 
   async populateDB(form: any) {
+    this.loading = true;
     this.searchedEvent = [];
     this.indexEvents = [];
     // set parameters for the API call
@@ -87,7 +91,9 @@ export class AdminPageComponent implements OnInit {
     this.adminService.setEventsType(this.addForm.get('eventsType')?.value);
     this.adminService.setEventsCategory(this.addForm.get('eventsCategory')?.value);
 
-    await this.adminService.addDbpediaData();
+    await this.adminService.addDbpediaData().then(() => {
+      this.loading = false;
+    });
 
     this.events = this.adminService.getAddedEvents();
 

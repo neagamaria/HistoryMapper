@@ -40,6 +40,7 @@
       <div class="error" *ngIf="form.get('password')?.hasError('required')">Password is required.</div>
       <div class="error" *ngIf="form.get('password')?.hasError('minlength')">Password must have at least 6 characters.</div>
       <div class="error" *ngIf="form.hasError('weakPassword')">Password is too weak.</div>
+      <div class="error" *ngIf="form.get('password')?.hasError('pattern')">Wrong format.</div>
     </div>
 
     <br/>

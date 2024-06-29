@@ -18,7 +18,7 @@ export class LoginComponent {
     // get values from form
     this.form = this.fb.group({
       username: ['', [Validators.pattern('[a-zA-Z0-9_]*'), Validators.required]],
-      password: ['', [Validators.required]],
+      password: ['', [Validators.required, Validators.pattern('[a-zA-Z0-9_#*&]*')]],
     });
   }
 

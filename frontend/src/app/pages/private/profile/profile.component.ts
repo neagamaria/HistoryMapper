@@ -21,7 +21,7 @@ export class ProfileComponent implements OnInit{
       newEmail: ['', [Validators.email]],
       newFirstName: ['', [Validators.pattern('[a-zA-Z0-9_]*')]],
       newLastName: ['', [Validators.pattern('[a-zA-Z0-9_]*')]],
-      newPassword: ['', [Validators.min(6)]]
+      newPassword: ['', [Validators.min(6), Validators.pattern('[a-zA-Z0-9_#*&]*')]]
     },
       {
         validators: [this.passwordStrengthValidator()]

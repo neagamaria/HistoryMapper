@@ -10,7 +10,6 @@ from django.db.models.functions import Lower
 from rest_framework import status
 
 from sklearn.cluster import KMeans
-from collections import Counter
 
 
 # call the Geocoding API
@@ -170,9 +169,26 @@ class AllEventTypesAPIView(APIView):
 class RoutesAPIView(APIView):
     # get all events that create a route based on some event info
     def get(self, request, category_id, event_type_id):
-        events = Event.objects.raw('''SELECT * FROM explore_event WHERE event_type_id = %s and category_id = %s 
-                                    ORDER BY event_date ''',
-                                   [event_type_id, category_id])
+        events = Event.objects.raw('''SELECT e.*
+                                    FROM explore_event e
+                                    JOIN
+                                    (SELECT id,
+                                           extract(YEAR FROM event_date) * (-1) AS y,
+                                           extract(MONTH FROM event_date) AS m,
+                                           extract(DAY FROM event_date) AS d
+                                    FROM explore_event
+                                    WHERE era = 'BC'
+                                    UNION
+                                    SELECT id,
+                                           extract(YEAR FROM event_date) AS y,
+                                           extract(MONTH FROM event_date) AS m,
+                                           extract(DAY FROM event_date) AS d
+                                    FROM explore_event
+                                    WHERE era = 'AD') e1
+                                    ON e.ID = e1.ID
+                                    WHERE event_type_id = %s and category_id = %s 
+                                    ORDER BY e1.y, e1.m, e1.d ''',
+                                    [event_type_id, category_id])
         if not events:
             return JsonResponse({'data': []})
 
@@ -191,9 +207,6 @@ class RoutesAPIView(APIView):
             for map_location in MapLocation.objects.filter(name=event.location) if
             map_location.latitude and map_location.longitude
         ]
-
-        # sort route events by date
-        complete_events.sort(key=lambda entry: entry['event'].event_date)
 
         data = [{'name': e['event'].name, 'event_date': e['event'].event_date, 'era': e['event'].era,
                  'location': e['event'].location, "historical_period": e['event'].historical_period.name,

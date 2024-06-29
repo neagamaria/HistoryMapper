@@ -13,6 +13,7 @@
       <label for="password">Password:</label>
       <input type="password" id="password" formControlName="password">
        <div class="error" *ngIf="form.get('password')?.hasError('required')">Password is required.</div>
+       <div class="error" *ngIf="form.get('password')?.hasError('pattern')">Wrong format.</div>
     </div>
     <br/><br/>
     <button type="submit" [disabled]="form.invalid" class="btn btn-outline-light" style="border: 3px solid white;">Log in</button>
