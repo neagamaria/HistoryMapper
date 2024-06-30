@@ -12,6 +12,8 @@ import {QuizQuestionsComponent} from "./pages/private/quiz-questions/quiz-questi
 import {AdminPageComponent} from "./pages/private/admin-page/admin-page.component";
 import {MapOptionsMenuComponent} from "./pages/public/map-options-menu/map-options-menu.component";
 import {ProfileComponent} from "./pages/private/profile/profile.component";
+import {SpinnerComponent} from "./pages/public/spinner/spinner.component";
+import {MapLegendComponent} from "./pages/public/map-legend/map-legend.component";
 
 
 const routes: Routes = [
@@ -25,7 +27,9 @@ const routes: Routes = [
   {path: 'quiz-questions', component: QuizQuestionsComponent},
   {path: 'admin-page', component: AdminPageComponent},
   {path: 'map-options-menu', component: MapOptionsMenuComponent},
-  {path: 'profile', component: ProfileComponent}
+  {path: 'profile', component: ProfileComponent},
+  {path: 'spinner', component: SpinnerComponent},
+  {path: 'map-legend', component: MapLegendComponent}
 ];
 
 @NgModule({

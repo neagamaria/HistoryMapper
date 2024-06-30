@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import {ChangeDetectorRef, Component} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {Router} from "@angular/router";
 import {HttpClient} from "@angular/common/http";
@@ -17,9 +17,9 @@ export class LoginComponent {
   constructor(private userService: UserService, private router: Router, private fb: FormBuilder, private http: HttpClient) {
     // get values from form
     this.form = this.fb.group({
-      username: ['', [Validators.required]],
-      password: ['', [Validators.required]],
-    })
+      username: ['', [Validators.pattern('[a-zA-Z0-9_]*'), Validators.required]],
+      password: ['', [Validators.required, Validators.pattern('[a-zA-Z0-9_#*&]*')]],
+    });
   }
 
   // navigate to register page
@@ -32,8 +32,9 @@ export class LoginComponent {
     const user = this.form.value;
 
     await this.userService.callLoginAPI(user).then((response) => {
-      if (!response.token) {
-        alert('Invalid user');
+      console.log(response);
+      if (!response.token || response == 404) {
+        alert('Invalid user or password');
       } else {
         this.userService.setCurrentUser(response);
         this.router.navigate(['/']).then();

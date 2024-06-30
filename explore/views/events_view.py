@@ -3,19 +3,18 @@ from django.http import JsonResponse
 from rest_framework.views import APIView
 from rest_framework.parsers import JSONParser
 
-from HistoryMapper import settings
-from explore.models import MapLocation, Event, EventType, Category
+from HistoryMapper import utils
+from explore.models import MapLocation, Event, EventType, Category, Video
 from django.db.models.functions import Lower
 
 from rest_framework import status
 
 from sklearn.cluster import KMeans
-from collections import Counter
 
 
 # call the Geocoding API
 def get_coordinates(location):
-    url = f"https://maps.googleapis.com/maps/api/geocode/json?key={settings.GOOGLE_API_KEY}&address={location}"
+    url = f"https://maps.googleapis.com/maps/api/geocode/json?key={utils.GOOGLE_API_KEY}&address={location}"
     response = requests.get(url)
     data = response.json()
 
@@ -88,7 +87,7 @@ class EventsBetweenYearsAPIView(APIView):
 
 # read, update and delete operations for events
 class EventActionsAPIView(APIView):
-    # get one event from DB based on name
+    # get events from DB based on name
     @staticmethod
     def get(self, name):
         try:
@@ -97,21 +96,21 @@ class EventActionsAPIView(APIView):
             # transform name to lowercase
             name = name.lower()
 
-            event = Event.objects.raw('''SELECT * FROM explore_event WHERE LOWER(name) = %s''', [name])
+            events = Event.objects.raw('''SELECT * FROM explore_event WHERE LOWER(name) LIKE %s''', ['%' + name.lower() + '%'])
 
-            if event:
-                event = event[0]
-                # add coordinates
-                lat, lng = get_coordinates(event.location)
+            if events:
+                for event in events:
+                    # add coordinates
+                    lat, lng = get_coordinates(event.location)
 
-                data = [{'name': event.name, 'event_date': event.event_date, 'era': event.era,
-                         'location': event.location, 'description': event.description,
-                         "historical_period": event.historical_period.name,
-                         "event_type": event.event_type.name, "category": event.category.name,
-                         "event_type_id": event.event_type_id,
-                         "category_id": event.category_id,
-                         "latitude": lat,
-                         "longitude": lng}]
+                    data.append({'id': event.id, 'name': event.name, 'event_date': event.event_date, 'era': event.era,
+                                 'location': event.location, 'description': event.description,
+                                 "historical_period": event.historical_period.name,
+                                 "event_type": event.event_type.name, "category": event.category.name,
+                                 "event_type_id": event.event_type_id,
+                                 "category_id": event.category_id,
+                                 "latitude": lat,
+                                 "longitude": lng})
 
             return JsonResponse({'data': data, 'status': status.HTTP_200_OK})
         except Event.DoesNotExist:
@@ -122,6 +121,12 @@ class EventActionsAPIView(APIView):
         try:
             # data for update
             request_data = JSONParser().parse(request)
+            # check if the data is safe
+            forbidden_chars = ['!@#$%^&*:;']
+            for key in ['name', 'location', 'event_type', 'category', 'description']:
+                if any(char in forbidden_chars for char in request_data.get(key, '')):
+                    return JsonResponse({'status': status.HTTP_500_INTERNAL_SERVER_ERROR})
+
             # get the ids of the fields
             category = Category.objects.raw('''SELECT id from explore_category WHERE LOWER(name) = %s''',
                                             [request_data['category'].lower()])
@@ -144,6 +149,10 @@ class EventActionsAPIView(APIView):
     def delete(self, request, name):
         try:
             event = Event.objects.annotate(lower_name=Lower('name')).filter(lower_name=name.lower())
+            # get all related videos and delete them first
+            related_videos = Video.objects.filter(event_id=event[0].id)
+            if related_videos:
+                related_videos.delete()
             event.delete()
             return JsonResponse({'status': status.HTTP_200_OK})
         except Event.DoesNotExist:
@@ -164,13 +173,33 @@ class AllEventTypesAPIView(APIView):
 class RoutesAPIView(APIView):
     # get all events that create a route based on some event info
     def get(self, request, category_id, event_type_id):
-        events = Event.objects.raw('''SELECT * FROM explore_event WHERE event_type_id = %s and category_id = %s 
-                                    ORDER BY event_date ''',
-                                   [event_type_id, category_id])
+        events = Event.objects.raw('''SELECT e.*
+                                    FROM explore_event e
+                                    JOIN
+                                    (SELECT id,
+                                           extract(YEAR FROM event_date) * (-1) AS y,
+                                           extract(MONTH FROM event_date) AS m,
+                                           extract(DAY FROM event_date) AS d
+                                    FROM explore_event
+                                    WHERE era = 'BC'
+                                    UNION
+                                    SELECT id,
+                                           extract(YEAR FROM event_date) AS y,
+                                           extract(MONTH FROM event_date) AS m,
+                                           extract(DAY FROM event_date) AS d
+                                    FROM explore_event
+                                    WHERE era = 'AD') e1
+                                    ON e.ID = e1.ID
+                                    WHERE event_type_id = %s and category_id = %s 
+                                    ORDER BY e1.y, e1.m, e1.d ''',
+                                    [event_type_id, category_id])
         if not events:
             return JsonResponse({'data': []})
 
         populate_map_location(events)
+
+        # get the corresponding category to later access motto
+        category = Category.objects.get(id=category_id)
 
         complete_events = [
             {
@@ -183,17 +212,11 @@ class RoutesAPIView(APIView):
             map_location.latitude and map_location.longitude
         ]
 
-        # sort route events by date
-        complete_events.sort(key=lambda entry: entry['event'].event_date)
-
         data = [{'name': e['event'].name, 'event_date': e['event'].event_date, 'era': e['event'].era,
-                 'location': e['event'].location, 'description': e['event'].description,
-                 "historical_period": e['event'].historical_period.name, "event_type": e['event'].event_type.name,
-                 "category": e['event'].category.name,
-                 "event_type_id": e['event'].event_type_id,
-                 "category_id": e['event'].category_id,
-                 "latitude": e['latitude'],
-                 "longitude": e['longitude']}
+                 'location': e['event'].location, "historical_period": e['event'].historical_period.name,
+                 "event_type": e['event'].event_type.name, "category": e['event'].category.name,
+                 "event_type_id": e['event'].event_type_id, "category_id": e['event'].category_id,
+                 "category_motto": category.motto, "latitude": e['latitude'], "longitude": e['longitude']}
                 for e in complete_events]
 
         return JsonResponse({'data': data, 'status': status.HTTP_200_OK})
@@ -204,16 +227,26 @@ class ClusterEventsAPIView(APIView):
     # add a cluster to each event
     def put(self, request):
         # define number of clusters
-        k = 5
+        if len(request.data) < 100:
+            k = 5
+        else:
+            k = 10
+
         # get latitude and longitude from all events in request
         events_coord = []
 
         try:
             for i in range(len(request.data)):
+                # check if the format is correct
+                forbidden_chars = ['!@#$%^&*:;']
+                for char in forbidden_chars:
+                    if char in request.data[i]['latitude'] or char in request.data[i]['longitude']:
+                        return JsonResponse({'status': status.HTTP_500_INTERNAL_SERVER_ERROR})
+
                 events_coord.append([request.data[i]['latitude'], request.data[i]['longitude']])
 
             # initialize k-Means clustering model
-            kmeans = KMeans(k)
+            kmeans = KMeans(n_clusters=k, n_init=3)
             # fit clustering model
             kmeans.fit(events_coord)
             # get clusters centers
@@ -222,7 +255,9 @@ class ClusterEventsAPIView(APIView):
             labels = kmeans.labels_
 
             # count number of elements in each cluster
-            numbers = list(Counter(labels).values())
+            numbers = [0] * len(centroids)
+            for i in range(len(centroids)):
+                numbers[i] = list(labels).count(i)
 
             return JsonResponse({'centroids': centroids.tolist(), 'labels': labels.tolist(), 'numbers': numbers})
 

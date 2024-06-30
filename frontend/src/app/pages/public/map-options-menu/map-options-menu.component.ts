@@ -26,7 +26,7 @@ export class MapOptionsMenuComponent implements OnInit{
 
     constructor(private http: HttpClient, private fb: FormBuilder, private eventsService: EventsService) {
       this.searchForm = this.fb.group ({
-        eventName: ['', [Validators.required]]
+        eventName: ['', [Validators.required, Validators.pattern('[a-zA-Z0-9_]*')]]
       });
 
       this.filterForm = this.fb.group({

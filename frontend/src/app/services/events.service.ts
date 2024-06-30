@@ -26,6 +26,8 @@ export class EventsService {
   private savedFilters= new BehaviorSubject<any[]>([]);
   // mark if routes mode is on or off
   private routesMode = new BehaviorSubject<boolean>(false);
+  // mark if route info should be opened
+  private routeInfo: boolean = false;
 
   constructor(private http: HttpClient) { }
 
@@ -90,8 +92,8 @@ export class EventsService {
   // call the API that retrieves YouTube videos for an event
   public async callVideosAPI(eventName: string) {
     let url = 'http://127.0.0.1:8000/api/videos/' + eventName;
-    const response = await firstValueFrom(this.http.get<any>(url));
-    console.log("VIDEOS IN SERVICE:", response);
+    const response = await firstValueFrom(this.http.put<any>(url, ''));
+
     return response.data;
   }
 
@@ -192,5 +194,15 @@ export class EventsService {
   // get the routes mode status
   public getRoutesMode() {
     return this.routesMode.asObservable();
+  }
+
+  // get routeInfo value
+  public getRouteInfo() {
+    return this.routeInfo;
+  }
+
+  // change the value of the route info
+  public setRouteInfo(value: boolean) {
+    this.routeInfo = value;
   }
 }

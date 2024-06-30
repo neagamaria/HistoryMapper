@@ -1,0 +1,27 @@
+<h2>Legend</h2>
+
+<div class="titles">
+  <h5 style="text-align: left; margin-left: 10%;">Types for events</h5>
+<h5 style="text-align: right; margin-left: 42%;">Icons and symbols</h5>
+</div>
+
+<div class="big-container">
+  <div class="types-container">
+    <div *ngFor="let type of this.eventTypes">
+      <div class="type"><img [src]="'assets/' + type.name + '.png'" alt="Type icon">{{type.name}}</div>
+    </div>
+  </div>
+
+
+  <div class="geography-container">
+    <div class="type"><div class="circle" style="background-color: #EDEAD4"></div>Main map - continent</div>
+    <div class="type"><div class="circle" style="background-color: #D2E5E4"></div>Main map - water</div>
+    <div class="type"><div class="circle" style="background-color: #EDEAD4"></div>Routes map - continent</div>
+    <div class="type"><div class="circle" style="background-color: #899F9E"></div>Routes map - water</div>
+    <div class="type"><div class="line" style="background-color: #A06355"></div>Historical route</div>
+    <div class="type"><div class="small-circle"></div>Locality</div>
+    <div class="type"><div class="small-circle"><div class="very-small-circle"></div></div>Capital</div>
+  </div>
+
+</div>
+<button class="btn btn-outline-light" (click)="goToMapPage()">Back to map</button>

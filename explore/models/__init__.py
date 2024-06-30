@@ -4,5 +4,6 @@ from .locations import *
 from .periods import *
 from .users import *
 from .quizzes import *
+from .credentials import *
 
 

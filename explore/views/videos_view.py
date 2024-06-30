@@ -3,13 +3,13 @@ from rest_framework import status
 from rest_framework.views import APIView
 from django.http import JsonResponse
 
-from HistoryMapper import settings
+from HistoryMapper import utils
 from explore.models import Event, Video
 
 
 class VideosAPIView(APIView):
     # get all available YouTube videos for an event
-    def get(self, request, event_name):
+    def put(self, request, event_name):
         try:
             # find the id of the event
             event = Event.objects.raw('''SELECT id FROM explore_event WHERE name = %s''', [event_name])
@@ -30,7 +30,7 @@ class VideosAPIView(APIView):
 
             else:
                 # call the YouTube API
-                youtube = build('youtube', 'v3', developerKey=settings.GOOGLE_API_KEY)
+                youtube = build('youtube', 'v3', developerKey=utils.GOOGLE_API_KEY)
                 request = youtube.search().list(
                     q=event_name,
                     part='snippet',

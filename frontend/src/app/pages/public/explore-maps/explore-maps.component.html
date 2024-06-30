@@ -2,7 +2,7 @@
 
 <div class="container">
   <div *ngIf="!this.routesMode">
-    <br/><br/><br/>
+    <br/><br/>
     <h2>Choose time range for events:</h2>
     <br/>
     <div class="slider">
@@ -12,15 +12,53 @@
 
   <div *ngIf="this.routesMode">
     <br/><br/><br/>
-    <h2>Click on event to highlight route</h2>
+    <div *ngIf="this.route.length > 0">
+      <div class="title" *ngIf="this.route[0].event_type != 'Cultural' && this.route[0].event_type != 'Religious' &&
+      this.route[0].event_type != 'Social'">{{this.route[0].event_type}}s of {{this.route[0].category}}
+        <i class="bi bi-info-circle" style="font-size: 50% !important" (click)="setRouteInfo(true)"></i>
+      </div>
+      <div class="title" *ngIf="this.route[0].event_type == 'Cultural' || this.route[0].event_type == 'Religious' ||
+      this.route[0].event_type == 'Social'">{{this.route[0].event_type}} events of {{this.route[0].category}}
+        <i class="bi bi-info-circle" style="font-size: 50% !important" (click)="setRouteInfo(true)"></i>
+      </div>
+    </div>
+
+    <div *ngIf="this.getRouteInfo()" class="route-info-container">
+      <i class="bi bi-x-lg" (click)="this.setRouteInfo(false)"></i>
+      <div style="color: #EDEAD4; font-size: 140%;" *ngIf="this.route[0].event_type != 'Cultural' && this.route[0].event_type != 'Religious' &&
+      this.route[0].event_type != 'Social'">
+        {{this.route[0].event_type}}s of {{this.route[0].category}}
+      </div>
+      <div style="color: #EDEAD4; font-size: 140%;" *ngIf="this.route[0].event_type == 'Cultural' || this.route[0].event_type == 'Religious' ||
+      this.route[0].event_type == 'Social'">
+        {{this.route[0].event_type}}s of {{this.route[0].category}}
+      </div>
+      <hr/>
+      <br/>
+      <div>{{this.route[0].category_motto}}</div>
+      <br/>
+      <div>Chronological events:</div>
+      <hr/>
+      <div class="route-info" *ngFor="let event of this.route; index as i">
+        <div>{{i+1}}. {{ this.event.name }} - {{ this.event.event_date}} {{ this.event.era}}</div>
+      </div>
+    </div>
+    <br/>
+    <h3 *ngIf="this.route.length == 0">Click on event to highlight route...</h3>
+    <br/>
+    <button class="btn btn-outline-light" (click)="this.exitRoutesMode()">Exit routes mode</button>
   </div>
 
   <div *ngIf="this.isEventClicked">
     <app-event-info></app-event-info>
   </div>
 
-  <br/><br/>
+  <br/>
+  <div class="legend" (click)="goToMapLegend()">See map legend</div>
   <div class="map-container">
-      <div id="map" [style.height]="'900px'"></div>
+    <div *ngIf="this.loading">
+      <app-spinner></app-spinner>
+    </div>
+    <div id="map" [style.height]="'900px'"></div>
   </div>
 </div>

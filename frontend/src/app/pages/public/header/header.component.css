@@ -29,8 +29,22 @@
   font-size: 30px;
 }
 
-.grid-admin {
+.grid-time {
   grid-column: 4;
+  grid-row-start: 2;
+  grid-row-end: 5;
+  font-size: 30px;
+}
+
+.grid-quizzes {
+  grid-column: 5;
+  grid-row-start: 2;
+  grid-row-end: 5;
+  font-size: 30px;
+}
+
+.grid-admin {
+  grid-column: 6;
   grid-row-start: 2;
   grid-row-end: 5;
   font-size: 30px;

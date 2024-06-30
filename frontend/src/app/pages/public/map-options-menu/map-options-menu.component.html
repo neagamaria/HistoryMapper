@@ -15,7 +15,7 @@
         <div *ngIf="this.selectedOption=='search'">
           <i class="bi bi-search"></i>
           <div class="search-bar">
-            <form [formGroup]="searchForm" (keyup.enter)="getEventByName()">
+            <form [formGroup]="searchForm" (keyup.enter)="searchForm.valid ? getEventByName() : null">
               <input type="text" id="eventName" formControlName="eventName"
                 placeholder="Search event..." style="color: black; width: 30%">
             </form>

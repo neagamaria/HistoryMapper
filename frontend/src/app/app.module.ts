@@ -7,7 +7,7 @@ import { HelloMenuComponent } from './pages/public/hello-menu/hello-menu.compone
 import {RouterOutlet} from "@angular/router";
 import {HistoricalPeriodsComponent} from "./pages/public/historical-periods/historical-periods.component";
 import { ExploreMapsComponent } from './pages/public/explore-maps/explore-maps.component';
-import {CommonModule} from '@angular/common';
+import {CommonModule, NgOptimizedImage} from '@angular/common';
 import { FooterComponent } from './pages/public/footer/footer.component';
 import { HeaderComponent } from './pages/public/header/header.component';
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
@@ -21,6 +21,8 @@ import { AdminPageComponent } from './pages/private/admin-page/admin-page.compon
 import { MapOptionsMenuComponent } from './pages/public/map-options-menu/map-options-menu.component';
 import { EventInfoComponent } from './pages/public/event-info/event-info.component';
 import { ProfileComponent } from './pages/private/profile/profile.component';
+import { SpinnerComponent } from './pages/public/spinner/spinner.component';
+import { MapLegendComponent } from './pages/public/map-legend/map-legend.component';
 
 @NgModule({
   declarations: [
@@ -39,17 +41,20 @@ import { ProfileComponent } from './pages/private/profile/profile.component';
     MapOptionsMenuComponent,
     EventInfoComponent,
     ProfileComponent,
+    SpinnerComponent,
+    MapLegendComponent
   ],
-    imports: [
-        BrowserModule,
-        NgxSliderModule,
-        AppRoutingModule,
-        HttpClientModule,
-        RouterOutlet,
-        CommonModule,
-        FormsModule,
-        ReactiveFormsModule
-    ],
+  imports: [
+    BrowserModule,
+    NgxSliderModule,
+    AppRoutingModule,
+    HttpClientModule,
+    RouterOutlet,
+    CommonModule,
+    FormsModule,
+    ReactiveFormsModule,
+    NgOptimizedImage
+  ],
   providers: [],
   bootstrap: [AppComponent]
 })

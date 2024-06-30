@@ -1,5 +1,60 @@
 <div *ngIf="this.currentUser">
-  <h2>Hello, {{this.currentUser.user.username}}!</h2>
+    <i class="bi bi-person"></i>
+    <br/>
+    <h2>Hello, {{this.currentUser.user.username}}!</h2>
+    <br/>
+
+    <div *ngIf="this.selectedAction == ''">
+    <div class="info">
+      <div class="actions">
+        <i class="bi bi-trash" (click)="selectAction('delete')"></i>
+        <i class="bi bi-pencil-fill" (click)="selectAction('edit')"> </i>
+      </div>
+        <div>
+          <div class="section"> Current email:</div> {{this.currentUser.user.email}}</div>
+          <br/>
+          <div><div class="section"> First name: </div>{{this.currentUser.user.first_name}}</div>
+          <div><div class="section"> Last name: </div>{{this.currentUser.user.last_name}}</div>
+          <br/>
+          <br/>
+        </div>
+  </div>
   <br/>
-  <div>Current email: {{this.currentUser.user.email}}</div>
+
+  <div *ngIf="this.selectedAction=='edit'" class="info">
+    <div style="font-size: 80%; font-style: italic">Fields that are not completed will keep their previous value</div>
+    <br/>
+    <form #dbForm="ngForm" [formGroup]="editForm" (ngSubmit)="editProfile(dbForm)">
+        <label for="newEmail">Email:</label>
+        <input type="text" id="newEmail" formControlName="newEmail" placeholder="{{this.currentUser.user.email}}">
+        <div class="error" *ngIf="editForm.get('newEmail')?.hasError('email')">Wrong email format.</div>
+        <div class="error" *ngIf="editForm.get('newEmail')?.hasError('pattern')">Forbidden characters.</div>
+        <br/><br/>
+        <label for="newFirstName"> First name:</label>
+        <input type="text" id="newFirstName" formControlName="newFirstName" placeholder="{{this.currentUser.user.first_name}}">
+        <div class="error" *ngIf="editForm.get('newFirstName')?.hasError('pattern')">Forbidden characters.</div>
+        <br/><br/>
+        <label for="newLastName">Last name:</label>
+        <input type="text" id="newLastName" formControlName="newLastName" placeholder="{{this.currentUser.user.last_name}}">
+        <div class="error" *ngIf="editForm.get('newLastName')?.hasError('pattern')">Forbidden characters.</div>
+        <br/><br/>
+        <label for="newPassword">Change password:</label>
+        <input type="text" id="newPassword" formControlName="newPassword">
+      <div class="error" *ngIf="editForm.get('newPassword')?.hasError('minlength')">Password must have at least 6 characters.</div>
+      <div class="error" *ngIf="editForm.hasError('weakPassword')">Password is too weak.</div>
+      <div class="error" *ngIf="editForm.get('password')?.hasError('pattern')">Forbidden characters.</div>
+        <br/><br/>
+        <button type="submit" [disabled]="editForm.invalid" class="btn btn-outline-dark">Edit</button>
+        <button class="btn btn-outline-danger" (click)="this.selectedAction = ''">Cancel</button>
+      </form>
+  </div>
+  <br/>
+
+  <div *ngIf="this.selectedAction=='delete'" class="info">
+    <div>Are you sure you want to delete your account?</div>
+    <button type="submit" (click)="deleteProfile()" class="btn btn-outline-dark">Delete</button>
+    <button class="btn btn-outline-danger" (click)="this.selectedAction = ''">Cancel</button>
+  </div>
+
+  <button class="btn btn-outline-light" (click)="logOut()">Log out</button>
 </div>

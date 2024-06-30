@@ -2,24 +2,32 @@
   <div style="color: #EDEAD4; font-weight: 1000">{{ this.currentUser }},</div> choose your Quiz!
 </h2>
 <br/><br/>
-<div class="big-container">
-  <div class="mid-container" *ngFor="let c of this.categories">
-    <div class="quiz-container">
+<form [formGroup]="searchForm" (keyup.enter)="searchForm.valid ? getCategoryByName() : null">
+      <input type="text" id="name" formControlName="name"
+        placeholder="Search quiz category..." style="color: black; width: 30%">
+</form>
+<br/>
+<!--<div (click)="listOpened = true"> or see <a class="btn btn-link" [style]="'color:#E1ADAD;'">full list</a></div>-->
+<br/><br/>
+
+<div class="big-container" [ngClass]="{'singular': this.categories.length == 1, 'big-container': this.categories.length > 1}">
+  <div class="mid-container" *ngFor="let c of this.categories" [ngClass]="{'one': categories.length === 1}">
       <div class="name">{{ c.name }}</div>
       <div *ngIf="this.quizzesHistory[c.id] != null">
         <div class="last-score-1">Last score: {{ this.quizzesHistory[c.id] }}</div>
         <br/>
-        <button type="button" class="btn btn-outline-light"
+        <button type="button" class="btn btn-outline-light special-button"
                 (click)="goToQuizQuestions(c.id)">Retake
         </button>
       </div>
       <div *ngIf="this.quizzesHistory[c.id] == null">
         <div class="last-score">Not taken</div>
         <br/>
-        <button type="button" class="btn btn-outline-light"
+        <button type="button" class="btn btn-outline-light special-button"
                 (click)="goToQuizQuestions(c.id)">Take
         </button>
       </div>
-    </div>
   </div>
 </div>
+<br/><br/>
+<button class="btn btn-outline-light" *ngIf="this.categories.length === 1" (click)="resetCategories()">Back to full list</button>

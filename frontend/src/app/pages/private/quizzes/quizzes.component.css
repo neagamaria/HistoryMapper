@@ -5,18 +5,27 @@
   max-width: 100%;
   overflow-x: auto;
   overflow-y: hidden;
-  /*background-color: grey;*/
+}
+
+.singular {
+  text-align: center;
 }
 
 .mid-container {
   padding: 2% 4% 4%;
-  margin: 70px 15px;
-  width: 100%;
+  margin: 2%;
+  text-align: center;
   height: 350px;
-  background: white;
   color: black;
   border-radius: 8px;
   border: 5px solid #BEB67A;
+  background-color: white;
+}
+
+.one {
+  width: 23%;
+  margin-left: 38%;
+  text-align: center;
 }
 
 .last-score {
@@ -33,12 +42,12 @@
   font-weight: 700;
 }
 
-button {
+.special-button {
   background-color: #B83333;
   margin-right: 10px;
 }
 
-button:hover {
+.special-button:hover {
   background-color: #E1ADAD;
 }
 
@@ -47,5 +56,4 @@ button:hover {
   height: 150px;
   font-size: 200%;
   font-weight: 1000;
-  margin: 5px;
 }

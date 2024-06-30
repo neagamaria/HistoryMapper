@@ -2,9 +2,6 @@
   height: 100%;
   background-repeat: no-repeat;
   background-size: cover;
-  /*margin-top: 80px;*/
-  /*margin-left: 200px;*/
-  /*margin-right: 200px;*/
 }
 
 .mid-container {
@@ -26,9 +23,9 @@ p {
 .descr {
   text-align: center;
   font-size: 130%;
-  padding-bottom: 10%;
-   font-weight: bold;
-  margin: 10%;
+  padding-bottom: 3%;
+  font-weight: bold;
+  margin: 3% 10% 3%;
 }
 
 .faded {

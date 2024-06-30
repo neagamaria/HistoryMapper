@@ -1,12 +1,12 @@
 <div style="text-align:center">
   <img src="../../../../assets/Logo.png" alt="HistoryMapperLogo">
-  <br> <br> <br> <br> <br>
+  <br> <br> <br>
   <h1>Ready to step through time?</h1>
-  <br> <br>
+  <br>
 </div>
 <br>
 <div style="text-align:center">
-  <br><br>
+  <br>
   <div *ngIf="!displayBackgroundImg">
     <img style="cursor:pointer;" src="../../../../assets/arrow-down.png" alt="Press arrow to see options" (click)="clickOnArrow()"/>
   </div>
@@ -17,7 +17,6 @@
     <div class="menu-container">
       <div class="menu">
         <table>
-          <br><br><br><br><br>
           <tr>
             <td class="btn btn-outline-dark" (click)="goToExploreMaps()">explore maps</td>
             <td class="btn btn-outline-dark" (click)="goToHistoricalPeriods()">historical periods</td>

@@ -38,6 +38,14 @@ span.ngx-slider-span.ngx-slider-bubble.ngx-slider-model-high {
   color: lightgrey;
 }
 
+span.ngx-slider-tick {
+  background-color: lightgrey !important;
+  width: 3px !important;
+}
+
+span.ngx-slider-tick.ngx-slider-selected {
+  background-color: #B83333 !important;
+}
 
 .map-container {
   width: 90%;
@@ -67,5 +75,51 @@ label {
 input {
   width: 80px;
 }
+
+.title {
+  color: #EDEAD4;
+  font-size: 60px;
+  font-weight: 800;
+  padding: 3px;
+}
+
+.route-info-container {
+  margin-left: 53%;
+  width: 35%;
+  top: 65%;
+  border: 2px solid white;
+  border-radius: 2px;
+  position: absolute;
+  z-index: 100;
+  max-height: 70%;
+  overflow-x: hidden;
+  overflow-y: auto;
+  background-color: black;
+  opacity: 80%;
+  padding: 4%;
+}
+
+.route-info {
+  font-size: 80%;
+}
+
+.legend {
+  margin-left: 80%;
+  cursor: pointer;
+  padding-bottom: 12px;
+  font-size: 80%;
+}
+
+i {
+  cursor: pointer;
+  font-size: 120%;
+}
+
+.bi-x-lg {
+  float: right;
+  margin-left: 80%;
+}
+
+
 
 

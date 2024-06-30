@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {ChangeDetectorRef, Component, OnInit} from '@angular/core';
 import {UserService} from "../../../services/user.service";
 import {Router} from "@angular/router";
 
@@ -8,12 +8,16 @@ import {Router} from "@angular/router";
   styleUrls: ['./header.component.css']
 })
 export class HeaderComponent implements OnInit{
+  // current username
   username: any = null;
-  constructor(private userService: UserService, private router: Router) {
+
+
+  constructor(private userService: UserService, private router: Router, private cdf: ChangeDetectorRef) {
   }
 
   async ngOnInit() {
      this.username = this.userService.getCurrentUsername();
+     this.cdf.detectChanges();
   }
 
   //redirect to login page if user is not logged in
@@ -33,6 +37,14 @@ export class HeaderComponent implements OnInit{
     this.router.navigate(['/explore-maps']).then();
   }
 
+   goToHistoricalPeriods(): void {
+    this.router.navigate(['/historical-periods']).then();
+  }
+
+  goToQuizzes() {
+    this.router.navigate(['/quizzes']).then();
+  }
+
   goToAdminPage(): void {
       this.router.navigate(['/admin-page']).then();
   }
@@ -44,9 +56,17 @@ export class HeaderComponent implements OnInit{
     return this.username;
   }
 
+
+  // check if current user is admin
+  checkIfAdmin() {
+    return this.userService.checkIfAdmin();
+  }
+
+
   // log out from account
   logoutUser(): void {
     this.userService.logOut();
+    this.cdf.detectChanges();
      this.router.navigate(['/']).then();
   }
 }

@@ -15,6 +15,11 @@ label {
     width: 120px;
 }
 
+input {
+  color: black !important;
+  width: 250px;
+}
+
 .error {
   font-size: 80%;
   color: rgb(225, 173, 173);

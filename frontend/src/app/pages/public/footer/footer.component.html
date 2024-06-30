@@ -1,8 +1,11 @@
 <footer>
   <div class="info">
-    <div class="row">About HistoryMapper</div>
-    <div class="row">Maps</div>
-    <div class="row">Historical Data</div>
+    <div class="row" (click)="goToHome()">Home</div>
+    <div class="row" (click)="goToMap()">Map</div>
+    <div class="row" (click)="goToMapLegend()">Map Legend</div>
+    <div class="row" (click)="goToHistoricalPeriods()">Historical Periods</div>
+    <div class="row" (click)="goToQuizzes()">Quizzes</div>
+    <div class="row" (click)="goToAccount()">Account</div>
   </div>
   <br><br>
   <p>@Copyright: HistoryMapper</p>

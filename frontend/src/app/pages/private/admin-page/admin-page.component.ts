@@ -31,34 +31,39 @@ export class AdminPageComponent implements OnInit {
   searchedEvent: any = [];
   // all events to be indexed
   indexEvents: any[] = [];
+  // mark if spinner should appear
+  loading: boolean = false;
+
 
   constructor(private router: Router, private fb: FormBuilder, private userService: UserService, private adminService: AdminService, private eventsService: EventsService) {
     // initialize form
     this.addForm = this.fb.group({
-      dbpediaCategory: ['', [Validators.required]],
-      eventsType: ['', [Validators.required]],
-      eventsCategory: ['', [Validators.required]],
+      dbpediaCategory: ['', [Validators.required, Validators.pattern('[a-zA-Z0-9_ ]*')]],
+      eventsType: ['', [Validators.required, Validators.pattern('[a-zA-Z0-9_ ]*')]],
+      eventsCategory: ['', [Validators.required, Validators.pattern('[a-zA-Z0-9_ ]*')]],
     })
 
     this.showForm = this.fb.group({
-      name: ['', [Validators.required]]
-    })
+      name: ['', [Validators.required, Validators.pattern('[a-zA-Z0-9_ ]*')]]
+    });
 
     this.editForm = this.fb.group({
-      newName: ['', [Validators.required]],
-      newLocation: [''],
-      newCategory: [''],
-      newEventType: [''],
-      newDescription: ['']
-    })
+      newName: ['', [Validators.required, Validators.pattern('[a-zA-Z0-9_ ]*')]],
+      newLocation: ['', [Validators.pattern('[a-zA-Z0-9_ ]*')]],
+      newCategory: ['', [Validators.pattern('[a-zA-Z0-9_ ]*')]],
+      newEventType: ['', [Validators.pattern('[a-zA-Z0-9_ ]*')]],
+      newDescription: ['', [Validators.pattern('[a-zA-Z0-9_!?.:;, ]*')]]
+    });
   }
 
 
   async ngOnInit() {
-    this.currentUser = this.userService.getCurrentUsername();
+    let username = this.userService.getCurrentUsername();
+  // get the current user
+    this.currentUser = await this.userService.callGetUserAPI(username);
+
     // page can be accessed only by admin
-    console.log(this.currentUser);
-    if (this.currentUser != "admin") {
+    if (!this.currentUser.user.is_superuser) {
       this.router.navigate(['/']).then();
     } else {
       // there are no new events in the first place
@@ -71,23 +76,39 @@ export class AdminPageComponent implements OnInit {
   // set the current action selected
   selectAction(action: string) {
     this.selectedAction = action;
+    if(action != 'delete' && action != 'edit')
+    this.searchedEvent = [];
+    this.loading = false;
   }
 
 
   async populateDB(form: any) {
+    this.loading = true;
+    this.searchedEvent = [];
+    this.indexEvents = [];
     // set parameters for the API call
     this.adminService.setWikiCategory(this.addForm.get('dbpediaCategory')?.value);
     this.adminService.setEventsType(this.addForm.get('eventsType')?.value);
     this.adminService.setEventsCategory(this.addForm.get('eventsCategory')?.value);
 
-    await this.adminService.addDbpediaData();
+    await this.adminService.addDbpediaData().then(() => {
+      this.loading = false;
+    });
+
     this.events = this.adminService.getAddedEvents();
+
+    if(this.events.length == 0) {
+      alert("No new data added");
+    }
 
   }
 
 
   // get all events in the DB
   async getAllEvents() {
+    this.searchedEvent = [];
+    this.events = [];
+
     this.selectAction('index')
     await this.eventsService.callEventsBetweenYearsApi(3800, 'BC', 2024, 'AD').then(() => {
         this.indexEvents = this.eventsService.getEventsBetweenYearsValue();
@@ -96,26 +117,34 @@ export class AdminPageComponent implements OnInit {
   }
 
 
-  // get events by name
+  // get event by introduced form name
   async getEvent(form: any) {
+    this.indexEvents = [];
+    this.events = [];
+
     // search the event with the introduced name
-    let name = this.showForm.get('name')?.value
+    let name = this.showForm.get('name')?.value;
 
     if (name) {
-      this.eventsService.setSearchedName(name);
-
-      await this.eventsService.callEventByNameApi();
-      this.searchedEvent = this.eventsService.getSearchedEvent();
+      await this.callEventByNameAPI(name);
 
       if(this.searchedEvent == '')
         alert("Event not found");
 
     }
-
-    console.log(this.searchedEvent)
   }
 
 
+  // call event by name API
+  async callEventByNameAPI(name: string) {
+    this.selectAction('show');
+    this.eventsService.setSearchedName(name);
+    await this.eventsService.callEventByNameApi();
+    this.searchedEvent = this.eventsService.getSearchedEvent();
+  }
+
+
+  // edit event with form data
   async editEvent(form: any) {
     // get the name of the event to be edited
     let name = this.searchedEvent[0].name;
@@ -146,7 +175,7 @@ export class AdminPageComponent implements OnInit {
         }
 
         this.selectAction('');
-        this.searchedEvent = '';
+        this.searchedEvent = [];
       }
     });
   }
@@ -164,7 +193,7 @@ export class AdminPageComponent implements OnInit {
 
         // remove delete selected action
         this.selectAction('');
-        this.searchedEvent = '';
+        this.searchedEvent = [];
       }
     });
   }

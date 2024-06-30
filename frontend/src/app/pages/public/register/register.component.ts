@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import {Router} from "@angular/router";
-import {Form, FormBuilder, FormGroup, Validators} from "@angular/forms";
+import {AbstractControl, Form, FormBuilder, FormGroup, ValidationErrors, ValidatorFn, Validators} from "@angular/forms";
 import {HttpClient} from "@angular/common/http";
 import {UserService} from "../../../services/user.service";
 
@@ -19,12 +19,35 @@ export class RegisterComponent {
 
   constructor(private router: Router, private fb: FormBuilder, private http: HttpClient, private userService: UserService) {
     // get values from form
-    this.form = this.fb.group ({
-      username: ['', [Validators.required]],
-      password: ['', [Validators.required, Validators.min(6)]],
-      email: ['', [Validators.required, Validators.email]]
-    })
+    this.form = this.fb.group({
+      username: ['',
+        [Validators.pattern('[a-zA-Z0-9_]*'), Validators.required]],
+      password: ['', [Validators.required, Validators.minLength(6),
+        Validators.pattern('[a-zA-Z0-9_#*&]*')]],
+      first_name: ['', [Validators.pattern('[a-zA-Z0-9_]*'), Validators.required]],
+      last_name: ['', [Validators.pattern('[a-zA-Z0-9_]*'), Validators.required]],
+      email: ['', [Validators.required, Validators.email, Validators.pattern('[a-zA-Z0-9_~@.-]*')]]
+    },
+      {
+        validators: [this.passwordStrengthValidator()]
+    });
   }
+
+
+  // check if password contains the username for security
+  passwordStrengthValidator(): ValidatorFn {
+       return (form: AbstractControl): ValidationErrors | null => {
+            const user: string = form.get('username')?.value;
+            const pass: string = form.get('password')?.value;
+
+            if(user && pass && pass.includes(user)) {
+              return {weakPassword: true}
+            }
+
+            return null;
+       }
+  }
+
 
   // navigate to login page
   goToLogin() {

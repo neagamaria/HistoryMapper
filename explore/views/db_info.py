@@ -1,9 +1,11 @@
 from SPARQLWrapper import SPARQLWrapper, JSON
 from django.http import JsonResponse
+from rest_framework.parsers import JSONParser
 from rest_framework.views import APIView
+
+from HistoryMapper import utils
 from explore.models import Event, EventType, HistoricalPeriod, Category, MapLocation
 
-from HistoryMapper import settings
 import requests
 
 
@@ -346,7 +348,7 @@ class DBPediaAPIView(APIView):
     # obtain location based on latitude and longitude - reverse geocoding
     @staticmethod
     def get_location(self, lat, lng):
-        url = f"https://maps.googleapis.com/maps/api/geocode/json?latlng={lat},{lng}&key={settings.GOOGLE_API_KEY}"
+        url = f"https://maps.googleapis.com/maps/api/geocode/json?latlng={lat},{lng}&key={utils.GOOGLE_API_KEY}"
         response = requests.get(url)
         data = response.json()
         locality = ''
@@ -364,7 +366,13 @@ class DBPediaAPIView(APIView):
         return location
 
     # add data to database
-    def get(self, response, wiki_category, event_type, categ):
+    def post(self, request):
+        # parse request to JSON format
+        request_data = JSONParser().parse(request)
+
+        wiki_category = request_data['wiki_category']
+        event_type = request_data['events_type']
+        categ = request_data['events_category']
         data = []
         results = []
 
