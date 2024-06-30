@@ -8,14 +8,23 @@ This is an application for exploring historical maps and learning more about eve
 
 The HistoryMapper application has a backend created in Python with Django framework and Oracle SQL Database. The frontend is written in HTML, CSS, and Javascript with Angular framework. 
 
+## Backend
+
+- Django REST API framework for API creation
+- Access to the DB via Django ORM
+- User model from Django made accessible with the usage of a Serializer
+- Clustering algorithm for events using KMeans model
+- External APIs called: Google Maps Javascript API, Geocoding API, DBPedia API, Youtube API
+- Data validation
+
 ## Frontend
 
-- More routes
+- Routing model
 - Header and footer
 - Communication via components
-- Private routes: for quizzes and quiz questions
-- Page with form: log-in/ register/ explore-maps
-- Backend: Django
+- API calls only in services
+- Private routes: for quizzes and quiz questions, profile, admin page
+- Page with forms (and form validatiors): log-in/ register/ explore-maps/ admin page/ profile page
 
 ## Database 
 ![image](https://github.com/neagamaria/HistoryMapper/assets/92460510/4f5d552f-41b6-41be-ab21-b874501dc994)
