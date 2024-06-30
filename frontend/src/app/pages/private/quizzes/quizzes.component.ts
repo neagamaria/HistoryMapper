@@ -24,7 +24,7 @@ export class QuizzesComponent implements OnInit{
 
   constructor(private router: Router, private fb: FormBuilder, private userService: UserService, private quizzesService: QuizzesService) {
     this.searchForm = this.fb.group ({
-        name: ['', [Validators.required]]
+        name: ['', [Validators.required, Validators.pattern('[a-zA-Z0-9_-]*')]]
       });
   }
 

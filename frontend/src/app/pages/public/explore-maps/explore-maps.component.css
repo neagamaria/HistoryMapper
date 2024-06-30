@@ -38,6 +38,14 @@ span.ngx-slider-span.ngx-slider-bubble.ngx-slider-model-high {
   color: lightgrey;
 }
 
+span.ngx-slider-tick {
+  background-color: lightgrey !important;
+  width: 3px !important;
+}
+
+span.ngx-slider-tick.ngx-slider-selected {
+  background-color: #B83333 !important;
+}
 
 .map-container {
   width: 90%;

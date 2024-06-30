@@ -6,14 +6,14 @@
       <label for="username">Username:</label>
       <input type="text" id="username" formControlName="username">
        <div class="error" *ngIf="form.get('username')?.hasError('required')">Username is required.</div>
-      <div class="error" *ngIf="form.get('username')?.hasError('pattern')">Invalid username.</div>
+      <div class="error" *ngIf="form.get('username')?.hasError('pattern')">Forbidden characters.</div>
     </div>
     <br/><br/>
     <div>
       <label for="password">Password:</label>
       <input type="password" id="password" formControlName="password">
        <div class="error" *ngIf="form.get('password')?.hasError('required')">Password is required.</div>
-       <div class="error" *ngIf="form.get('password')?.hasError('pattern')">Wrong format.</div>
+       <div class="error" *ngIf="form.get('password')?.hasError('pattern')">Forbidden characters.</div>
     </div>
     <br/><br/>
     <button type="submit" [disabled]="form.invalid" class="btn btn-outline-light" style="border: 3px solid white;">Log in</button>

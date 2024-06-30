@@ -24,7 +24,8 @@ export class ExploreMapsComponent implements OnInit {
     floor: -3800,
     ceil: 2024,
     step: 1,
-    //showTicks: true,
+    showTicks: true,
+    ticksArray: [-3500, -3000, -2500, -2000, -1500, -1000, -500, 1, 500, 1000, 1500, 2000],
     translate: (value: number): string => {
       if (value < 0) {
         return `${-value} BC`;

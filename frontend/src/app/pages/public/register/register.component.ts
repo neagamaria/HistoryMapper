@@ -26,7 +26,7 @@ export class RegisterComponent {
         Validators.pattern('[a-zA-Z0-9_#*&]*')]],
       first_name: ['', [Validators.pattern('[a-zA-Z0-9_]*'), Validators.required]],
       last_name: ['', [Validators.pattern('[a-zA-Z0-9_]*'), Validators.required]],
-      email: ['', [Validators.required, Validators.email]]
+      email: ['', [Validators.required, Validators.email, Validators.pattern('[a-zA-Z0-9_~@.-]*')]]
     },
       {
         validators: [this.passwordStrengthValidator()]

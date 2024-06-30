@@ -4,7 +4,7 @@ from rest_framework.views import APIView
 from rest_framework.parsers import JSONParser
 
 from HistoryMapper import utils
-from explore.models import MapLocation, Event, EventType, Category
+from explore.models import MapLocation, Event, EventType, Category, Video
 from django.db.models.functions import Lower
 
 from rest_framework import status
@@ -149,6 +149,10 @@ class EventActionsAPIView(APIView):
     def delete(self, request, name):
         try:
             event = Event.objects.annotate(lower_name=Lower('name')).filter(lower_name=name.lower())
+            # get all related videos and delete them first
+            related_videos = Video.objects.filter(event_id=event[0].id)
+            if related_videos:
+                related_videos.delete()
             event.delete()
             return JsonResponse({'status': status.HTTP_200_OK})
         except Event.DoesNotExist:

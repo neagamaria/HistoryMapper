@@ -2,7 +2,7 @@
   <div style="color: #EDEAD4; font-weight: 1000">{{ this.currentUser }},</div> choose your Quiz!
 </h2>
 <br/><br/>
-<form [formGroup]="searchForm" (keyup.enter)="getCategoryByName()">
+<form [formGroup]="searchForm" (keyup.enter)="searchForm.valid ? getCategoryByName() : null">
       <input type="text" id="name" formControlName="name"
         placeholder="Search quiz category..." style="color: black; width: 30%">
 </form>

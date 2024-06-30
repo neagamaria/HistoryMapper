@@ -18,7 +18,7 @@ export class ProfileComponent implements OnInit{
   editForm: FormGroup;
   constructor(private userService: UserService, private router: Router, private fb: FormBuilder) {
      this.editForm = this.fb.group({
-      newEmail: ['', [Validators.email]],
+      newEmail: ['', [Validators.email, Validators.pattern('[a-zA-Z0-9_~@.-]*')]],
       newFirstName: ['', [Validators.pattern('[a-zA-Z0-9_]*')]],
       newLastName: ['', [Validators.pattern('[a-zA-Z0-9_]*')]],
       newPassword: ['', [Validators.min(6), Validators.pattern('[a-zA-Z0-9_#*&]*')]]

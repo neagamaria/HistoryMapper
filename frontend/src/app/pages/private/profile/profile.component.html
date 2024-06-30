@@ -27,20 +27,22 @@
     <form #dbForm="ngForm" [formGroup]="editForm" (ngSubmit)="editProfile(dbForm)">
         <label for="newEmail">Email:</label>
         <input type="text" id="newEmail" formControlName="newEmail" placeholder="{{this.currentUser.user.email}}">
+        <div class="error" *ngIf="editForm.get('newEmail')?.hasError('email')">Wrong email format.</div>
+        <div class="error" *ngIf="editForm.get('newEmail')?.hasError('pattern')">Forbidden characters.</div>
         <br/><br/>
         <label for="newFirstName"> First name:</label>
         <input type="text" id="newFirstName" formControlName="newFirstName" placeholder="{{this.currentUser.user.first_name}}">
-        <div class="error" *ngIf="editForm.get('newFirstName')?.hasError('pattern')">First name must not contain special characters.</div>
+        <div class="error" *ngIf="editForm.get('newFirstName')?.hasError('pattern')">Forbidden characters.</div>
         <br/><br/>
         <label for="newLastName">Last name:</label>
         <input type="text" id="newLastName" formControlName="newLastName" placeholder="{{this.currentUser.user.last_name}}">
-        <div class="error" *ngIf="editForm.get('newLastName')?.hasError('pattern')">last name must not contain special characters.</div>
+        <div class="error" *ngIf="editForm.get('newLastName')?.hasError('pattern')">Forbidden characters.</div>
         <br/><br/>
         <label for="newPassword">Change password:</label>
         <input type="text" id="newPassword" formControlName="newPassword">
       <div class="error" *ngIf="editForm.get('newPassword')?.hasError('minlength')">Password must have at least 6 characters.</div>
       <div class="error" *ngIf="editForm.hasError('weakPassword')">Password is too weak.</div>
-      <div class="error" *ngIf="editForm.get('password')?.hasError('pattern')">Wrong format.</div>
+      <div class="error" *ngIf="editForm.get('password')?.hasError('pattern')">Forbidden characters.</div>
         <br/><br/>
         <button type="submit" [disabled]="editForm.invalid" class="btn btn-outline-dark">Edit</button>
         <button class="btn btn-outline-danger" (click)="this.selectedAction = ''">Cancel</button>
