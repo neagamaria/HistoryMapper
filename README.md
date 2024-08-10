@@ -7,7 +7,7 @@ This is an application for exploring historical maps and learning more about eve
 
 ## Technologies
 
-The HistoryMapper application has a backend created in Python with Django framework and Oracle SQL Database. The frontend is written in HTML, CSS, and Javascript with Angular framework. 
+The HistoryMapper application has a backend created in Python with Django framework and Oracle SQL Database. The frontend is written in HTML, CSS, and Javascript with Angular framework. As external APIs, there were used the Google Maps Javascript API, DBPedia API, and YouTube API.
 
 ## Backend
 
@@ -28,7 +28,8 @@ The HistoryMapper application has a backend created in Python with Django framew
 - Page with forms (and form validatiors): log-in/ register/ explore-maps/ admin page/ profile page
 
 ## Database 
-![image](https://github.com/neagamaria/HistoryMapper/assets/92460510/4f5d552f-41b6-41be-ab21-b874501dc994)
+![image](https://github.com/user-attachments/assets/8e36d9ec-20fb-48d8-8264-d6fdfeba7dc1)
+
 
 
 ## Bibliography
