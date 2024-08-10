@@ -4,6 +4,7 @@
 
 This is an application for exploring historical maps and learning more about events that happened in the past. You can navigate through historical periods, seeing how the maps change in time. What is more, the events displayed on the maps have suggesting descriptions, and other useful information for better understaning History and clearly positioning the information in time. You can make an account for having access to the quizzes that test the information you have learnt, all arganized on a specific historical topic.
 
+
 ## Technologies
 
 The HistoryMapper application has a backend created in Python with Django framework and Oracle SQL Database. The frontend is written in HTML, CSS, and Javascript with Angular framework. 
